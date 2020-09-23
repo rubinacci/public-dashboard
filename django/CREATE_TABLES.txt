@@ -1,0 +1,106 @@
+	drop table if exists phoenix_tx_monitor; 
+	create table phoenix_tx_monitor (
+	    tx_hash text,
+	    rn smallint,
+	    timestamp bigint,
+	    block_num bigint,
+	    op_type tinyint,
+	    input_token_symbol text,
+	    input_token_volume double precision,
+	    input_token_fees double precision,
+	    input_token_eth_price  double precision,
+	    output_token_symbol text,
+	    output_token_fees double precision,
+	    output_token_eth_price double precision,
+	    eth_usd_price double precision,
+	    delta_eth_price double precision,
+	    link_eth_price double precision,
+	    snx_eth_price double precision,
+	    wbtc_eth_price double precision,
+	    eth_balance double precision,
+	    delta_balance double precision,
+	    link_balance double precision,
+	    snx_balance double precision,
+	    wbtc_balance double precision,
+	    eth_volume double precision,
+	    delta_volume  double precision,
+	    link_volume  double precision,
+	    snx_volume  double precision,
+	    wbtc_volume  double precision,
+	    phoenix_supply double precision,
+	    phoenix_genesis text,
+	    phoenix_address text,
+	 	hourslot bigint
+	);  
+	CREATE INDEX IF NOT EXISTS idx_phoenix_tx_monitor_block_num
+	ON phoenix_tx_monitor (timestamp,rn);    
+	CREATE INDEX IF NOT EXISTS idx_phoenix_tx_monitor_hs
+	ON phoenix_tx_monitor (hourslot);   
+	
+	drop table if exists delta_tx_monitor; 
+	create table delta_tx_monitor (
+	    tx_hash text,
+	    rn smallint,
+	    timestamp bigint,
+	    block_num bigint,
+	    op_type tinyint,
+	    input_token_symbol text,
+	    input_token_volume double precision,
+	    input_token_fees double precision,
+	    input_token_eth_price  double precision,
+	    output_token_symbol text,
+	    output_token_fees double precision,
+	    output_token_eth_price double precision,
+	    sta_eth_price double precision,
+	    eth_usd_price double precision,
+	    eth_balance double precision,
+	    sta_balance double precision, 
+	    eth_volume double precision,
+	    sta_volume  double precision, 
+	    delta_supply double precision,
+	    delta_genesis text,
+	    delta_address text,
+	 	hourslot bigint
+	); 
+	CREATE INDEX IF NOT EXISTS idx_phoenix_tx_monitor_block_num
+	ON phoenix_tx_monitor (timestamp,rn);    
+	CREATE INDEX IF NOT EXISTS idx_phoenix_tx_monitor_hs
+	ON phoenix_tx_monitor (hourslot); 
+     
+   END;
+ 
+ 
+
+/*
+ * monitoring *
+select  
+    eth_balance,
+    delta_balance,
+    link_balance,
+    snx_balance,
+    wbtc_balance,
+    eth_volume,
+    delta_volume,
+    link_volume,
+    snx_volume,
+    wbtc_volume,
+    phoenix_supply, 
+    block_num,
+    input_token_symbol ,
+    output_token_symbol ,
+    tx_hash ,
+    hourslot
+from phoenix_tx_monitor
+-- where timestamp > unix_timestamp()-(60*60*24) 
+-- and op_type = 1
+order by block_num desc, rn asc;
+
+
+
+select timestamp as col1,sum(eth_volume),sum(delta_volume),sum(link_volume),sum(snx_volume),sum(wbtc_volume)
+from phoenix_tx_monitor
+ where timestamp > unix_timestamp()-(60*60*24) and op_type = 1
+group by col1
+ 
+
+*/
