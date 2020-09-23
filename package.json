@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "node ./server/index.js",
+    "start-develop": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
