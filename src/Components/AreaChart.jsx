@@ -51,9 +51,7 @@ export class AreaChart extends React.Component {
           <ReactApexChart 
             options={this.state.options} 
             series={this.state.series} 
-            type="area" 
-            height={200} 
-            width={390}   
+            type="area"  
           />
         </div>
         <ChartButtons/>

@@ -1,3 +1,4 @@
+import {ChartButtons} from './ChartButtons'
 import React from "react";
 import ReactApexChart from 'react-apexcharts'
 
@@ -91,14 +92,17 @@ export class BarChart extends React.Component {
   }
   render() {
     return (<div id="chart">
-        <div className="chart-div-container">          
-          <ReactApexChart 
-            options={this.state.options} 
-            series={this.state.series} 
-            type="bar" 
-            // height={102} 
-            // width={354}     
-          />
+        <div className="chart-div-container">  
+          <div className="apex-chart-container">        
+            <ReactApexChart 
+              options={this.state.options} 
+              series={this.state.series} 
+              type="bar" 
+              // height={102} 
+              // width={354}     
+            />
+          </div>
+          <ChartButtons/>
         </div>
       </div>
     );

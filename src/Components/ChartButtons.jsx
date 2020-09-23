@@ -10,7 +10,18 @@ export class ChartButtons extends React.Component {
   render() {
     return (
         <div className="chart-buttons-container">
-      
+          <div className="chart-button">
+            24hr
+          </div>
+          <div className="chart-button">
+            Week
+          </div>
+          <div className="chart-button">
+            Month
+          </div>
+          <div className="chart-button">
+            All
+          </div>
         </div>
     );
   }
