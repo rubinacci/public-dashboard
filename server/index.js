@@ -1,7 +1,7 @@
-import express from "express";
-import * as path from 'path';
+const express = require('express');
+const path = require('path')
 
-const app = express(); // create express app
+const app = express();
 
 // Dummy service called by heroku process scheduler to prevent free dyno from sleeping
 app.get("/keepalive", (req, res) => {
