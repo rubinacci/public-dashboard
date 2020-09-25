@@ -25,7 +25,7 @@ export class Coingecko {
 
   private constructor() {
     this.cache = Cache.getInstance();
-    this.rateLimiter = new RateLimiter(10, 1000);
+    this.rateLimiter = new RateLimiter(10, 1000, 'coingecko');
   }
 
   private cacheKey(coingeckoId: string, type: string): string {

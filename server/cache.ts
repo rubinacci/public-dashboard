@@ -1,4 +1,8 @@
 
+import { Logger } from './logger';
+
+const kLoggerCategory = 'CACHE';
+
 export class Cache {
 
   private static instance: Cache;
@@ -22,9 +26,11 @@ export class Cache {
 
   public get(key: string): any {
     const entry = this.cache[key];
-    if (entry && entry.expirationDate.getTime() < new Date().getTime()) {
+    if (entry && entry.expirationDate.getTime() > new Date().getTime()) {
+      Logger.log(kLoggerCategory, `cache hit for ${key}`);
       return entry.value;
     }
+    Logger.log(kLoggerCategory, `cache miss for ${key}`);
     return null;
   }
 

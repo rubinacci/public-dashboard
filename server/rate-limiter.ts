@@ -1,14 +1,20 @@
 
+import { Logger } from './logger';
+
+const kLoggerCategory = 'RATELIMITER';
+
 export class RateLimiter {
 
   private maximumRequests: number;
   private timespan: number;
+  private name: string;
   private hits: Date[];
 
-  constructor(maximumRequests: number, timespan: number) {
+  constructor(maximumRequests: number, timespan: number, name: string) {
     this.maximumRequests = maximumRequests;
     this.timespan = timespan;
     this.hits = [];
+    this.name = name;
   }
 
   private purge() {
@@ -30,7 +36,6 @@ export class RateLimiter {
   public async rateLimit<T>(fn: () => T): Promise<T> {
     this.purge();
     if (this.hits.length < this.maximumRequests) {
-      console.log(`Not rate limiting ${this.hits.length}`);
       this.hits.push(new Date());
       return fn();
     }
@@ -38,7 +43,7 @@ export class RateLimiter {
       const oldestHit = this.hits[0].getTime();
       const now = new Date().getTime();
       const delay = this.timespan - (now - oldestHit);
-      console.log(`Rate limiting for ${delay}`);
+      Logger.log(kLoggerCategory, `Rate limiting ${this.name} for ${delay}ms`);
       // Wait until the oldest request is out the equation
       await this.wait(delay);
       return this.rateLimit(fn);

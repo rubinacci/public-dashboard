@@ -1,6 +1,8 @@
 import Web3 from 'web3';
+import { Logger } from './logger';
 
-const { ethers } = require("ethers");
+const kLoggerCategory = 'ETH';
+
 export class Eth {
 
   public web3: any;
@@ -17,7 +19,7 @@ export class Eth {
     this.web3.eth.subscribe("newBlockHeaders", async (error, event) => {
       if (!error) {
         const date = new Date();
-        console.log(`${date} New block: ${event.number}`)
+        Logger.log(kLoggerCategory, `${date} New block: ${event.number}`);
         return;
       }
       console.log(error);

@@ -11,11 +11,34 @@ import { Coingecko } from './coingecko';
 import { Uniswap } from './uniswap';
 import { APIRouter } from './api-router';
 import { AllCoins } from './constants';
+import { Logger } from './logger';
 
 const app = express();
 const eth = new Eth(process.env.INFURA_KEY);
 
 app.use(compression());
+
+const kLoggerCategory = 'EXPRESS';
+
+app.use((req, res, next) => {
+  const start = Date.now();
+  Logger.log(kLoggerCategory, `start request ${req.method} ${req.url}`);
+  res.once('finish', () => {
+    const t = Date.now() - start;
+
+    Logger.log(kLoggerCategory, `finish request ${req.method} ${req.url} ${t}ms`);
+    if (t >= (process.env.LOG_SLOW_REQUESTS_THRESHOLD || 5000)) {
+      if (req.method == 'POST' || req.method == 'PUT') {
+        Logger.log(kLoggerCategory, `slow request ${req.method} ${req.url} ${t}ms ${JSON.stringify(req.body)}`);
+      }
+      else {
+        Logger.log(kLoggerCategory, `slow request ${req.method} ${req.url} ${t}ms`);
+      }
+    }
+  });
+
+  next();
+});
 
 // React site route
 app.use(express.static(path.join(__dirname, '../', 'build')));
