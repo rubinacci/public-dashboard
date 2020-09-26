@@ -21,19 +21,14 @@ import argparse
 import psycopg2 as pg 
 from dotenv import load_dotenv
 
-load_dotenv()
+if (!os.getenv('HEROKU'))
+  load_dotenv()
 
 BALANCER_FEE = 0.01
 
 #ethpl.verbose = 1
 ethsc.verbose = 1
 verbose = 1
-
-DBHOST='lallah.db.elephantsql.com'
-DBNAME='pkfysgzf'
-DBUSER='pkfysgzf'
-DBPWD='UbFSyHG98dCdAX2S3gz0XbYukzsEEa1i'
-
 
 sta_address = '0xa7DE087329BFcda5639247F96140f9DAbe3DeED1'.lower()
 weth_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'.lower() 
