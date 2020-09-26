@@ -29,10 +29,10 @@ BALANCER_FEE = 0.01
 ethsc.verbose = 1
 verbose = 1
 
-DBHOST='lallah.db.elephantsql.com'
-DBNAME='pkfysgzf'
-DBUSER='pkfysgzf'
-DBPWD='UbFSyHG98dCdAX2S3gz0XbYukzsEEa1i'
+#DBHOST='lallah.db.elephantsql.com'
+#DBNAME='pkfysgzf'
+#DBUSER='pkfysgzf'
+#DBPWD='UbFSyHG98dCdAX2S3gz0XbYukzsEEa1i'
 
 
 sta_address = '0xa7DE087329BFcda5639247F96140f9DAbe3DeED1'.lower()
