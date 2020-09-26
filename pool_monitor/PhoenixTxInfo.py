@@ -52,7 +52,7 @@ class PhoenixTxInfo:
             self.tx_hash = 0
             self.rn = 0
             self.timestamp = 0
-            self.block_num = 0
+            self.block_num = 10372700
             
             self.op_type = 0
             

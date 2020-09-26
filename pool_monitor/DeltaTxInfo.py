@@ -28,16 +28,16 @@ class DeltaTxInfo:
             self.sta_eth_price = ls[13]
             self.eth_usd_price = ls[14]
             
-            self.eth_balance = ls[18]
-            self.sta_balance = ls[19] 
+            self.eth_balance = ls[15]
+            self.sta_balance = ls[16] 
             
-            self.eth_volume = ls[20]
-            self.sta_volume = ls[21] 
+            self.eth_volume = ls[17]
+            self.sta_volume = ls[18] 
             
-            self.delta_supply = ls[22]
-            self.delta_genesis = 10161738#10372702  
+            self.delta_supply = ls[19]
+            self.delta_genesis = 10161737#10372702  
             self.delta_address = "'0xcd461B73D5FC8eA1D69A600f44618BDFaC98364D'".lower()
-            self.hourslot = ls[23]  
+            self.hourslot = ls[20]  
             
         else:   
             self.num_tx = 0
@@ -45,7 +45,7 @@ class DeltaTxInfo:
             self.tx_hash = 0
             self.rn = 0
             self.timestamp = 0
-            self.block_num = 10161738
+            self.block_num = 10161737
             
             self.op_type = 0
             
@@ -79,7 +79,7 @@ class DeltaTxInfo:
                 self.sta_balance = 0 
                 
                 self.delta_supply = 0
-            self.delta_genesis = 10161738#10372702  
+            self.delta_genesis = 10161737#10372702  
             self.delta_address = "'0xcd461B73D5FC8eA1D69A600f44618BDFaC98364D'".lower()
             self.hourslot = 0
         
