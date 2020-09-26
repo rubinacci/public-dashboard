@@ -7,3 +7,6 @@ etherscan_api.py wrapper de etherscan
 ethplorer_api.py wrapper de etherscan
 
 CREATE_TABLES.sql: queries de creación de tablas de monitorización
+
+
+test
