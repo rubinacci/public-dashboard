@@ -617,8 +617,9 @@ def daemon_blockrange():
                 
                 save_phoenix_tx_info_db_batch(None,0)
                 time.sleep(13)
-            end_block = min(int(current_block), block_num+step)  
-            
+                if not daemon:
+                    sys.exit()
+            end_block = min(int(current_block), block_num+step)   
             print(f'from {block_num} to {end_block}')
             current_pinf, current_ptinf  = parse_block_range_info_phoenix(block_num, end_block, last_pinf, last_ptinf)  
             
@@ -748,14 +749,18 @@ phoenix_tx_to_store = []
 
 bootstrap = False
 create_tables = False
+daemon = False
 parser = argparse.ArgumentParser() 
 parser.add_argument('--bootstrap', help='True, False | Default False')
 parser.add_argument('--create_tables', help='True, False | Drops tables if exists and creates them')
+parser.add_argument('--daemon', help='True, False | Keeps alive querying for new blocks once it is up to date')
 args = parser.parse_args()
 if args.bootstrap is not None:
     bootstrap = (args.bootstrap=='True')
 if args.create_tables is not None:
     create_tables = (args.create_tables=='True')
+if args.daemon is not None:
+    daemon = (args.daemon=='True')
  
 
 #bootstrap()
