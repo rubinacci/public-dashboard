@@ -39,10 +39,11 @@ export class Eth {
       this.deltaUpdatedPromise = new Promise((resolve, reject) => {
         const startDate = new Date();
         const child = exec('python3 pool_monitor/delta_monitor.py --daemon=false', { cwd : path.join(__dirname, '../')});
-        //child.stdout.pipe(process.stdout);
+        child.stdout.pipe(process.stdout);
         child.stderr.pipe(process.stdout);
         child.on('exit', function() {
           Logger.log(kLoggerCategory, `delta_monitor.py done running. Took ${(new Date().getTime() - startDate.getTime()) / 1000} seconds`);
+          this.deltaUpdatedPromise = null;
           resolve();
         });
       });
@@ -58,10 +59,11 @@ export class Eth {
       this.phoenixUpdatedPromise = new Promise((resolve, reject) => {
         const startDate = new Date();
         const child = exec('python3 pool_monitor/phoenix_monitor.py --daemon=false', { cwd : path.join(__dirname, '../')});
-        //child.stdout.pipe(process.stdout);
+        child.stdout.pipe(process.stdout);
         child.stderr.pipe(process.stdout);
         child.on('exit', function() {
           Logger.log(kLoggerCategory, `phoenix_monitor.py done running. Took ${(new Date().getTime() - startDate.getTime()) / 1000} seconds`);
+          this.phoenixUpdatedPromise = null;
           resolve();
         });
       });
