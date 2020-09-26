@@ -19,6 +19,9 @@ import sys
 import argparse
 #from pycoingecko import CoinGeckoAPI
 import psycopg2 as pg 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BALANCER_FEE = 0.01
 
@@ -65,10 +68,10 @@ def fill_ptinf_prices(ptinf):
 def get_connection():
     try:
         print('Getting connection to Elephant') 
-        dbhost=DBHOST#'lallah.db.elephantsql.com'
-        dbname=DBNAME#'pkfysgzf'
-        dbuser=DBUSER#'pkfysgzf'
-        dbpassword=DBPWD#'UbFSyHG98dCdAX2S3gz0XbYukzsEEa1i'
+        dbhost=os.getenv('DBHOST')#'lallah.db.elephantsql.com'
+        dbname=os.getenv('DBNAME')#'pkfysgzf'
+        dbuser=os.getenv('DBUSER')#'pkfysgzf'
+        dbpassword=os.getenv('DBPWD')#'UbFSyHG98dCdAX2S3gz0XbYukzsEEa1i'
         connection_string = f'host={dbhost} dbname={dbname} user={dbuser} password={dbpassword}'
         conn = pg.connect(connection_string) 
         

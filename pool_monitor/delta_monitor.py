@@ -17,6 +17,9 @@ import sys
 import argparse
 #from pycoingecko import CoinGeckoAPI
 import psycopg2 as pg 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BALANCER_FEE = 0.01
 
@@ -24,17 +27,10 @@ BALANCER_FEE = 0.01
 ethsc.verbose = 1
 verbose = 1
 
-DBHOST='lallah.db.elephantsql.com'
-DBNAME='pkfysgzf'
-DBUSER='pkfysgzf'
-DBPWD='UbFSyHG98dCdAX2S3gz0XbYukzsEEa1i'
-
-
 sta_address = '0xa7DE087329BFcda5639247F96140f9DAbe3DeED1'.lower()
 weth_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'.lower() 
 delta_address = '0x59f96b8571e3b11f859a09eaf5a790a138fc64d0'.lower() 
 burn_address = '0x0000000000000000000000000000000000000000' 
- 
  
 def fill_ptinf_prices(ptinf):
     ts = ptinf.timestamp
@@ -56,10 +52,10 @@ def fill_ptinf_prices(ptinf):
 def get_connection():
     try:
         print('Getting connection to Elephant') 
-        dbhost=DBHOST#'lallah.db.elephantsql.com'
-        dbname=DBNAME#'pkfysgzf'
-        dbuser=DBUSER#'pkfysgzf'
-        dbpassword=DBPWD#'UbFSyHG98dCdAX2S3gz0XbYukzsEEa1i'
+        dbhost=os.getenv('DBHOST')#'lallah.db.elephantsql.com'
+        dbname=os.getenv('DBNAME')#'pkfysgzf'
+        dbuser=os.getenv('DBUSER')#'pkfysgzf'
+        dbpassword=os.getenv('DBPWD')#'UbFSyHG98dCdAX2S3gz0XbYukzsEEa1i'
         connection_string = f'host={dbhost} dbname={dbname} user={dbuser} password={dbpassword}'
         conn = pg.connect(connection_string) 
         
