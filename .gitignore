@@ -2,3 +2,4 @@ node_modules
 build
 dist
 .env
+pool_monitor/__pycache__
