@@ -431,9 +431,10 @@ def daemon_blockrange():
                 step = 2
                 
                 save_delta_tx_info_db_batch(None,0) 
-                time.sleep(13)
                 if not daemon:
+                    print('Done')
                     sys.exit()
+                time.sleep(13)
             end_block = min(int(current_block), block_num+step)  
             
             print(f'from {block_num} to {end_block}')
@@ -518,6 +519,7 @@ phoenix_tx_to_store = []
 
 bootstrap = False
 create_tables = False
+daemon = False
 parser = argparse.ArgumentParser() 
 parser.add_argument('--bootstrap', help='True, False | Truncates current and starts parsing from genesis')
 parser.add_argument('--create_tables', help='True, False | Drops tables if exists and creates them')

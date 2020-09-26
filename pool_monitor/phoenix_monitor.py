@@ -602,6 +602,8 @@ def daemon_blockrange():
      
     current_block =int(ethsc.get_previous_block_num())
     
+    update_current_block = 0
+    
     step = 2000
     while True:
         try:
@@ -611,9 +613,10 @@ def daemon_blockrange():
                 step = 2
                 
                 save_phoenix_tx_info_db_batch(None,0)
-                time.sleep(13)
                 if not daemon:
+                    print('Done')
                     sys.exit()
+                time.sleep(13)
             end_block = min(int(current_block), block_num+step)   
             print(f'from {block_num} to {end_block}')
             current_pinf, current_ptinf  = parse_block_range_info_phoenix(block_num, end_block, last_pinf, last_ptinf)  
@@ -622,15 +625,18 @@ def daemon_blockrange():
             #    print(delta_tx_to_store)
             #    save_delta_tx_info_db_list(delta_tx_to_store)
             #    #input()
+            #update_current_block += 1
+            #if update_current_block == 10:
+            #    current_block = int(ethsc.get_previous_block_num())
+            #    update_current_block = 
              
             last_pinf = current_pinf
             last_ptinf = current_ptinf
             block_num = end_block+1
             #input()
             pass
-        except Exception as e:
-            print(e)
-            print('daemon_blockrange says AAAAAAAAAAAAAAAAAAAA')
+        except Exception as e: 
+            print(f'daemon_blockrange -> {e}')
             time.sleep(60)
             conn.close()
 
