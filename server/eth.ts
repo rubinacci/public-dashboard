@@ -37,11 +37,12 @@ export class Eth {
   private updateDelta(): Promise<any> {
     if (!this.deltaUpdatedPromise) {
       this.deltaUpdatedPromise = new Promise((resolve, reject) => {
+        Logger.log(kLoggerCategory, `running delta_monitor.py`);
         const startDate = new Date();
         const child = exec('python3 pool_monitor/delta_monitor.py --daemon=false', { cwd : path.join(__dirname, '../')});
         child.stdout.pipe(process.stdout);
         child.stderr.pipe(process.stdout);
-        child.on('exit', function() {
+        child.on('exit', () => {
           Logger.log(kLoggerCategory, `delta_monitor.py done running. Took ${(new Date().getTime() - startDate.getTime()) / 1000} seconds`);
           this.deltaUpdatedPromise = null;
           resolve();
@@ -57,11 +58,12 @@ export class Eth {
   private updatePhoenix(): Promise<any> {
     if (!this.phoenixUpdatedPromise) {
       this.phoenixUpdatedPromise = new Promise((resolve, reject) => {
+        Logger.log(kLoggerCategory, `running phoenix_monitor.py`);
         const startDate = new Date();
         const child = exec('python3 pool_monitor/phoenix_monitor.py --daemon=false', { cwd : path.join(__dirname, '../')});
         child.stdout.pipe(process.stdout);
         child.stderr.pipe(process.stdout);
-        child.on('exit', function() {
+        child.on('exit', () => {
           Logger.log(kLoggerCategory, `phoenix_monitor.py done running. Took ${(new Date().getTime() - startDate.getTime()) / 1000} seconds`);
           this.phoenixUpdatedPromise = null;
           resolve();
