@@ -19,7 +19,8 @@ import argparse
 import psycopg2 as pg 
 from dotenv import load_dotenv
 
-load_dotenv()
+if (!os.getenv('HEROKU'))
+  load_dotenv()
 
 BALANCER_FEE = 0.01
 
