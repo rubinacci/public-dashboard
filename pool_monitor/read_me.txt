@@ -1,5 +1,9 @@
-
-pool_monitor.py: codigo principal, parser que inyecta la informacion a la bbdd
+phoenix_monitor.py
+    python phoenix_monitor.py --create_tables True,False | def. False Drops if exist and recreate monitor tables
+                            --bootstrap True,False | def. False. Trucantes current monitor tables
+delta_monitor.py
+    python delta_monitor.py --create_tables True,False | def. False Drops if exist and recreate monitor tables
+                            --bootstrap True,False | def. False. Trucantes current monitor tables
 
 PhoenixTxInfo, DeltaTxInfo, PhoenixInfo: clases para almacenar las transacciones
 
@@ -8,5 +12,4 @@ ethplorer_api.py wrapper de etherscan
 
 CREATE_TABLES.sql: queries de creación de tablas de monitorización
 
-
-test
+ 
