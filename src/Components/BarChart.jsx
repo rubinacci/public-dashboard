@@ -36,31 +36,31 @@ export class BarChart extends React.Component {
               }
             },
             
-            xaxis: {
-              categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-              position: 'top',
-              axisBorder: {
-                show: false
-              },
-              axisTicks: {
-                show: false
-              },
-              crosshairs: {
-                fill: {
-                  type: 'gradient',
-                  gradient: {
-                    colorFrom: '#D8E3F0',
-                    colorTo: '#BED1E6',
-                    stops: [0, 100],
-                    opacityFrom: 0.4,
-                    opacityTo: 0.5,
-                  }
-                }
-              },
-              tooltip: {
-                enabled: true,
-              }
-            },
+            // xaxis: {
+            //   categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            //   position: 'top',
+            //   axisBorder: {
+            //     show: false
+            //   },
+            //   axisTicks: {
+            //     show: false
+            //   },
+            //   crosshairs: {
+            //     fill: {
+            //       type: 'gradient',
+            //       gradient: {
+            //         colorFrom: '#D8E3F0',
+            //         colorTo: '#BED1E6',
+            //         stops: [0, 100],
+            //         opacityFrom: 0.4,
+            //         opacityTo: 0.5,
+            //       }
+            //     }
+            //   },
+            //   tooltip: {
+            //     enabled: true,
+            //   }
+            // },
             yaxis: {
               axisBorder: {
                 show: false
