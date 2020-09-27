@@ -21,7 +21,7 @@ import argparse
 import psycopg2 as pg 
 from dotenv import load_dotenv
 
-if (not os.getenv('HEROKU'))
+if (not os.getenv('HEROKU')):
     load_dotenv()
 
 BALANCER_FEE = 0.01
@@ -594,22 +594,26 @@ def daemon_blockrange():
     #clear_phoenix_info_db( )
     global conn
     conn = get_connection()
-    if create_tables:
-        create_phoenix_tx_tables()
-    if bootstrap:
-        clear_phoenix_tx_info_db( ) 
-    last_pinf = get_last_block_phoenix_info_db()
-    last_ptinf = get_last_block_phoenix_tx_info_db()
-     
+    try:
+        if create_tables:
+            create_phoenix_tx_tables()
+        if bootstrap:
+            clear_phoenix_tx_info_db( ) 
+        last_pinf = get_last_block_phoenix_info_db()
+        last_ptinf = get_last_block_phoenix_tx_info_db()
+         
+
+        phoenix_block_num = last_ptinf.block_num   
+
+        block_num = phoenix_block_num+1
+         
+        current_block =int(ethsc.get_previous_block_num())
+
+        update_current_block = 0
     
-    phoenix_block_num = last_ptinf.block_num   
-    
-    block_num = phoenix_block_num+1
-     
-    current_block =int(ethsc.get_previous_block_num())
-    
-    update_current_block = 0
-    
+    except Exception as e: 
+        print(f'daemon_blockrange -> {e}') 
+        conn.close()
     step = 2000
     while True:
         try:
@@ -621,6 +625,7 @@ def daemon_blockrange():
                 save_phoenix_tx_info_db_batch(None,0)
                 if not daemon:
                     print('Done')
+                    conn.close()
                     sys.exit()
                 time.sleep(13)
             end_block = min(int(current_block), block_num+step)   
@@ -642,9 +647,9 @@ def daemon_blockrange():
             #input()
             pass
         except Exception as e: 
-            print(f'daemon_blockrange -> {e}')
-            time.sleep(60)
+            print(f'delta daemon_blockrange -> {e}') 
             conn.close()
+            sys.exit()
 
 def clear_phoenix_info_db( ):
     try:

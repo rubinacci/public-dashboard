@@ -19,7 +19,7 @@ import argparse
 import psycopg2 as pg 
 from dotenv import load_dotenv
 
-if (!os.getenv('HEROKU'))
+if (not os.getenv('HEROKU')):
     load_dotenv()
 
 BALANCER_FEE = 0.01
@@ -122,7 +122,7 @@ def get_last_block_delta_tx_info_db():
         return pinf
     except Exception as e:
         print(f"get_last_block_delta_tx_info_db -> Error connecting to MariaDB Platform: {e}") 
-        input()
+        #input()
         
 def save_delta_tx_info_db(dtinf):
     try:
@@ -144,7 +144,7 @@ def save_delta_tx_info_db(dtinf):
         #conn.close()
     except Exception as e:
         print(f"save_delta_tx_info_db -> Error connecting to MariaDB Platform: {e}") 
-        input()
+        #input()
         
 def save_delta_tx_info_db_batch(dtinf, batch_size=100):
     try:
@@ -174,7 +174,7 @@ def save_delta_tx_info_db_batch(dtinf, batch_size=100):
         
     except Exception as e:
         print(f"save_delta_tx_info_db_batch -> Error connecting to MariaDB Platform: {e}") 
-        input()
+        #input()
         
 def dprint(msg,lvl):
     if debug_level >= lvl:
@@ -289,7 +289,7 @@ def parse_delta_transaction(tx_id, dtinf):
                     print('delta mint')
                     minted_delta = int(b_tx['value'])/(10.0**int(b_tx['tokenDecimal']))
                     dtinf.delta_supply += minted_delta
-                    #input()
+                    ##input()
                     dtinf.op_type = 3
     #2 + 1 to ackowledge statera burn
     if output_tokens == 3:
@@ -298,7 +298,7 @@ def parse_delta_transaction(tx_id, dtinf):
         dtinf.op_type = 5
         if input_tokens == 2:
             print('May day')
-            input()
+            #input()
     #set mulitoken liquidity operation
     #if op_type not in ('addLiquidity','removeLiquidity'):
     if dtinf.op_type not in (3,5): 
@@ -364,7 +364,7 @@ def parse_block_range_info_delta(in_block, end_block,last_dtinf):
         if len(tx_set) == 2:
             for tx in tx_set:
                 t = raw_tx_delta[tx][0] 
-        #input()
+        ##input()
         rn = len(tx_set)
         for tx in tx_set:
             #print(tx) 
@@ -381,7 +381,7 @@ def parse_block_range_info_delta(in_block, end_block,last_dtinf):
             #delta_tx_to_store.append(dtinf.to_sql_values())
             save_delta_tx_info_db_batch(dtinf)
             #print(delta_tx_to_store)
-            #input()
+            ##input()
             #save_delta_tx_info_db(dtinf) 
             last_dtinf = dtinf
             rn -= 1  
@@ -390,7 +390,7 @@ def parse_block_range_info_delta(in_block, end_block,last_dtinf):
         #last_pinf = pinf 
         
          
-            #input()
+            ##input()
     return last_dtinf
 
 def level_monitor_tables(block_num):
@@ -410,18 +410,25 @@ def level_monitor_tables(block_num):
 def daemon_blockrange(): 
     global conn
     conn = get_connection()
-    if create_tables:
-        create_delta_tx_tables() 
-    if bootstrap: 
-        clear_delta_tx_info_db( )
-    last_dtinf = get_last_block_delta_tx_info_db()
-     
-    dtinf_block_num = last_dtinf.block_num
-     
-    block_num = last_dtinf.block_num+1
-    
-    #level_monitor_tables(block_num) 
-    current_block =int(ethsc.get_previous_block_num()) 
+    try:
+        if create_tables:
+            create_delta_tx_tables() 
+        if bootstrap: 
+            clear_delta_tx_info_db( )
+        last_dtinf = get_last_block_delta_tx_info_db()
+         
+        dtinf_block_num = last_dtinf.block_num
+         
+        block_num = last_dtinf.block_num+1
+        
+        #level_monitor_tables(block_num) 
+        
+        current_block =int(ethsc.get_previous_block_num()) 
+    except Exception as e:
+        print(e)
+        print('daemon_blockrange says AAAAAAAAAAAAAAAAAAAA')
+        time.sleep(60)
+        conn.close()
     step = 2000
     while True:
         try:
@@ -433,6 +440,7 @@ def daemon_blockrange():
                 save_delta_tx_info_db_batch(None,0) 
                 if not daemon:
                     print('Done')
+                    conn.close() 
                     sys.exit()
                 time.sleep(13)
             end_block = min(int(current_block), block_num+step)  
@@ -443,13 +451,12 @@ def daemon_blockrange():
              
             last_dtinf = current_dtinf 
             block_num = end_block+1
-            #input()
+            ##input()
             pass
         except Exception as e:
-            print(e)
-            print('daemon_blockrange says AAAAAAAAAAAAAAAAAAAA')
-            time.sleep(60)
+            print(f' delta daemon_blockrange says {e}') 
             conn.close()
+            sys.exit()
 
 
 def clear_delta_tx_info_db( ):
@@ -460,7 +467,7 @@ def clear_delta_tx_info_db( ):
         cur.execute(query,) 
     except Exception as e:
         print(f"clear_delta_tx_info_db -> Error connecting to MariaDB Platform: {e}") 
-        input()
+        #input()
 
 def create_delta_tx_tables():
     try: 
@@ -507,7 +514,7 @@ def create_delta_tx_tables():
         #conn.close()
     except Exception as e:
         print(f"create_delta_tx_tables -> Error connecting to MariaDB Platform: {e}") 
-        input()
+        #input()
 
 
 
