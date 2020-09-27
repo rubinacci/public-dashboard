@@ -40,7 +40,15 @@ export class Eth {
         Logger.log(kLoggerCategory, `running delta_monitor.py`);
         const startDate = new Date();
         const child = exec('python3 pool_monitor/delta_monitor.py --daemon=false', { cwd : path.join(__dirname, '../')});
-        child.stdout.pipe(process.stdout);
+        child.stdout.on('data', (data) => {
+          const str = data.toString();
+          const lines = str.split(/(\r?\n)/g);
+          lines.forEach((l) => {
+            if (l.indexOf('INSERT') > -1) {
+              Logger.log(kLoggerCategory, `delta_monitor.py::${l}`);
+            }
+          });
+        });
         child.stderr.pipe(process.stdout);
         child.on('exit', () => {
           Logger.log(kLoggerCategory, `delta_monitor.py done running. Took ${(new Date().getTime() - startDate.getTime()) / 1000} seconds`);
@@ -61,8 +69,16 @@ export class Eth {
         Logger.log(kLoggerCategory, `running phoenix_monitor.py`);
         const startDate = new Date();
         const child = exec('python3 pool_monitor/phoenix_monitor.py --daemon=false', { cwd : path.join(__dirname, '../')});
-        child.stdout.pipe(process.stdout);
         child.stderr.pipe(process.stdout);
+        child.stdout.on('data', (data) => {
+          const str = data.toString();
+          const lines = str.split(/(\r?\n)/g);
+          lines.forEach((l) => {
+            if (l.indexOf('INSERT') > -1) {
+              Logger.log(kLoggerCategory, `phoenix_monitor.py::${l}`);
+            }
+          });
+        });
         child.on('exit', () => {
           Logger.log(kLoggerCategory, `phoenix_monitor.py done running. Took ${(new Date().getTime() - startDate.getTime()) / 1000} seconds`);
           this.phoenixUpdatedPromise = null;
