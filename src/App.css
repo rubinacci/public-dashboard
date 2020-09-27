@@ -353,10 +353,27 @@
   height: 50px;
   border-left: 2px solid #70809C;
 }
+.selected-pool-div{
+  border-left: 2px solid blue !important;
+}
 .pool-div-container{
   display: flex;
   flex-direction: column;
   align-content: flex-start;
   align-items: left;
   padding-top: 10px;
+}
+.pool-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.pool-data-container{
+  display: flex;
+  flex-direction: column;
+}
+.table-container{
+  width: 41vw;
+  
+
 }
