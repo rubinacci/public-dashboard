@@ -10,8 +10,9 @@ import { Eth } from './eth';
 import { Coingecko } from './coingecko';
 import { Uniswap } from './uniswap';
 import { APIRouter } from './api-router';
-import { AllCoins } from './constants';
+import { AllCoins, Contracts } from './constants';
 import { Logger } from './logger';
+import { Bloxy } from './bloxy';
 
 const app = express();
 const eth = new Eth(process.env.INFURA_KEY);
@@ -54,6 +55,9 @@ app.listen(port, () => {
 });
 
 (async () => {
+  const bloxy = Bloxy.getInstance();
+  const r = await bloxy.getHolders(Contracts.bpt);
+  console.log(r);
 /*  const coingecko = new Coingecko();
   const uniswap = new Uniswap(eth.web3);
   await uniswap.setup();

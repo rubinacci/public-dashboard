@@ -9,18 +9,19 @@ enum Contracts {
     link = '0x514910771AF9Ca656af840dff83E8264EcF986CA',
     snx = '0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F',
     delta = '0x59F96b8571E3B11f859A09Eaf5a790A138FC64D0',
-    //bpt = '0xcd461B73D5FC8eA1D69A600f44618BDFaC98364D'
+    bpt = '0xcd461B73D5FC8eA1D69A600f44618BDFaC98364D'
 };
 
 const AllContracts = Object.keys(Contracts).map((x) => Contracts[x]);
 
 const STATERA = new Coin('statera', 'STA', Contracts.statera, 'statera');
-const WBTC = new Coin('wBTC', 'BTC', Contracts.wbtc, 'bitcoin');
-const WETH = new Coin('wETH', 'ETH', Contracts.weth, 'ethereum');
+const WBTC = new Coin('wbtc', 'BTC', Contracts.wbtc, 'bitcoin');
+const WETH = new Coin('weth', 'ETH', Contracts.weth, 'ethereum');
 const LINK = new Coin('link', 'LINK', Contracts.link, 'chainlink');
 const SNX = new Coin('link', 'SNX', Contracts.snx, 'havven');
 const DELTA = new Coin('delta', 'UNI-V2', Contracts.delta, null);
+const BPT = new Coin('balancer', 'BPT', Contracts.bpt, null);
 
 const AllCoins = [STATERA, WBTC, WETH, LINK, SNX, DELTA];
 
-export { Contracts, AllContracts, STATERA, WBTC, WETH, LINK, SNX, DELTA, AllCoins };
+export { Contracts, AllContracts, STATERA, WBTC, WETH, LINK, SNX, DELTA, BPT, AllCoins };
