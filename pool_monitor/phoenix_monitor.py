@@ -98,7 +98,7 @@ def get_connection_mariadb():
     
         return conn
     except mariadb.Error as e:
-        print(f"Error conecting to MariaDB Platform: {e}")
+        print(f"Error conecting to PostgreSQL Platform: {e}")
         sys.exit()
 
 def get_last_block_phoenix_info():
@@ -149,8 +149,9 @@ def get_last_block_phoenix_info_db():
         #conn.close() 
         return pinf
     except mariadb.Error as e:
-        print(f"get_last_block_phoenix_info_db -> Error connecting to MariaDB Platform: {e}") 
-        input()
+        print(f"get_last_block_phoenix_info_db -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
+       #input()
         
 def get_last_block_phoenix_tx_info_db():
 
@@ -187,8 +188,9 @@ def get_last_block_phoenix_tx_info_db():
         #conn.close() 
         return pinf
     except mariadb.Error as e:
-        print(f"get_last_block_phoenix_tx_info_db -> Error connecting to MariaDB Platform: {e}") 
-        input()
+        print(f"get_last_block_phoenix_tx_info_db -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
+       #input()
         
          
 def save_phoenix_info(phoenix_info, recreate=False):
@@ -220,8 +222,9 @@ def save_phoenix_info_db(pinf):
         # Close Connection
         #conn.close()
     except mariadb.Error as e:
-        print(f"save_phoenix_info_db -> Error connecting to MariaDB Platform: {e}") 
-        input()
+        print(f"save_phoenix_info_db -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
+       #input()
         
 def save_phoenix_tx_info_db(ptinf):
     try:
@@ -243,8 +246,9 @@ def save_phoenix_tx_info_db(ptinf):
         # Close Connection
         #conn.close()
     except mariadb.Error as e:
-        print(f"save_phoenix_tx_info_db -> Error connecting to MariaDB Platform: {e}") 
-        input()
+        print(f"save_phoenix_tx_info_db -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
+       #input()
         
 def save_phoenix_tx_info_db_batch(ptinf, batch_size=100):
     try:
@@ -273,8 +277,9 @@ def save_phoenix_tx_info_db_batch(ptinf, batch_size=100):
             #conn.close()
         
     except mariadb.Error as e:
-        print(f"save_phoenix_tx_info_db_batch -> Error connecting to MariaDB Platform: {e}") 
-        input()
+        print(f"save_phoenix_tx_info_db_batch -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
+       #input()
 
          
 def dprint(msg,lvl):
@@ -669,9 +674,10 @@ def clear_phoenix_info_db( ):
         cur.execute(query,)
         # Close Connection
         #conn.close()
-    except mariadb.Error as e:
-        print(f"clear_phoenix_info_db -> Error connecting to MariaDB Platform: {e}") 
-        input()
+    except Exception as e:
+        print(f"clear_phoenix_info_db -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
+       #input()
                 
 def clear_phoenix_tx_info_db( ):
     try:
@@ -691,9 +697,10 @@ def clear_phoenix_tx_info_db( ):
         cur.execute(query,)
         # Close Connection
         #conn.close()
-    except mariadb.Error as e:
-        print(f"clear_phoenix_tx_info_db -> Error connecting to MariaDB Platform: {e}") 
-        input()
+    except Exception as e:
+        print(f"clear_phoenix_tx_info_db -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
+       #input()
 
 def create_phoenix_tx_tables():
     try: 
@@ -747,8 +754,9 @@ def create_phoenix_tx_tables():
         # Close Connection
         #conn.close()
     except Exception as e:
-        print(f"create_delta_tx_tables -> Error connecting to MariaDB Platform: {e}") 
-        input()
+        print(f"create_delta_tx_tables -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
+       #input()
 
 
 

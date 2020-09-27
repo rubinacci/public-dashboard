@@ -82,7 +82,7 @@ def get_connection_mariadb():
     
         return conn
     except mariadb.Error as e:
-        print(f"Error conecting to MariaDB Platform: {e}")
+        print(f"Error conecting to PostgreSQL Platform: {e}")
         sys.exit()
 
 
@@ -121,7 +121,8 @@ def get_last_block_delta_tx_info_db():
         #conn.close() 
         return pinf
     except Exception as e:
-        print(f"get_last_block_delta_tx_info_db -> Error connecting to MariaDB Platform: {e}") 
+        print(f"get_last_block_delta_tx_info_db -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
         #input()
         
 def save_delta_tx_info_db(dtinf):
@@ -143,7 +144,8 @@ def save_delta_tx_info_db(dtinf):
         # Close Connection
         #conn.close()
     except Exception as e:
-        print(f"save_delta_tx_info_db -> Error connecting to MariaDB Platform: {e}") 
+        print(f"save_delta_tx_info_db -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
         #input()
         
 def save_delta_tx_info_db_batch(dtinf, batch_size=100):
@@ -173,7 +175,8 @@ def save_delta_tx_info_db_batch(dtinf, batch_size=100):
             #conn.close()
         
     except Exception as e:
-        print(f"save_delta_tx_info_db_batch -> Error connecting to MariaDB Platform: {e}") 
+        print(f"save_delta_tx_info_db_batch -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
         #input()
         
 def dprint(msg,lvl):
@@ -466,7 +469,8 @@ def clear_delta_tx_info_db( ):
         cur = conn.cursor()
         cur.execute(query,) 
     except Exception as e:
-        print(f"clear_delta_tx_info_db -> Error connecting to MariaDB Platform: {e}") 
+        print(f"clear_delta_tx_info_db -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
         #input()
 
 def create_delta_tx_tables():
@@ -513,7 +517,8 @@ def create_delta_tx_tables():
         # Close Connection
         #conn.close()
     except Exception as e:
-        print(f"create_delta_tx_tables -> Error connecting to MariaDB Platform: {e}") 
+        print(f"create_delta_tx_tables -> Error connecting to PostgreSQL Platform: {e}") 
+        sys.exit()
         #input()
 
 
