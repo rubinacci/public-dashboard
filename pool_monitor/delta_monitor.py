@@ -270,6 +270,7 @@ def parse_delta_transaction(tx_id, dtinf):
             if token_address == weth_address:
                 #update weth balance 
                 dtinf.eth_balance -= input_value 
+                eth_volume += input_value 
                 #weth out 
                 in_out += 1
             #input delta 
@@ -281,7 +282,7 @@ def parse_delta_transaction(tx_id, dtinf):
         
     
     #liquidity addition candidate
-    if input_tokens == 2:  
+    if input_tokens >= 2:  
         #let's get univ2 mints
         burn_address_tx_list = ethsc.get_transaction_history_address(burn_address,dtinf.block_num,dtinf.block_num,)    
         for b_tx in burn_address_tx_list:
@@ -295,7 +296,7 @@ def parse_delta_transaction(tx_id, dtinf):
                     ##input()
                     dtinf.op_type = 3
     #2 + 1 to ackowledge statera burn
-    if output_tokens == 3:
+    if output_tokens >= 3:
         print('Add liquidity candidate')
         print(f'---------- {tx_id}') 
         dtinf.op_type = 5
@@ -427,11 +428,11 @@ def daemon_blockrange():
         #level_monitor_tables(block_num) 
         
         current_block =int(ethsc.get_previous_block_num()) 
-    except Exception as e:
-        print(e)
-        print('daemon_blockrange says AAAAAAAAAAAAAAAAAAAA')
+    except Exception as e: 
+        print(f'Could not get latest delta block info  {e}')
         time.sleep(60)
         conn.close()
+        sys.exit()
     step = 2000
     while True:
         try:
@@ -478,7 +479,7 @@ def create_delta_tx_tables():
         query = '''
         drop table if exists delta_tx_monitor;
         CREATE TABLE delta_tx_monitor (
-          tx_hash text DEFAULT NULL,
+          tx_hash text DEFAULT NULL UNIQUE,
           rn smallint DEFAULT NULL,
           timestamp bigint DEFAULT NULL,
           block_num bigint DEFAULT NULL,

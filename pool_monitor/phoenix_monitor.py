@@ -708,7 +708,7 @@ def create_phoenix_tx_tables():
         drop table if exists phoenix_tx_monitor;
         
         CREATE TABLE phoenix_tx_monitor (
-              tx_hash text DEFAULT NULL,
+              tx_hash text DEFAULT NULL UNIQUE,
               rn smallint DEFAULT NULL,
               timestamp bigint DEFAULT NULL,
               block_num bigint DEFAULT NULL,
