@@ -1,0 +1,4 @@
+0 transfer
+1 swap
+2 addLiquidity
+3 removeLiquidity

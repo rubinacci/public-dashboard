@@ -1,6 +1,10 @@
 class DeltaTxInfo:
     def __init__(self, last_dtinf = None, from_str = None, from_db = None): 
-        
+        '''
+            from_db : DeltaTxInfo from database as list
+            from_str : string of values delimited by , 
+            last_dtinf : DeltaTxInfo object, updates supply and balances 
+        '''
         if from_db is not None or from_str is not None: 
             if from_db is not None:
                 ls = from_db
@@ -102,7 +106,7 @@ class DeltaTxInfo:
                 ,f'sta_eth_price : {self.sta_eth_price}' 
                 ,f'eth_balance : {self.eth_balance}'
                 ,f'sta_balance : {self.sta_balance}' 
-                ,f'eth_volume : {self.eth_balance}'
+                ,f'eth_volume : {self.eth_volume}'
                 ,f'sta_volume : {self.sta_volume}' 
                 ,f'delta_supply : {self.delta_supply}'
                 ,f'delta_genesis : {self.delta_genesis}'
@@ -125,9 +129,10 @@ class DeltaTxInfo:
               "'"+str(self.output_token_symbol)+"'",
                 self.output_token_volume,
                 self.output_token_fees,
-                self.output_token_eth_price, 
-                self.eth_usd_price, 
-                self.sta_eth_price, 
+                self.output_token_eth_price,  
+                self.eth_usd_price,
+                self.eth_balance/
+                self.sta_balance, 
                 self.eth_balance,
                 self.sta_balance, 
                 self.eth_volume,

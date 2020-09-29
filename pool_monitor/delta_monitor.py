@@ -22,7 +22,7 @@ from dotenv import load_dotenv
 if (not os.getenv('HEROKU')):
     load_dotenv()
 
-BALANCER_FEE = 0.01
+UNISWAP_FEE = 0.003
 
 #ethpl.verbose = 1
 ethsc.verbose = 1
@@ -32,74 +32,34 @@ sta_address = '0xa7DE087329BFcda5639247F96140f9DAbe3DeED1'.lower()
 weth_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'.lower() 
 delta_address = '0x59f96b8571e3b11f859a09eaf5a790a138fc64d0'.lower() 
 burn_address = '0x0000000000000000000000000000000000000000' 
- 
-def fill_ptinf_prices(ptinf):
-    ts = ptinf.timestamp
-    range = 3600
-    
-    #link
-    m_chart = cg.get_coin_market_chart_range_by_id('chainlink','eth',int(ts)-range,ts)
-    ptinf.link_eth_price = m_chart['prices'][-1][1]
-    #snx
-    m_chart = cg.get_coin_market_chart_range_by_id('havven','eth',int(ts)-range,ts)
-    ptinf.snx_eth_price = m_chart['prices'][-1][1]
-    #wbtc
-    m_chart = cg.get_coin_market_chart_range_by_id('wrapped-bitcoin','eth',int(ts)-range,ts)
-    ptinf.wbtc_eth_price = m_chart['prices'][-1][1]
-    #eth_usd
-    m_chart = cg.get_coin_market_chart_range_by_id('ethereum','usd',int(ts)-range,ts)
-    ptinf.eth_usd_price = m_chart['prices'][-1][1]
+   
     
 def get_connection():
+    '''
+    returns psycopg2 connection from ENV
+    '''
     try:
         print('Getting connection to Elephant') 
-        dbhost=os.getenv('DBHOST')#'lallah.db.elephantsql.com'
-        dbname=os.getenv('DBNAME')#'pkfysgzf'
-        dbuser=os.getenv('DBUSER')#'pkfysgzf'
-        dbpassword=os.getenv('DBPWD')#'UbFSyHG98dCdAX2S3gz0XbYukzsEEa1i'
+        dbhost=os.getenv('DBHOST')
+        dbname=os.getenv('DBNAME')
+        dbuser=os.getenv('DBUSER')
+        dbpassword=os.getenv('DBPWD')
         connection_string = f'host={dbhost} dbname={dbname} user={dbuser} password={dbpassword}'
-        conn = pg.connect(connection_string) 
-        
+        conn = pg.connect(connection_string)  
         conn.autocommit = True 
         return conn
     except Exception as e:
         print(f"Error conecting to PostgresqlDB Platform: {e}") 
-        sys.exit()
-
-
-def get_connection_mariadb():
-    try:
-        print('Getting connection to MariaDB') 
-         
-        conn = mariadb.connect(
-            user="depe6oz7701bymwh",
-            password="onbnn14iazaj6of1",
-            host="ao9moanwus0rjiex.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-            port=3306,
-            database="vqcrwbwrwvzrgbag" ) 
-        
-        conn.autocommit = True
-    
-        return conn
-    except mariadb.Error as e:
-        print(f"Error conecting to PostgreSQL Platform: {e}")
-        sys.exit()
+        sys.exit() 
 
 
 def get_last_block_delta_tx_info_db():
+    '''
+        Queries SQL for last delta info
+    '''
 
     print('Getting last Delta tx info from db')
-    try:
-        #conn = mariadb.connect(
-        #    user="depe6oz7701bymwh",
-        #    password="onbnn14iazaj6of1",
-        #    host="ao9moanwus0rjiex.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-        #    port=3306,
-        #    database="vqcrwbwrwvzrgbag" 
-        #)  
-        #
-        #conn.autocommit = True
-        #conn = get_connection()
+    try: 
         query = '''
             select *
             from delta_tx_monitor 
@@ -126,16 +86,10 @@ def get_last_block_delta_tx_info_db():
         #input()
         
 def save_delta_tx_info_db(dtinf):
-    try:
-        #conn = mariadb.connect(
-        #    user="depe6oz7701bymwh",
-        #    password="onbnn14iazaj6of1",
-        #    host="ao9moanwus0rjiex.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-        #    port=3306,
-        #    database="vqcrwbwrwvzrgbag" 
-        #) 
-        #conn.autocommit = True
-        #conn = get_connection()
+    '''
+        Queries SQL for last delta info
+    '''
+    try: 
         values = dtinf.to_sql_values()
         query = f'INSERT INTO delta_tx_monitor SELECT {values}'
         print(query)
@@ -149,30 +103,25 @@ def save_delta_tx_info_db(dtinf):
         #input()
         
 def save_delta_tx_info_db_batch(dtinf, batch_size=100):
+    '''
+        Adds dtinf to the current batch of transactions delta_tx_to_store
+        Stores transactions if over the threshold
+    '''
     try:
-        #conn = mariadb.connect(
-        #    user="depe6oz7701bymwh",
-        #    password="onbnn14iazaj6of1",
-        #    host="ao9moanwus0rjiex.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-        #    port=3306,
-        #    database="vqcrwbwrwvzrgbag" 
-        #) 
-        #conn.autocommit = True
         global delta_tx_to_store 
         if dtinf is not None:
-            delta_tx_to_store.append(dtinf.to_sql_values())
+            #delta_tx_to_store.append(dtinf.to_sql_values())
+            delta_tx_to_store.append(dtinf)
         
-        if len(delta_tx_to_store) > batch_size: 
-            #conn = get_connection()
+        if len(delta_tx_to_store) > batch_size:  
+            test = [dt.to_sql_values() for dt in delta_tx_to_store]
             
-            values = '\r\n union all select '.join(delta_tx_to_store)
+            values = '\r\n union all select '.join(test)#delta_tx_to_store)
             query = f'INSERT INTO delta_tx_monitor SELECT {values}' 
             print(query)
             cur = conn.cursor()
             cur.execute(query,)   
-            delta_tx_to_store = []
-            # Close Connection
-            #conn.close()
+            delta_tx_to_store = [] 
         
     except Exception as e:
         print(f"save_delta_tx_info_db_batch -> Error connecting to PostgreSQL Platform: {e}") 
@@ -183,17 +132,8 @@ def dprint(msg,lvl):
     if debug_level >= lvl:
         print(msg)
         
-def parse_delta_transaction(tx_id, dtinf):
-    op_type = 'addLiquidity'
-    
-    is_buy = True 
-     
-    dprint(f'- Transaction {tx_id}', 1)
-
-    eth_in = 0
-    eth_out = 0
-    sta_in = 0
-    sta_out = 0 
+def parse_delta_transaction(tx_id, raw_tx_delta, dtinf):  
+    dprint(f'- Transaction {tx_id}', 1) 
     
     eth_volume = 0
     sta_volume = 0 
@@ -204,34 +144,35 @@ def parse_delta_transaction(tx_id, dtinf):
     input_tokens = 0
     output_tokens = 0 
     
-    for op in raw_tx_delta[tx_id]: 
+    for op in raw_tx_delta: 
         to = op['to'].lower()
         frm = op['from'].lower()
         token_address = op['contractAddress'].lower()  
         token_symbol = op['tokenSymbol']
         input_value = int(op['value'])/(10.0**int(op['tokenDecimal']))
-        timestamp = str(op['timeStamp'])       
-        dtinf.timestamp = timestamp         
+        timestamp = str(op['timeStamp'])
+        dtinf.timestamp = timestamp
+        #format hourslot
         dt_object = datetime.fromtimestamp(int(timestamp))
         hourslot = dt_object.strftime("%Y%m%d%H")
-        dtinf.hourslot = int(hourslot)         
+        dtinf.hourslot = int(hourslot)
+        
         #liquidityRelated
         if token_address == delta_address:
             if frm == burn_address:
-                op_type = 'addLiquidity' 
-                #ptinf.op_type = 4
-                dtinf.op_type = 3
-                
+                # addLiquidity
+                # Never happens as mint tx do not involve uni-v2 pool
+                # This is addressed below 
+                dtinf.op_type = 2
                 #update delta supply
-                dtinf.delta_supply += input_value#int(token_info['totalSupply']) / (10**18)  
+                dtinf.delta_supply += input_value
                 
             elif to == burn_address:
-                op_type = 'removeLiquidity' 
-                #ptinf.op_type = 4
-                dtinf.op_type = 5
+                # removeLiquidity
+                dtinf.op_type = 3
                 #update delta supply
-                dtinf.delta_supply -= input_value#int(token_info['totalSupply']) / (10**18)            
-        #input
+                dtinf.delta_supply -= input_value
+        #deltapool receives tokens
         elif to == delta_address:
             input_tokens += 1
                 
@@ -241,9 +182,7 @@ def parse_delta_transaction(tx_id, dtinf):
             if token_address == weth_address:
                 #update weth balance 
                 dtinf.eth_balance += input_value
-                 
                 #update block volume 
-                #pinf.eth_volume += input_value 
                 eth_volume += input_value 
                 #eth in 
                 in_out += 1
@@ -251,15 +190,11 @@ def parse_delta_transaction(tx_id, dtinf):
             elif token_address == sta_address: 
                 #update delta balance 
                 dtinf.sta_balance += input_value
-                #update delta volume 
-                #pinf.delta_volume += input_value 
+                #update block volume 
                 sta_volume += input_value 
-                #delta in 
+                #sta in 
                 in_out += 1
-                
-            
-            
-        #output 
+        #deltapool sends tokens 
         elif  frm == delta_address:
             output_tokens += 1
             
@@ -269,8 +204,7 @@ def parse_delta_transaction(tx_id, dtinf):
             #input delta 
             if token_address == weth_address:
                 #update weth balance 
-                dtinf.eth_balance -= input_value 
-                eth_volume += input_value 
+                dtinf.eth_balance -= input_value  
                 #weth out 
                 in_out += 1
             #input delta 
@@ -278,64 +212,53 @@ def parse_delta_transaction(tx_id, dtinf):
                 #update delta balance 
                 dtinf.sta_balance -= input_value 
                 #sta out 
-                in_out += 1 
-        
+                in_out += 1  
     
     #liquidity addition candidate
     if input_tokens >= 2:  
-        #let's get univ2 mints
-        burn_address_tx_list = ethsc.get_transaction_history_address(burn_address,dtinf.block_num,dtinf.block_num,)    
+        #get possible univ2 mints
+        dprint('Getting DELTA mint candidates',3)
+        burn_address_tx_list = ethsc.get_transaction_history_address(burn_address,dtinf.block_num,dtinf.block_num)
         for b_tx in burn_address_tx_list:
             if b_tx['hash'] == dtinf.tx_hash:
-                print(b_tx)
                 burn_token_address = b_tx['contractAddress']
                 if burn_token_address == delta_address and b_tx['from'] == burn_address:
-                    print('delta mint')
+                    dprint('Found delta mint',3) 
                     minted_delta = int(b_tx['value'])/(10.0**int(b_tx['tokenDecimal']))
-                    dtinf.delta_supply += minted_delta
-                    ##input()
-                    dtinf.op_type = 3
-    #2 + 1 to ackowledge statera burn
-    if output_tokens >= 3:
-        print('Add liquidity candidate')
-        print(f'---------- {tx_id}') 
-        dtinf.op_type = 5
-        if input_tokens == 2:
-            print('May day')
-            #input()
-    #set mulitoken liquidity operation
-    #if op_type not in ('addLiquidity','removeLiquidity'):
-    if dtinf.op_type not in (3,5): 
-        if in_out in (2,3): 
-            dtinf.eth_volume += eth_volume 
-            dtinf.sta_volume += sta_volume  
+                    dtinf.delta_supply += minted_delta 
+                    dtinf.op_type = 2 
+                    
+    #update volume and type
+    if dtinf.op_type not in (2,3): 
+        #if there's only one token involved
+        if in_out <= 1:
+            #set transfer / no use to the pool
+            dtinf.op_type = 0 
         else:
-            #transfer candidate
-            #print('This is a transfer')
-            #print(eth_volume)
-            #print(sta_volume)
-            #dtinf.eth_balance -= eth_volume 
-            #dtinf.sta_balance -= sta_volume  
-            dtinf.op_type = -1
-            return
-        
-        
-        dtinf.op_type = 1
+            dtinf.eth_volume = eth_volume
+            dtinf.eth_fees = eth_volume*UNISWAP_FEE
+            dtinf.sta_volume = sta_volume
+            dtinf.sta_fees = sta_volume*UNISWAP_FEE
+            #set swap
+            dtinf.op_type = 1  
+    dtinf.sta_eth_price = dtinf.sta_balance / dtinf.eth_balance 
     fix_etherscan_mess(dtinf)
 
 def fix_etherscan_mess(dtinf):
+    ''' 
+        Hardcodes fixes on etherscan api 'errors'
+    '''
     if int(dtinf.block_num) == 10877808:
+        #etherscan failed to return the tx happening on this block during development
         dtinf.sta_balance = 2557935.03678363829679168
         dtinf.eth_balance = 751.832346242725292461
+        dtinf.delta_supply = 20690.84450966305008816
          
-def parse_block_range_info_delta(in_block, end_block,last_dtinf):
-    global delta_tx_to_store 
-    global raw_tx_delta    
+def parse_block_range_info_delta(in_block, end_block,last_dtinf): 
+    #global raw_tx_delta
     #get block range transactions
     tx_list = ethsc.get_transaction_history_address(delta_address,in_block,end_block)    
-    #pinf = pi.PhoenixInfo(last_pinf=last_pinf)
     dtinf = dti.DeltaTxInfo(last_dtinf=last_dtinf)
-    
     
     if tx_list == []:
         dprint(f'No transactions on delta Pool during block range {in_block}, {end_block}', 3)
@@ -343,7 +266,8 @@ def parse_block_range_info_delta(in_block, end_block,last_dtinf):
     dprint(f'Processing block range {in_block}, {end_block}',1) 
     
     raw_tx_delta = dict()
-    block_txs_set = dict() 
+    #build dict of {k:block_num, v: [tx_list] from etherscan api}
+    block_txs_dict = dict() 
     for tx in tx_list:  
         block = tx['blockNumber']
         hash = tx['hash'] 
@@ -351,48 +275,27 @@ def parse_block_range_info_delta(in_block, end_block,last_dtinf):
         if hash not in raw_tx_delta:
             raw_tx_delta[hash] = []
         raw_tx_delta[hash].append(tx)
+        #
+        if block not in block_txs_dict:
+            block_txs_dict[block] = set()
+        block_txs_dict[block].add(hash) 
         
-        if block not in block_txs_set:
-            block_txs_set[block] = set()
-        block_txs_set[block].add(hash)
-
-   
-    
-    dprint(f'Found {len(block_txs_set)} blocks containing transactions', 2) 
-    dprint(block_txs_set, 4) 
-    for block in block_txs_set:   
+    dprint(f'Found {len(block_txs_dict)} blocks containing transactions', 2) 
+    dprint(block_txs_dict, 4) 
+    for block in block_txs_dict:   
         dprint(f'Parsing Delta tx from block {block}', 2)
-        tx_set = block_txs_set[block] 
-        #pinf = pi.PhoenixInfo(last_pinf=last_pinf) 
-        #update num_tx on block
-        if len(tx_set) == 2:
-            for tx in tx_set:
-                t = raw_tx_delta[tx][0] 
-        ##input()
-        rn = len(tx_set)
+        tx_set = block_txs_dict[block]  
+        rn = len(tx_set) 
         for tx in tx_set:
-            #print(tx) 
             dtinf = dti.DeltaTxInfo(last_dtinf=last_dtinf)
             dtinf.rn = rn
             dtinf.block_num = block
             dtinf.tx_hash = tx
             
-            parse_delta_transaction(tx, dtinf) 
-            
-            #fix_etherscan_mess(dtinf)
-            
-            
-            #delta_tx_to_store.append(dtinf.to_sql_values())
-            save_delta_tx_info_db_batch(dtinf)
-            #print(delta_tx_to_store)
-            ##input()
-            #save_delta_tx_info_db(dtinf) 
-            last_dtinf = dtinf
-            rn -= 1  
-        #pinf.block_num = int(block)
-        #pinf.num_tx = len(tx_set) 
-        #last_pinf = pinf 
-        
+            parse_delta_transaction(tx,raw_tx_delta[tx], dtinf)  
+            save_delta_tx_info_db_batch(dtinf) 
+            last_dtinf = dtinf 
+            rn -= 1   
          
             ##input()
     return last_dtinf
@@ -411,7 +314,10 @@ def level_monitor_tables(block_num):
     cur = conn.cursor()
     cur.execute(query,)
 
-def daemon_blockrange(): 
+def daemon_blockrange():
+    '''
+       
+    '''
     global conn
     conn = get_connection()
     try:
@@ -423,10 +329,7 @@ def daemon_blockrange():
          
         dtinf_block_num = last_dtinf.block_num
          
-        block_num = last_dtinf.block_num+1
-        
-        #level_monitor_tables(block_num) 
-        
+        block_num = last_dtinf.block_num+1 
         current_block =int(ethsc.get_previous_block_num()) 
     except Exception as e: 
         print(f'Could not get latest delta block info  {e}')
@@ -463,7 +366,10 @@ def daemon_blockrange():
             sys.exit()
 
 
-def clear_delta_tx_info_db( ):
+def clear_delta_tx_info_db():
+    '''
+        Truncates delta_tx_monitor_table
+    '''
     try: 
         query = 'truncate table delta_tx_monitor;'
         print(query)
@@ -492,8 +398,8 @@ def create_delta_tx_tables():
           output_token_volume double precision DEFAULT NULL,
           output_token_fees double precision DEFAULT NULL,
           output_token_eth_price double precision DEFAULT NULL,
-          sta_eth_price double precision DEFAULT NULL,
           eth_usd_price double precision DEFAULT NULL,
+          sta_eth_price double precision DEFAULT NULL,
           eth_balance double precision DEFAULT NULL,
           sta_balance double precision DEFAULT NULL,
           eth_volume double precision DEFAULT NULL,
@@ -526,27 +432,26 @@ def create_delta_tx_tables():
 
 debug_level = 4
  
+#global var for psycopg2 connection
 conn = None
-delta_tx_to_store = []
-phoenix_tx_to_store = []
+#global var for batch_delta_tx
+delta_tx_to_store = [] 
 
-bootstrap = False
-create_tables = False
-daemon = False
+###PARAMS##################################################
+bootstrap = False # Truncates current and starts parsing from genesis
+create_tables = False # Drops tables if exists and creates them
+daemon = False # Keeps alive querying for new blocks once it is up to date
 parser = argparse.ArgumentParser() 
 parser.add_argument('--bootstrap', help='True, False | Truncates current and starts parsing from genesis')
 parser.add_argument('--create_tables', help='True, False | Drops tables if exists and creates them')
 parser.add_argument('--daemon', help='True, False | Keeps alive querying for new blocks once it is up to date')
 args = parser.parse_args()
 if args.bootstrap is not None:
-    bootstrap = (args.bootstrap=='True')
+    bootstrap = (args.bootstrap.lower()=='true')
 if args.create_tables is not None:
-    create_tables = (args.create_tables=='True')
+    create_tables = (args.create_tables.lower()=='true')
 if args.daemon is not None:
     daemon = (args.daemon=='True')
-
-#bootstrap()
-###########daemon############################################### 
-#daemon()
-daemon_blockrange()
-################################################################
+###########################################################
+ 
+daemon_blockrange() 
