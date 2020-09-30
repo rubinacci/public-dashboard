@@ -1,22 +1,16 @@
 import json
 import requests as req
 from requests.exceptions import HTTPError
-from datetime import datetime 
-#import  ethplorer_api as ethpl
+from datetime import datetime  
 import  etherscan_api as ethsc
-import os
-import csv 
+import os 
 import time
+import DeltaTxInfo as dti  
+import sys
+import argparse 
+import psycopg2 as pg 
 from decimal import *
 getcontext().prec = 18  
-import DeltaTxInfo as dti
-import os.path
-#import mariadb
-import pickle
-import sys
-import argparse
-#from pycoingecko import CoinGeckoAPI
-import psycopg2 as pg 
 from dotenv import load_dotenv
 
 if (not os.getenv('HEROKU')):
