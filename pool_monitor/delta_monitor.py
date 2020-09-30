@@ -28,12 +28,37 @@ UNISWAP_FEE = 0.003
 ethsc.verbose = 1
 verbose = 1
 
+##VARS#########################################################
 sta_address = '0xa7DE087329BFcda5639247F96140f9DAbe3DeED1'.lower()
 weth_address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'.lower() 
 delta_address = '0x59f96b8571e3b11f859a09eaf5a790a138fc64d0'.lower() 
-burn_address = '0x0000000000000000000000000000000000000000' 
-   
-    
+burn_address = '0x0000000000000000000000000000000000000000'  
+
+debug_level = 4
+sleep_time = 30
+#global var for psycopg2 connection
+conn = None
+#global var for batch_delta_tx
+delta_tx_to_store = [] 
+
+###PARAMS##################################################
+bootstrap = False # Truncates current and starts parsing from genesis
+create_tables = False # Drops tables if exists and creates them
+daemon = False # Keeps alive querying for new blocks once it is up to date
+parser = argparse.ArgumentParser() 
+parser.add_argument('--bootstrap', help='True, False | Truncates current and starts parsing from genesis')
+parser.add_argument('--create_tables', help='True, False | Drops tables if exists and creates them')
+parser.add_argument('--daemon', help='True, False | Keeps alive querying for new blocks once it is up to date')
+args = parser.parse_args()
+if args.bootstrap is not None:
+    bootstrap = (args.bootstrap.lower()=='true')
+if args.create_tables is not None:
+    create_tables = (args.create_tables.lower()=='true')
+if args.daemon is not None:
+    daemon = (args.daemon=='True')
+###########################################################
+
+
 def get_connection():
     '''
     returns psycopg2 connection from ENV
@@ -110,7 +135,6 @@ def save_delta_tx_info_db_batch(dtinf, batch_size=100):
     try:
         global delta_tx_to_store 
         if dtinf is not None:
-            #delta_tx_to_store.append(dtinf.to_sql_values())
             delta_tx_to_store.append(dtinf)
         
         if len(delta_tx_to_store) > batch_size:  
@@ -228,7 +252,7 @@ def parse_delta_transaction(tx_id, raw_tx_delta, dtinf):
                     dtinf.delta_supply += minted_delta 
                     dtinf.op_type = 2 
                     
-    #update volume and type
+    #update volumes and fees
     if dtinf.op_type not in (2,3): 
         #if there's only one token involved
         if in_out <= 1:
@@ -316,19 +340,20 @@ def level_monitor_tables(block_num):
 
 def daemon_blockrange():
     '''
-       
+       Daemon parser 
     '''
     global conn
     conn = get_connection()
     try:
         if create_tables:
             create_delta_tx_tables() 
-        if bootstrap: 
-            clear_delta_tx_info_db( )
+        if bootstrap:
+            clear_delta_tx_info_db()
+        #get last block available
         last_dtinf = get_last_block_delta_tx_info_db()
-         
+        
         dtinf_block_num = last_dtinf.block_num
-         
+        #set next block to start the process
         block_num = last_dtinf.block_num+1 
         current_block =int(ethsc.get_previous_block_num()) 
     except Exception as e: 
@@ -340,26 +365,22 @@ def daemon_blockrange():
     while True:
         try:
             while current_block < block_num:
-                dprint(f'Current block {current_block}, waiting for next... ',1)
                 current_block = int(ethsc.get_previous_block_num())
-                step = 2
-                
-                save_delta_tx_info_db_batch(None,0) 
+                step = 2 
+                save_delta_tx_info_db_batch(None,0) #save anything pending on the current batch
                 if not daemon:
                     print('Done')
                     conn.close() 
                     sys.exit()
-                time.sleep(13)
+                dprint(f'Current block {current_block}, waiting for {sleep_time} sec ',1)
+                time.sleep(sleep_time)
             end_block = min(int(current_block), block_num+step)  
             
-            print(f'from {block_num} to {end_block}')
-            
             current_dtinf = parse_block_range_info_delta(block_num, end_block, last_dtinf) 
-             
+            
             last_dtinf = current_dtinf 
             block_num = end_block+1
-            ##input()
-            pass
+            #input() 
         except Exception as e:
             print(f' delta daemon_blockrange says {e}') 
             conn.close()
@@ -382,42 +403,7 @@ def clear_delta_tx_info_db():
 
 def create_delta_tx_tables():
     try: 
-        query = '''
-        drop table if exists delta_tx_monitor;
-        CREATE TABLE delta_tx_monitor (
-          tx_hash text DEFAULT NULL UNIQUE,
-          rn smallint DEFAULT NULL,
-          timestamp bigint DEFAULT NULL,
-          block_num bigint DEFAULT NULL,
-          op_type smallint DEFAULT NULL,
-          input_token_symbol text DEFAULT NULL,
-          input_token_volume double precision DEFAULT NULL,
-          input_token_fees double precision DEFAULT NULL,
-          input_token_eth_price double precision DEFAULT NULL,
-          output_token_symbol text DEFAULT NULL,
-          output_token_volume double precision DEFAULT NULL,
-          output_token_fees double precision DEFAULT NULL,
-          output_token_eth_price double precision DEFAULT NULL,
-          eth_usd_price double precision DEFAULT NULL,
-          sta_eth_price double precision DEFAULT NULL,
-          eth_balance double precision DEFAULT NULL,
-          sta_balance double precision DEFAULT NULL,
-          eth_volume double precision DEFAULT NULL,
-          sta_volume double precision DEFAULT NULL,
-          delta_supply double precision DEFAULT NULL, 
-          hourslot bigint DEFAULT NULL
-        );
-        
-        create index idx_delta_tx_monitor_block_num
-        on delta_tx_monitor
-        using btree(block_num, rn);
-        
-        create index idx_delta_tx_monitor_ts
-        on delta_tx_monitor
-        using btree(timestamp, rn);
-        
-        
-        '''
+        query = dti.get_create_delta_tx_table()
         print(query)
         cur = conn.cursor()
         cur.execute(query,)
@@ -429,29 +415,4 @@ def create_delta_tx_tables():
         #input()
 
 
-
-debug_level = 4
- 
-#global var for psycopg2 connection
-conn = None
-#global var for batch_delta_tx
-delta_tx_to_store = [] 
-
-###PARAMS##################################################
-bootstrap = False # Truncates current and starts parsing from genesis
-create_tables = False # Drops tables if exists and creates them
-daemon = False # Keeps alive querying for new blocks once it is up to date
-parser = argparse.ArgumentParser() 
-parser.add_argument('--bootstrap', help='True, False | Truncates current and starts parsing from genesis')
-parser.add_argument('--create_tables', help='True, False | Drops tables if exists and creates them')
-parser.add_argument('--daemon', help='True, False | Keeps alive querying for new blocks once it is up to date')
-args = parser.parse_args()
-if args.bootstrap is not None:
-    bootstrap = (args.bootstrap.lower()=='true')
-if args.create_tables is not None:
-    create_tables = (args.create_tables.lower()=='true')
-if args.daemon is not None:
-    daemon = (args.daemon=='True')
-###########################################################
- 
 daemon_blockrange() 
