@@ -1,8 +1,7 @@
 import json
-import requests as req
-from requests.exceptions import HTTPError
-from datetime import datetime  
-import  etherscan_api as ethsc
+import requests as req  
+import etherscan_api as ethsc
+from datetime import datetime 
 import os 
 import time
 import DeltaTxInfo as dti  
@@ -19,8 +18,7 @@ if (not os.getenv('HEROKU')):
 UNISWAP_FEE = 0.003
 
 #ethpl.verbose = 1
-ethsc.verbose = 1
-verbose = 1
+ethsc.verbose = 1 
 
 ##VARS#########################################################
 sta_address = '0xa7DE087329BFcda5639247F96140f9DAbe3DeED1'.lower()
@@ -29,12 +27,11 @@ delta_address = '0x59f96b8571e3b11f859a09eaf5a790a138fc64d0'.lower()
 burn_address = '0x0000000000000000000000000000000000000000'  
 
 debug_level = 4
-sleep_time = 30
+sleep_time = 30 #for daemon mode
 #global var for psycopg2 connection
 conn = None
 #global var for batch_delta_tx
-delta_tx_to_store = [] 
-
+delta_tx_to_store = []  
 ###PARAMS##################################################
 bootstrap = False # Truncates current and starts parsing from genesis
 create_tables = False # Drops tables if exists and creates them
@@ -95,12 +92,11 @@ def get_last_block_delta_tx_info_db():
         if row is not None:
             pinf = dti.DeltaTxInfo(from_db=row)
         else:
-            pinf = dti.DeltaTxInfo()
-        # Close Connection
-        #conn.close() 
+            pinf = dti.DeltaTxInfo() 
         return pinf
     except Exception as e:
         print(f"get_last_block_delta_tx_info_db -> Error connecting to PostgreSQL Platform: {e}") 
+        conn.close()
         sys.exit()
         #input()
         
@@ -113,11 +109,10 @@ def save_delta_tx_info_db(dtinf):
         query = f'INSERT INTO delta_tx_monitor SELECT {values}'
         print(query)
         cur = conn.cursor()
-        cur.execute(query,)
-        # Close Connection
-        #conn.close()
+        cur.execute(query,) 
     except Exception as e:
         print(f"save_delta_tx_info_db -> Error connecting to PostgreSQL Platform: {e}") 
+        conn.close()
         sys.exit()
         #input()
         
@@ -143,6 +138,7 @@ def save_delta_tx_info_db_batch(dtinf, batch_size=100):
         
     except Exception as e:
         print(f"save_delta_tx_info_db_batch -> Error connecting to PostgreSQL Platform: {e}") 
+        conn.close()
         sys.exit()
         #input()
         
@@ -260,14 +256,15 @@ def parse_delta_transaction(tx_id, raw_tx_delta, dtinf):
             #set swap
             dtinf.op_type = 1  
     dtinf.sta_eth_price = dtinf.sta_balance / dtinf.eth_balance 
-    fix_etherscan_mess(dtinf)
+    #fix_etherscan_mess(dtinf)
 
 def fix_etherscan_mess(dtinf):
     ''' 
         Hardcodes fixes on etherscan api 'errors'
     '''
     if int(dtinf.block_num) == 10877808:
-        #etherscan failed to return the tx happening on this block during development
+        #etherscan failed to return a tx  on this block during development
+        #https://etherscan.io/tx/0x8cb43edbcb89dbdab1e7164b33f5913f9181a22e0900d19a7ecf52ab2c2deae9
         dtinf.sta_balance = 2557935.03678363829679168
         dtinf.eth_balance = 751.832346242725292461
         dtinf.delta_supply = 20690.84450966305008816
@@ -283,8 +280,9 @@ def parse_block_range_info_delta(in_block, end_block,last_dtinf):
         return dtinf
     dprint(f'Processing block range {in_block}, {end_block}',1) 
     
+    #dict of {k:hash, v:list[tx from etherscan api]}
     raw_tx_delta = dict()
-    #build dict of {k:block_num, v: [tx_list] from etherscan api}
+    #build dict of {k:block_num, v: set(tx_list) on block}
     block_txs_dict = dict() 
     for tx in tx_list:  
         block = tx['blockNumber']
@@ -292,8 +290,7 @@ def parse_block_range_info_delta(in_block, end_block,last_dtinf):
         #new raw_tx_delta format
         if hash not in raw_tx_delta:
             raw_tx_delta[hash] = []
-        raw_tx_delta[hash].append(tx)
-        #
+        raw_tx_delta[hash].append(tx) 
         if block not in block_txs_dict:
             block_txs_dict[block] = set()
         block_txs_dict[block].add(hash) 
@@ -344,8 +341,7 @@ def daemon_blockrange():
         if bootstrap:
             clear_delta_tx_info_db()
         #get last block available
-        last_dtinf = get_last_block_delta_tx_info_db()
-        
+        last_dtinf = get_last_block_delta_tx_info_db() 
         dtinf_block_num = last_dtinf.block_num
         #set next block to start the process
         block_num = last_dtinf.block_num+1 
@@ -373,10 +369,9 @@ def daemon_blockrange():
             current_dtinf = parse_block_range_info_delta(block_num, end_block, last_dtinf) 
             
             last_dtinf = current_dtinf 
-            block_num = end_block+1
-            #input() 
+            block_num = end_block+1 
         except Exception as e:
-            print(f' delta daemon_blockrange says {e}') 
+            print(f' Exception on daemon_blockrange: {e}') 
             conn.close()
             sys.exit()
 
@@ -401,10 +396,9 @@ def create_delta_tx_tables():
         print(query)
         cur = conn.cursor()
         cur.execute(query,)
-        # Close Connection
-        #conn.close()
     except Exception as e:
         print(f"create_delta_tx_tables -> Error connecting to PostgreSQL Platform: {e}") 
+        conn.close()
         sys.exit()
         #input()
 
