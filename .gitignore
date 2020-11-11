@@ -4,3 +4,6 @@ dist
 .env
 .env_prod
 pool_monitor/__pycache__
+
+# Tailwind generated CSS
+*.generated.*
