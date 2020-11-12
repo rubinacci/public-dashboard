@@ -13,10 +13,12 @@ import { APIRouter } from './api-router';
 import { AllCoins, Contracts } from './constants';
 import { Logger } from './logger';
 import { Bloxy } from './bloxy';
+import cors from "cors"
 
 const app = express();
 const eth = new Eth(process.env.INFURA_KEY);
 
+app.use(cors())
 app.use(compression());
 
 const kLoggerCategory = 'EXPRESS';
