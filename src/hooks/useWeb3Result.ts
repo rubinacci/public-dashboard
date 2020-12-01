@@ -2,7 +2,7 @@ import { useWeb3React } from "@web3-react/core"
 import { useEffect, useState } from "react"
 
 
-export const useWeb3Result = <T>(f: (props: { account: any, library: any }) => Promise<T>) => {
+export const useWeb3Result = <T>(f: (props: { account: any, library: any, chainId: any }) => Promise<T>) => {
 
     const { account, library, chainId } = useWeb3React()
   
@@ -14,7 +14,7 @@ export const useWeb3Result = <T>(f: (props: { account: any, library: any }) => P
             let stale = false
             const refresh = async () => {
                 try {
-                    const value = await f({ account, library })
+                    const value = await f({ account, library, chainId })
                     if (!stale) set(value)
                 } catch (e) {
                     console.error(e)
