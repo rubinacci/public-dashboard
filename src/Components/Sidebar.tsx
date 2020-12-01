@@ -2,25 +2,29 @@ import React, { FunctionComponent, useState } from "react"
 
 import Modal from "react-modal"
 
+import classnames from "classnames"
+
 import { NavLink } from "react-router-dom"
 
 import ContainerModal from "./ContainerModal"
 
-import { RiDashboardLine } from "react-icons/ri"
+import { RiCloseLine, RiDashboardLine } from "react-icons/ri"
 import { FiPieChart } from "react-icons/fi"
 import { HiOutlineChevronDown, HiOutlineChevronUp } from "react-icons/hi"
 import { ImExit } from "react-icons/im"
+import { GiHamburgerMenu } from "react-icons/gi"
 
 import logo from "../assets/logo.png"
 import metamask from "../assets/images/web3/metamask.svg"
+import walletconnect from "../assets/images/web3/walletconnect.svg"
 
 import { useWeb3React } from "@web3-react/core"
-import { injected } from "../web3/connectors"
+import { injected, walletConnect } from "../web3/connectors"
 import { formatAccount } from "../util/formatAccount"
 
 const ConnectModal: FunctionComponent<Modal.Props> = ({ ...props }) => {
 
-    const { active, activate } = useWeb3React()
+    const { activate } = useWeb3React()
 
     return (
         <ContainerModal
@@ -29,14 +33,22 @@ const ConnectModal: FunctionComponent<Modal.Props> = ({ ...props }) => {
         >
             <div className="flex flex-col space-y-4 p-4 px-16">
                 <h1 className="font-bold text-blue-500">Connect your wallet</h1>
-                <div className="flex flex-row w-full">
+                <div className="flex flex-col md:flex-row w-full p-8 space-x-2">
                     <button
-                        className="flex flex-col items-center p-4 border border-blue-500 rounded-md"
+                        className="flex flex-col w-64 space-y-4 items-center p-4 border border-blue-500 rounded-md gradient-x"
                         onClick={e => { activate(injected); props.onRequestClose!(e) }}>
-                        <span>
-                            Connect with Metamask
+                        <span className="text-white font-bold">
+                            Connect with<br/>Metamask
                         </span>
                         <img src={metamask} alt="metamask" className="h-8" />
+                    </button>
+                    <button
+                        className="flex flex-col w-64 space-y-4 items-center p-4 border border-blue-500 rounded-md gradient-x"
+                        onClick={e => { activate(walletConnect, undefined, true); props.onRequestClose!(e) }}>
+                        <span className="text-white font-bold">
+                            Connect with<br/>Walletconnect
+                        </span>
+                        <img src={walletconnect} alt="metamask" className="h-8" />
                     </button>
                 </div>
             </div>
@@ -46,6 +58,8 @@ const ConnectModal: FunctionComponent<Modal.Props> = ({ ...props }) => {
 
 const Sidebar = () => {
 
+    const [menuOpen, setMenuOpen] = useState(false)
+
     const [poolsOpen, setPoolsOpen] = useState(true)
     const [modalOpen, setModalOpen] = useState(false)
 
@@ -54,7 +68,36 @@ const Sidebar = () => {
     const { account, active, deactivate } = useWeb3React()
 
     return <>
-        <div className="flex flex-col w-56 h-full bg-gray-100 text-sm">
+        <div
+            className={classnames(
+                "w-screen h-screen bg-black bg-opacity-25 absolute top-0 right-0 transition-all duration-500",
+                !menuOpen ? "opacity-0 invisible" : "lg:opacity-0 lg:invisible"
+            )}
+            style={{ zIndex: 40 }} />
+        <div
+            className={classnames(
+                "flex flex-col w-56 h-full bg-gray-100 text-sm",
+                "transition-all duration-200",
+                "fixed lg:relative bg-white",
+                !menuOpen && "-ml-56 lg:ml-0",
+            )} style={{ zIndex: 50 }}>
+
+            <div className="relative">
+                <button className={classnames(
+                    "absolute top-0 right-0 text-gray-500 p-2 mt-1 mr-1 transition-all duration-500",
+                    !menuOpen ? "invisible opacity-0" : "lg:invisible lg:opacity-0"
+                )} onClick={() => setMenuOpen(false)}>
+                    <RiCloseLine size="1.6rem" className={classnames("transition-all duration-500", !menuOpen && "transform -rotate-90")} />
+                </button>
+                <button className={classnames(
+                    "absolute top-0 left-0 p-2 bg-white rounded-full shadow-lg mt-1 transition-all duration-200",
+                    "gradient-x text-white border-4 border-white",
+                    menuOpen ? "invisible opacity-0" : "lg:invisible lg:opacity-0"
+                )} onClick={() => setMenuOpen(true)} style={{ marginLeft: "14.5rem" }}>
+                    <GiHamburgerMenu size="1.6rem" className={classnames("transition-all duration-200", menuOpen && "transform -rotate-90")} />
+                </button>
+            </div>
+
             <div className="flex flex-col space-y-2 items-center py-8">
                 <img src={logo} alt="logo" className="w-16 shadow-sm rounded-full" />
                 { active ? (
@@ -72,6 +115,7 @@ const Sidebar = () => {
             <div className="flex-1 flex flex-col space-y-2 items-start shadow-inner py-4 pr-8 text-gray-500">
                 <NavLink
                     to="/"
+                    exact
                     activeClassName="gradient-x text-white"
                     className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 rounded-r-md w-full">
                     <RiDashboardLine className="text-xl" /><span className="font-thin">Dashboard</span>
@@ -83,16 +127,28 @@ const Sidebar = () => {
                         <FiPieChart className="text-xl" /><span className="font-thin">Pools</span><DropdownIcon size="1rem" style={{ marginLeft: "auto" }} />
                     </button>
                     { poolsOpen ? (
-                        <div className="flex-1 flex flex-col space-y-2 border-l border-gray-500 text-gray-500 ml-10">
-                            <button className="flex flex-row items-center w-full px-4 py-2">
+                        <div className="flex-1 flex flex-col space-y-2 border-l border-gray-500 text-gray-500 ml-10 font-thin">
+                            <NavLink
+                                to="/statera"
+                                activeClassName="gradient-x text-white -ml-10"
+                                activeStyle={{ paddingLeft: "calc(2.5rem + 1rem)", width: "calc(100% + 2.5rem)" }}
+                                className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 rounded-r-md w-full">
                                 Statera
-                            </button>
-                            <button className="flex flex-row items-center w-full px-4 py-2">
+                            </NavLink>
+                            <NavLink
+                                to="/delta"
+                                activeClassName="gradient-x text-white -ml-10"
+                                activeStyle={{ paddingLeft: "calc(2.5rem + 1rem)", width: "calc(100% + 2.5rem)" }}
+                                className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 rounded-r-md w-full">
                                 Delta
-                            </button>
-                            <button className="flex flex-row items-center w-full px-4 py-2">
-                                Phoenix Fund
-                            </button>
+                            </NavLink>
+                            <NavLink
+                                to="/phoenix"
+                                activeClassName="gradient-x text-white -ml-10"
+                                activeStyle={{ paddingLeft: "calc(2.5rem + 1rem)", width: "calc(100% + 2.5rem)" }}
+                                className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 rounded-r-md w-full">
+                                Phoenix
+                            </NavLink>
                         </div>
                     ) : null }
                 </div>
