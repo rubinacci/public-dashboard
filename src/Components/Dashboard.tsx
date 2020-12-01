@@ -1,56 +1,35 @@
 import React from "react"
+
 import { Pool } from "../Constants/Pool"
-import PoolTopDataCard from "./PoolTopDataCard"
+import AllPoolsCard from "./cards/AllPoolsCard"
+import MiscLinksCard from "./cards/MiscLinksCard"
+import PoolVolumeCard from "./cards/PoolVolumeCard"
+import SupplyTrackerCard from "./cards/SupplyTrackerCard"
+import PoolColumn from "./PoolColumn"
 
 const Dashboard = () => (
-    <div className="flex-1 flex flex-row px-8 py-6 space-x-4">
-        <div className="flex-1 flex flex-col space-y-4">
-            <PoolTopDataCard pool={Pool.STATERA} />
-            <div className="flex-1 flex flex-col gradient-x rounded-md shadow-md p-2">
-                2
+    <div className="flex flex-col lg:flex-row w-full lg:h-full py-4 px-6 lg:space-x-2 space-y-16 lg:space-y-0">
+        <div className="flex flex-col space-y-16 md:space-y-0 md:flex-row w-full lg:w-1/2 md:space-x-2">
+            <div className="grid grid-rows-4 w-full md:w-1/2 space-y-2">
+                <PoolColumn pool={Pool.STATERA} />
             </div>
-            <div className="flex-1 flex flex-col gradient-x rounded-md shadow-md p-2">
-                3
-            </div>
-            <div className="flex-1 flex flex-col gradient-x rounded-md shadow-md p-2">
-                4
+            { <hr className="lg:hidden" /> }
+            <div className="grid grid-rows-4 w-full md:w-1/2 space-y-2">
+                <PoolColumn pool={Pool.DELTA} />
             </div>
         </div>
-        <div className="flex-1 flex flex-col space-y-4">
-            <PoolTopDataCard pool={Pool.DELTA} />
-            <div className="flex-1 flex flex-col gradient-x rounded-md shadow-md p-2">
-                2
+        { <hr className="lg:hidden" /> }
+        <div className="flex flex-col space-y-16 md:space-y-0 md:flex-row w-full lg:w-1/2 md:space-x-2">
+            <div className="grid grid-rows-4 w-full md:w-1/2 space-y-2">
+                <PoolColumn pool={Pool.PHOENIX} />
             </div>
-            <div className="flex-1 flex flex-col gradient-x rounded-md shadow-md p-2">
-                3
+            { <hr className="lg:hidden" /> }
+            <div className="grid grid-rows-4 w-full md:w-1/2 space-y-2">
+                <AllPoolsCard />
+                <MiscLinksCard />
+                <PoolVolumeCard pool={null} />
+                <SupplyTrackerCard />
             </div>
-            <div className="flex-1 flex flex-col gradient-x rounded-md shadow-md p-2">
-                4
-            </div>
-        </div>
-        <div className="flex-1 flex flex-col space-y-4">
-            <PoolTopDataCard pool={Pool.PHOENIX} />
-            <div className="flex-1 flex flex-col gradient-x rounded-md shadow-md p-2">
-                2
-            </div>
-            <div className="flex-1 flex flex-col gradient-x rounded-md shadow-md p-2">
-                3
-            </div>
-            <div className="flex-1 flex flex-col gradient-x rounded-md shadow-md p-2">
-                4
-            </div>
-        </div>
-        <div className="flex-1 flex flex-col space-y-4">
-            <div className="flex-1 flex flex-col gradient-x rounded-md shadow-md p-2">
-                1
-            </div>
-            <div className="flex-1 flex flex-col gradient-x rounded-md shadow-md p-2">
-                2
-            </div>
-            <div className="flex-1 flex flex-col gradient-x rounded-md shadow-md p-2">
-                3
-            </div>
-            <div className="flex-1 p-2" />
         </div>
     </div>
 )
