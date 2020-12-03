@@ -13,7 +13,7 @@ const PoolPriceCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
     const [timePeriod, setTimePeriod] = useState<string>(Object.keys(timePeriods)[0])
 
     const poolData = useChartData()
-    const chartData = ((poolData || {})[parseInt(timePeriod)] || {})["prices"] || []
+    const chartData: [number, number][] = ((poolData || {})[parseInt(timePeriod)] || {})["prices"] || []
     const priceData = chartData.map(([timestamp, value]: [number, number]) => ({ x: timestamp, y: value }))
 
     return (

@@ -65,13 +65,13 @@ const Loader = () => {
 const StatsDataLoader = () => {
     const data = useApiResult("/stats", {}).data
     const { dispatch } = useContext(Context)
-    useEffect(() => { if (data) dispatch({ type: "SET_statsData", data }) }, [data])
+    useEffect(() => { if (data) dispatch({ type: "SET_statsData", data }) }, [data, dispatch])
     return null
 }
 const ChartDataLoader = () => {
     const data = useApiResult("/chartdata", {}).data
     const { dispatch } = useContext(Context)
-    useEffect(() => { if (data) dispatch({ type: "SET_chartData", data }) }, [data])
+    useEffect(() => { if (data) dispatch({ type: "SET_chartData", data }) }, [data, dispatch])
     return null
 }
 

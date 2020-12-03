@@ -28,7 +28,7 @@ export class RateLimiter {
   private wait(ms: number) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve();
+        resolve(undefined);
       }, ms);
     })
   }

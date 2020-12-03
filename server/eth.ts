@@ -53,7 +53,7 @@ export class Eth {
         child.on('exit', () => {
           Logger.log(kLoggerCategory, `delta_monitor.py done running. Took ${(new Date().getTime() - startDate.getTime()) / 1000} seconds`);
           this.deltaUpdatedPromise = null;
-          resolve();
+          resolve(undefined);
         });
       });
       return this.deltaUpdatedPromise;
@@ -82,7 +82,7 @@ export class Eth {
         child.on('exit', () => {
           Logger.log(kLoggerCategory, `phoenix_monitor.py done running. Took ${(new Date().getTime() - startDate.getTime()) / 1000} seconds`);
           this.phoenixUpdatedPromise = null;
-          resolve();
+          resolve(undefined);
         });
       });
       return this.phoenixUpdatedPromise;

@@ -13,7 +13,7 @@ const PoolVolumeCard: FunctionComponent<{ pool: Pool | null }> = ({ pool }) => {
     const [timePeriod, setTimePeriod] = useState<string>(Object.keys(timePeriods)[0])
 
     const poolData = useChartData()
-    const chartData = ((poolData || {})[parseInt(timePeriod)] || {})["total_volumes"] || []
+    const chartData: [number, number][] = ((poolData || {})[parseInt(timePeriod)] || {})["total_volumes"] || []
     const volumeData = chartData.map(([timestamp, value]: [number, number]) => ({ x: timestamp, y: value }))
 
     return (
