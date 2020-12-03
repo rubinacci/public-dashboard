@@ -1,3 +1,4 @@
+import { CurrencyAmount } from "@uniswap/sdk"
 import React, { FunctionComponent } from "react"
 import { Pool } from "../../Constants/Pool"
 import { useApiResult } from "../../hooks/useApiResult"
@@ -13,7 +14,7 @@ const SinglePoolSupply: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
 
     return (
         <div className="flex flex-row items-center justify-end text-gray-800 space-x-2">
-            <span className="text-right">{ formatNumber(totalSupply || "") }</span>
+            <span className="text-right">{ totalSupply ? `${formatNumber(CurrencyAmount.ether(totalSupply).toFixed(4))} ${pool.symbol}` : "" }</span>
             <div className="flex flex-row items-center">
                 <img src={pool.image} alt={pool.id} className="w-6"/>
             </div>
