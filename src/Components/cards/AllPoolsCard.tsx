@@ -41,7 +41,7 @@ const AllPoolsCard: FunctionComponent = () => {
                                     axisBorder: { show: false },
                                     labels: { show: false },
                                     legend: { show: false },
-                                    tooltip: { custom: CustomTooltip }        
+                                    tooltip: { custom: (e: any) => CustomTooltip({ ...e, format: true }) }        
                                 }} />
                             } />
                     </div>

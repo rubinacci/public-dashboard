@@ -6,6 +6,7 @@ import { Pool } from "../../Constants/Pool"
 import DimensionsProvider from "../DimensionsProvider"
 import CustomTooltip from "../CustomTooltip"
 import { useChartData } from "../../hooks/useETHPrice"
+import { formatNumber } from "../../util/formatNumber"
 
 const PoolVolumeCard: FunctionComponent<{ pool: Pool | null }> = ({ pool }) => {
 
@@ -18,7 +19,10 @@ const PoolVolumeCard: FunctionComponent<{ pool: Pool | null }> = ({ pool }) => {
 
     return (
         <div className="flex-1 flex flex-col rounded-md shadow-sm text-white text-xs pb-2 border border-gray-400 border-opacity-25">
-            <span className="text-gray-500 m-2 font-semibold">Pool{ pool === null ? "s" : "" } volume</span>
+            <div className="flex flex-row justify-between items-center">
+                <span className="text-gray-500 m-2 font-semibold">Pool{ pool === null ? "s" : "" } volume</span>
+                <span className="text-gray-500 font-bold mr-2">Last: { formatNumber(volumeData[volumeData.length - 1]?.y.toString()) }</span>
+            </div>
             <DimensionsProvider className="flex flex-row items-center justify-center my-auto mb-2 h-24" render={({ width, height}) =>
                 <ReactApexChart
                     type="area"
@@ -36,7 +40,7 @@ const PoolVolumeCard: FunctionComponent<{ pool: Pool | null }> = ({ pool }) => {
                         axisBorder: { show: false },
                         labels: { show: false },
                         legend: { show: false },
-                        tooltip: { custom: CustomTooltip }      
+                        tooltip: { custom: (e: any) => CustomTooltip({ ...e, format: true }) }      
                     }} />
                 } />
             <div className="flex flex-row self-center border-l border-r border-gray-500 border-opacity-25 rounded-sm overflow-hidden">

@@ -64,7 +64,7 @@ const PriceHistoryCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
                         axisBorder: { show: false },
                         labels: { show: false },
                         legend: { show: true },
-                        tooltip: { custom: CustomTooltip } 
+                        tooltip: { custom: (e: any) => CustomTooltip({ ...e, format: true }) }  
                     }} />
                 } />
         </div>
