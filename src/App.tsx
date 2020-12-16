@@ -19,7 +19,7 @@ import ReactDOM from 'react-dom'
 
 import logo from "./assets/images/pools/statera.png"
 import { Context, Store } from './Store'
-import { fetchETHPrice } from './hooks/useETHPrice'
+import { fetchETHPrice } from './hooks/useGlobalState'
 import { useApiResult } from './hooks/useApiResult'
 
 Modal.setAppElement('#root')

@@ -1,6 +1,6 @@
 import { CurrencyAmount } from "@uniswap/sdk"
 import { parseEther } from "ethers/lib/utils"
-import { useContext } from "react"
+import { useContext, useMemo } from "react"
 import { Pool } from "../Constants/Pool"
 import { Context } from "../Store"
 import { Api } from "../util/api"
@@ -13,12 +13,22 @@ export const useETHPrice = () => {
 
 export const useStatsData = (pool: Pool | null) => {
     const { state } = useContext(Context)
-    return (state.statsData.topData || {})[pool ? pool?.id : "all"] || {}
+    return (state.statsData || {})[pool ? pool.id : "all"] || {}
 }
 
-export const useChartData = () => {
+export const useChartData = (type: "price" | "volume", pool: Pool | null) => {
     const { state } = useContext(Context)
-    return state.chartData["statera"]
+    return useMemo(() => {
+        switch (type) {
+            case "price":   return (state.chartData["prices"] || {})[pool ? pool.id : "all"] || {}
+            case "volume":  return (state.chartData["volumes"] || {})[pool ? pool.id : "all"] || {}
+        }
+    }, [type, pool, state.chartData])
+}
+
+export const useFormattedChartData = (type: "price" | "volume", pool: Pool | null, period: string) => {
+    const data = useChartData(type, pool)
+    return useMemo(() => ((data[period] || []) as [number, number][]).map(([timestamp, value]: [number, number]) => ({ x: timestamp, y: value || 0 })), [data, period])
 }
 
 export const fetchETHPrice = async () => {
