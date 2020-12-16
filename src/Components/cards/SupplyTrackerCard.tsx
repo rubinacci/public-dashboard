@@ -1,20 +1,18 @@
 import { CurrencyAmount } from "@uniswap/sdk"
-import React, { FunctionComponent } from "react"
+import React, { FunctionComponent, useContext } from "react"
 import { Pool } from "../../Constants/Pool"
 import { useApiResult } from "../../hooks/useApiResult"
+import { useFormattedChartData, useStatsData } from "../../hooks/useGlobalState"
+import { Context } from "../../Store"
 import { formatNumber } from "../../util/formatNumber"
 
 const SinglePoolSupply: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
 
-    const ETHERSCAN_API_KEY = "9JZTPJHQPBX716RAK6G9ZWVJT4EZHG1N51"
-    const { data } = useApiResult(
-        `https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=${pool.address}&apikey=${ETHERSCAN_API_KEY}`,
-        {}, true)
-    const totalSupply = (data as any)["result"]
+    const { supply } = useStatsData(pool)
 
     return (
         <div className="flex flex-row items-center justify-end text-gray-800 space-x-2">
-            <span className="text-right">{ totalSupply ? `${formatNumber(CurrencyAmount.ether(totalSupply).toFixed(4))} ${pool.symbol}` : "" }</span>
+            <span className="text-right">{ supply ? `${formatNumber(CurrencyAmount.ether(supply).toFixed(4))} ${pool.symbol}` : "" }</span>
             <div className="flex flex-row items-center">
                 <img src={pool.image} alt={pool.id} className="w-6"/>
             </div>

@@ -5,7 +5,7 @@ import classnames from "classnames"
 
 import { Pool } from "../../Constants/Pool"
 import { formatNumber } from "../../util/formatNumber"
-import { usePrice, useStatsData } from "../../hooks/useETHPrice"
+import { usePrice, useStatsData } from "../../hooks/useGlobalState"
 import { CurrencyAmount } from "@uniswap/sdk"
 import { parseEther } from "ethers/lib/utils"
 
