@@ -35,13 +35,13 @@ const PoolActionsCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
                             </a>
                         ) : <>
                             <a
-                                href={`https://app.uniswap.org/#/add-liquidity?token=${ pool.address }`}
+                                href={`https://app.uniswap.org/#/add/${ pool.address }/ETH`}
                                 target="_blank" rel="noreferrer noopener"
                                 className="flex-1 bg-blue-400 font-semibold text-white rounded-md p-2 text-center">
                                 ADD LIQUIDITY
                             </a>
                             <a
-                                href={`https://app.uniswap.org/#/remove-liquidity?token=${ pool.address }`}
+                                href={`https://app.uniswap.org/#/remove/${ pool.address }/ETH`}
                                 target="_blank" rel="noreferrer noopener"
                                 className="flex-1 bg-blue-400 font-semibold text-white rounded-md p-2 text-center">
                                 REMOVE LIQUIDITY
