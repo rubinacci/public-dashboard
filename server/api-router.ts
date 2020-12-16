@@ -4,7 +4,7 @@ import { AllCoins, Contracts } from './constants';
 import { Coingecko } from './coingecko';
 import { Bloxy } from './bloxy';
 
-import ExpressJoi from 'express-joi-validator';
+import { StatsProvider } from "./StatsProvider";
 const Joi = require('@hapi/joi');
 
 export class APIRouter {
@@ -43,23 +43,8 @@ export class APIRouter {
       coins: customJoi.stringArray().items(Joi.string())
     });
 */
-    this.router.get("/chartdata", async(req, res) => {
-      const coinNames = req.query.coins ? req.query.coins.split(',') :  AllCoins.map((c) => c.name);
-      const priceableCoins = AllCoins.filter((c) => c.coingeckoId !== null);
-
-      let promises = [];
-
-      let body = {};
-
-      priceableCoins.forEach((coin) => {
-        body[coin.name] = {};
-        promises.push(this.coingecko.getMarketChartLastDay(coin.coingeckoId).then((r) => body[coin.name]['24'] = r));
-        promises.push(this.coingecko.getMarketChartLast30Days(coin.coingeckoId).then((r) => body[coin.name]['30'] = r));
-        promises.push(this.coingecko.getMarketChartLast365Days(coin.coingeckoId).then((r) => body[coin.name]['365'] = r));
-
-      });
-      await Promise.all(promises);
-      res.json(body);
+    this.router.get("/chartdata", async (req, res) => {
+      res.json(await StatsProvider.fetchChartData())
     });
 
     this.router.get("/statera/top_holders", async (req, res) => {
@@ -76,7 +61,8 @@ export class APIRouter {
     });
 
     this.router.get("/stats", async (req, res) => {
-      res.json({
+      res.json(await StatsProvider.fetchStats())
+      /*res.json({
         topData: {
           statera: {
             shares: "0.03%",
@@ -123,7 +109,7 @@ export class APIRouter {
             }
           }
         }
-      });
+      });*/
     });
   }
 }
