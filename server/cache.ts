@@ -42,4 +42,13 @@ export class Cache {
     }
     return value;
   }
+
+  public cachedValueOrClosureAsync = async (key: string, fn: () => Promise<any>, ttl: number) => {
+    let value = this.get(key)
+    if (!value) {
+      value = await fn()
+      this.set(key, value, ttl)
+    }
+    return value
+  }
 }
