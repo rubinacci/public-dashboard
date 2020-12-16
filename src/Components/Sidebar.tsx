@@ -76,15 +76,15 @@ const Sidebar = () => {
             style={{ zIndex: 40 }} />
         <div
             className={classnames(
-                "flex flex-col w-56 h-full bg-gray-100 text-sm",
+                "flex flex-col w-56 h-full gradient-x text-sm",
                 "transition-all duration-200",
-                "fixed lg:relative bg-white",
+                "fixed lg:relative text-white",
                 !menuOpen && "-ml-56 lg:ml-0",
             )} style={{ zIndex: 50 }}>
 
             <div className="relative">
                 <button className={classnames(
-                    "absolute top-0 right-0 text-gray-500 p-2 mt-1 mr-1 transition-all duration-500",
+                    "absolute top-0 right-0 text-gray-300 p-2 mt-1 mr-1 transition-all duration-500",
                     !menuOpen ? "invisible opacity-0" : "lg:invisible lg:opacity-0"
                 )} onClick={() => setMenuOpen(false)}>
                     <RiCloseLine size="1.6rem" className={classnames("transition-all duration-500", !menuOpen && "transform -rotate-90")} />
@@ -103,48 +103,48 @@ const Sidebar = () => {
                 { active ? (
                     <div className="flex flex-row items-center space-x-1">
                         <span>{ formatAccount(account) }</span>
-                        <button className="text-gray-500 hover:text-red-500" onClick={deactivate}>
+                        <button className="text-gray-300 hover:text-red-500" onClick={deactivate}>
                             <ImExit />
                         </button>
                     </div>
                 ) : (
-                    <button className="px-4 py-1 text-xs rounded-md gradient-x text-white font-bold" onClick={() => setModalOpen(true)}>Connect wallet</button>
+                    <button className="px-4 py-1 text-xs rounded-md bg-white text-white font-bold" onClick={() => setModalOpen(true)}><span className="text-gradient">Connect wallet</span></button>
                 ) }
-                <span className="text-gray-500 text-xs">Info message</span>
+                <span className="text-gray-300 text-xs">Info message</span>
             </div>
-            <div className="flex-1 flex flex-col space-y-2 items-start shadow-inner py-4 pr-8 text-gray-500">
+            <div className="flex-1 flex flex-col space-y-2 items-start shadow-inner py-4 pr-8 text-gray-300">
                 <NavLink
                     to="/"
                     exact
-                    activeClassName="gradient-x text-white"
+                    activeClassName="bg-white text-gray-600"
                     className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 rounded-r-md w-full">
                     <RiDashboardLine className="text-xl" /><span className="font-thin">Dashboard</span>
                 </NavLink>
                 <div className="flex flex-col space-y-2 w-full">
                     <button
                         onClick={() => setPoolsOpen(!poolsOpen)}
-                        className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 text-white rounded-r-md w-full text-gray-500 pr-2">
+                        className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 text-white rounded-r-md w-full text-gray-300 pr-2">
                         <FiPieChart className="text-xl" /><span className="font-thin">Pools</span><DropdownIcon size="1rem" style={{ marginLeft: "auto" }} />
                     </button>
                     { poolsOpen ? (
-                        <div className="flex-1 flex flex-col space-y-2 border-l border-gray-500 text-gray-500 ml-10 font-thin">
+                        <div className="flex-1 flex flex-col space-y-2 border-l border-gray-300 text-gray-300 ml-10 font-thin">
                             <NavLink
                                 to="/statera"
-                                activeClassName="gradient-x text-white -ml-10"
+                                activeClassName="bg-white text-gray-600 -ml-10"
                                 activeStyle={{ paddingLeft: "calc(2.5rem + 1rem)", width: "calc(100% + 2.5rem)" }}
                                 className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 rounded-r-md w-full">
                                 Statera
                             </NavLink>
                             <NavLink
                                 to="/delta"
-                                activeClassName="gradient-x text-white -ml-10"
+                                activeClassName="bg-white text-gray-600 -ml-10"
                                 activeStyle={{ paddingLeft: "calc(2.5rem + 1rem)", width: "calc(100% + 2.5rem)" }}
                                 className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 rounded-r-md w-full">
                                 Delta
                             </NavLink>
                             <NavLink
                                 to="/phoenix"
-                                activeClassName="gradient-x text-white -ml-10"
+                                activeClassName="bg-white text-gray-600 -ml-10"
                                 activeStyle={{ paddingLeft: "calc(2.5rem + 1rem)", width: "calc(100% + 2.5rem)" }}
                                 className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 rounded-r-md w-full">
                                 Phoenix
