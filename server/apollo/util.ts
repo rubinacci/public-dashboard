@@ -1,5 +1,5 @@
 import { balancerClient, blockClient, uniswapClient } from "./client"
-import { GET_BLOCKS, UNISWAP_PRICES_BY_BLOCK, BALANCER_PRICES_BY_BLOCK, UNISWAP_PAIR_CHART, UNISWAP_TOKEN_DAILY_DATA, BALANCER_DAILY_SWAP_FEE, BALANCER_DAILY_VOLUME } from "./graphql_queries"
+import { GET_BLOCKS, UNISWAP_PRICES_BY_BLOCK, BALANCER_PRICES_BY_BLOCK, UNISWAP_PAIR_CHART, UNISWAP_TOKEN_DAILY_DATA, BALANCER_DAILY_SWAP_FEE, BALANCER_DAILY_VOLUME, UNISWAP_LIQUIDITY, BALANCER_LIQUIDITY } from "./graphql_queries"
 
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
@@ -225,6 +225,25 @@ export const getTokenAPY = async (address: string, startTime: number, interval: 
       }).reduce((a, b) => a + b, 0)
       const yearlyRoi = periodRoi * 365 / days
       return yearlyRoi
+    }
+  }
+}
+
+export const getCurrentLiquidity = async (address: string, source: "uniswap" | "balancer") => {
+  switch (source) {
+    case "uniswap": {
+      const result = await uniswapClient.query({
+        query: UNISWAP_LIQUIDITY(address),
+        fetchPolicy: "cache-first"
+      })
+      return result.data.pair.reserveUSD
+    }
+    case "balancer": {
+      const result = await balancerClient.query({
+        query: BALANCER_LIQUIDITY(address),
+        fetchPolicy: "cache-first"
+      })
+      return result.data.pool.liquidity
     }
   }
 }

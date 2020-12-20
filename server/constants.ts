@@ -3,7 +3,7 @@ import { Coin } from './model/coin';
 import fetch from "node-fetch"
 import { RateLimiter } from './rate-limiter';
 import { getTimeframeInterval, getTimeframeOptions, getTimeframeOptionsDays, Timeframe } from './util';
-import { getTokenAPY, getTokenPriceHistory, getTokenVolumeHistory } from './apollo/util';
+import { getCurrentLiquidity, getTokenAPY, getTokenPriceHistory, getTokenVolumeHistory } from './apollo/util';
 import { Cache } from './cache';
 
 enum Contracts {
@@ -63,7 +63,8 @@ const STATERA = new Coin('statera', 'STA', Contracts.statera, 'statera',
     async () => {
         return {
             marketData: await fetchCoingeckoMarketData("statera"),
-            supply: await fetchCoingeckoSupply(Contracts.statera)
+            supply: await fetchCoingeckoSupply(Contracts.statera),
+            liquidity: await getCurrentLiquidity("0x59f96b8571e3b11f859a09eaf5a790a138fc64d0", "uniswap")
         }
     })
 const DELTA = new Coin('delta', 'UNI-V2', Contracts.delta, null,
@@ -72,7 +73,8 @@ const DELTA = new Coin('delta', 'UNI-V2', Contracts.delta, null,
     async () => {
         return {
             apy: await fetchAPYs(Contracts.delta, ["24h", "1w", "30d"], "uniswap"),
-            supply: await fetchCoingeckoSupply(Contracts.delta)
+            supply: await fetchCoingeckoSupply(Contracts.delta),
+            liquidity: await getCurrentLiquidity("0x542bca1257c734d58fbea2edbb8f2f3a01eb306d", "uniswap")
         }
     })
 const PHOENIX = new Coin("phoenix", "BPT", Contracts.bpt, null,
@@ -81,7 +83,8 @@ const PHOENIX = new Coin("phoenix", "BPT", Contracts.bpt, null,
     async () => {
         return {
             apy: await fetchAPYs(Contracts.bpt, ["24h", "1w", "30d"], "balancer"),
-            supply: await fetchCoingeckoSupply(Contracts.bpt)
+            supply: await fetchCoingeckoSupply(Contracts.bpt),
+            liquidity: await getCurrentLiquidity(Contracts.bpt, "balancer")
         }
     })
 

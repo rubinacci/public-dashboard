@@ -91,6 +91,22 @@ export const UNISWAP_TOKEN_DAILY_DATA = (address: string, days: number) => gql`
     }
 `
 
+export const UNISWAP_LIQUIDITY = (address: string) => gql`
+    query pair {
+        pair(id: "${address}") {
+            reserveUSD
+        }
+    }
+`
+
+export const BALANCER_LIQUIDITY = (address: string) => gql`
+    query pool {
+        pool(id: "${address}") {
+            liquidity
+        }
+    }
+`
+
 export const BALANCER_DAILY_VOLUME = (poolAddress, blocks) => {
     let queryString = 'query dailyData {'
     queryString += blocks.map(
