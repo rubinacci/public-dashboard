@@ -21,7 +21,16 @@ export const useChartData = (type: "price" | "volume", pool: Pool | null) => {
     return useMemo(() => {
         switch (type) {
             case "price":   return (state.chartData["prices"] || {})[pool ? pool.id : "all"] || {}
-            case "volume":  return (state.chartData["volumes"] || {})[pool ? pool.id : "all"] || {}
+            case "volume":  {
+                const chartData = (state.chartData["volumes"] || {})[pool ? pool.id : "all"] || {}
+                const additionalTimeframes = [["1w", 7], ["30d", 30]]
+                if (chartData["all"]) {
+                    additionalTimeframes.forEach(([label, days]) => {
+                        chartData[label] = chartData["all"].slice(-days)
+                    })
+                }
+                return chartData
+            }
         }
     }, [type, pool, state.chartData])
 }

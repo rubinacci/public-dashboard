@@ -7,9 +7,9 @@ class Coin {
   coingeckoId: string;
   fetchPrices: () => Promise<Record<string, any[]>>
   fetchVolumes: () => Promise<Record<string, any[]>>
-  fetchStats: () => Promise<Record<string, any[]>>
+  fetchStats: () => Promise<Record<string, any>>
 
-  constructor(name: string, symbol: string, contract: string, coingeckoId: string, fetchPrices: () => Promise<Record<string, any[]>>, fetchVolumes: () => Promise<Record<string, any[]>>, fetchStats: () => Promise<Record<string, any[]>>) {
+  constructor(name: string, symbol: string, contract: string, coingeckoId: string, fetchPrices: () => Promise<Record<string, any[]>>, fetchVolumes: () => Promise<Record<string, any[]>>, fetchStats: () => Promise<Record<string, any>>) {
     this.name = name;
     this.symbol = symbol;
     this.contract = contract;

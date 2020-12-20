@@ -16,6 +16,8 @@ const PriceHistoryCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
     const timePeriods = Object.keys(data).sort()
     const [timePeriodIndex, setTimePeriodIndex] = useState<number>(0)
 
+    const allPrices = useFormattedChartData("price", pool, timePeriods[0])
+    const lastPrice = allPrices[allPrices.length - 1]
     const formattedData = useFormattedChartData("price", pool, timePeriods[timePeriodIndex])
 
     return (
@@ -44,7 +46,7 @@ const PriceHistoryCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
                             </button>
                         )) }
                     </div>
-                    <span className="text-gray-500 font-bold">Last price: ${ formatNumber(formattedData[formattedData.length - 1]?.y.toString()) }</span>
+                    <span className="text-gray-500 font-bold">Last price: ${ formatNumber(lastPrice?.y.toString()) }</span>
                 </div>
             </div>
             <DimensionsProvider className="w-full h-24 flex flex-row mt-auto -mb-2" render={({ width, height }) =>

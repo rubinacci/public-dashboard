@@ -1,39 +1,46 @@
-
 import { Coin } from './model/coin';
 
 import fetch from "node-fetch"
 import { RateLimiter } from './rate-limiter';
-import { getTimeframeOptions, Timeframe } from './util';
-import { getTokenPriceHistory, getUniswapVolumeHistory } from './apollo/util';
+import { getTimeframeInterval, getTimeframeOptions, getTimeframeOptionsDays, Timeframe } from './util';
+import { getTokenAPY, getTokenPriceHistory, getTokenVolumeHistory } from './apollo/util';
 import { Cache } from './cache';
 
 enum Contracts {
     statera = '0xa7de087329bfcda5639247f96140f9dabe3deed1',
-    wbtc = '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
-    weth = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-    
-    link = '0x514910771AF9Ca656af840dff83E8264EcF986CA',
-    snx = '0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F',
+    bpt = '0xcd461b73d5fc8ea1d69a600f44618bdfac98364d',
     delta = '0x59f96b8571e3b11f859a09eaf5a790a138fc64d0',
-    bpt = '0xcd461B73D5FC8eA1D69A600f44618BDFaC98364D'
+
+    weth = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
 };
 
 const AllContracts = Object.keys(Contracts).map((x) => Contracts[x]);
 
-const fetchUniswapPricesWithPeriods = async (address: string, periods: Timeframe[]) => {
+const fetchPricesWithPeriods = async (address: string, periods: Timeframe[], source: "uniswap" | "balancer") => {
     const result = {}
     await Promise.all(periods.map(async period => { 
         const [startTime, interval] = Cache.getInstance().cachedValueOrClosure(`TIMEFRAME_${period}`, () => getTimeframeOptions(period), 30 * 60)
-        result[period] = await getTokenPriceHistory(address, startTime, interval, "uniswap")
+        result[period] = await getTokenPriceHistory(address, startTime, interval, source)
     }))
     return result
 }
 
-const fetchUniswapVolumesWithPeriods = async (address: string, periods: Timeframe[]) => {
+const fetchVolumesWithPeriods = async (address: string, periods: Timeframe[], source: "uniswap" | "balancer") => {
     const result = {}
     await Promise.all(periods.map(async period => { 
         const [startTime, interval] = Cache.getInstance().cachedValueOrClosure(`TIMEFRAME_${period}`, () => getTimeframeOptions(period), 30 * 60)
-        result[period] = await getUniswapVolumeHistory(address)
+        result[period] = await getTokenVolumeHistory(address, startTime, interval, source)
+    }))
+    return result
+}
+
+const fetchAPYs = async (address: string, periods: Timeframe[], source: "uniswap" | "balancer") => {
+    const result = {}
+    await Promise.all(periods.map(async period => {
+        const days = getTimeframeOptionsDays(period)
+        const [startTime, ] = getTimeframeOptions(period)
+        const interval = getTimeframeInterval(period)
+        result[period] = await getTokenAPY(address, startTime, interval, days, source)
     }))
     return result
 }
@@ -41,32 +48,39 @@ const fetchUniswapVolumesWithPeriods = async (address: string, periods: Timefram
 const fetchCoingeckoSupply = async (address: string) => {
     return (await (await fetch(`https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=${address}&apikey=${"9JZTPJHQPBX716RAK6G9ZWVJT4EZHG1N51"}`)).json())["result"]
 }
+const fetchCoingeckoMarketData = async (name: string) => {
+    const result = (await (await fetch(`https://api.coingecko.com/api/v3/coins/${name}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`)).json())
+    return {
+        "circulating_supply": result["market_data"]["circulating_supply"],
+        "current_price": result["market_data"]["current_price"]["usd"],
+        "market_cap": result["market_data"]["market_cap"]["usd"]
+    }
+}
 
 const STATERA = new Coin('statera', 'STA', Contracts.statera, 'statera',
-    async () => await fetchUniswapPricesWithPeriods(Contracts.statera, ["24h", "30d", "all"]),
-    async () => await fetchUniswapVolumesWithPeriods("0x59f96b8571e3b11f859a09eaf5a790a138fc64d0", ["daily"]),
+    async () => await fetchPricesWithPeriods(Contracts.statera, ["24h", "30d", "all"], "uniswap"),
+    async () => await fetchVolumesWithPeriods("0x59f96b8571e3b11f859a09eaf5a790a138fc64d0", ["all"], "uniswap"),
     async () => {
         return {
+            marketData: await fetchCoingeckoMarketData("statera"),
             supply: await fetchCoingeckoSupply(Contracts.statera)
         }
     })
 const DELTA = new Coin('delta', 'UNI-V2', Contracts.delta, null,
-    async () => await fetchUniswapPricesWithPeriods(Contracts.delta, ["24h", "30d", "all"]),
-    async () => await fetchUniswapVolumesWithPeriods("0x542bca1257c734d58fbea2edbb8f2f3a01eb306d", ["daily"]),
+    async () => await fetchPricesWithPeriods(Contracts.delta, ["24h", "30d", "all"], "uniswap"),
+    async () => await fetchVolumesWithPeriods("0x542bca1257c734d58fbea2edbb8f2f3a01eb306d", ["all"], "uniswap"),
     async () => {
         return {
+            apy: await fetchAPYs(Contracts.delta, ["24h", "1w", "30d"], "uniswap"),
             supply: await fetchCoingeckoSupply(Contracts.delta)
         }
     })
 const PHOENIX = new Coin("phoenix", "BPT", Contracts.bpt, null,
-    async () => {
-        return {}
-    },
-    async () => {
-        return {}
-    },
+    async () => await fetchPricesWithPeriods(Contracts.bpt, ["24h", "30d", "all"], "balancer"),
+    async () => await fetchVolumesWithPeriods(Contracts.bpt, ["all"], "balancer"),
     async () => {
         return {
+            apy: await fetchAPYs(Contracts.bpt, ["24h", "1w", "30d"], "balancer"),
             supply: await fetchCoingeckoSupply(Contracts.bpt)
         }
     })

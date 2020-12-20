@@ -69,9 +69,23 @@ const StatsDataLoader = () => {
     return null
 }
 const ChartDataLoader = () => {
-    const data = useApiResult("/chartdata", {}).data
+    const data = useApiResult("/chartdata", {}).data as any
     const { dispatch } = useContext(Context)
-    useEffect(() => { if (data) dispatch({ type: "SET_chartData", data }) }, [data, dispatch])
+    useEffect(() => {
+        if (data) {
+            if (data["volumes"]) {
+                const allVolumes: { [timestamp: number]: number } = {}
+                Object.keys(data["volumes"] || {}).forEach(pool => {
+                    const poolVolumes = data["volumes"][pool]["all"]
+                    poolVolumes.forEach(([timestamp, value]: [number, number], i: number) => {
+                        allVolumes[timestamp] = (allVolumes[timestamp] || 0) + value
+                    })
+                })
+                data["volumes"]["all"] = { all: Object.keys(allVolumes).map(timestamp => [timestamp, allVolumes[parseInt(timestamp)]]) }
+            }
+            dispatch({ type: "SET_chartData", data }) 
+        }
+    }, [data, dispatch])
     return null
 }
 

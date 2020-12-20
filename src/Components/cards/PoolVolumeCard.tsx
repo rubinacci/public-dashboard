@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react"
+import React, { FunctionComponent, useMemo, useState } from "react"
 import classnames from "classnames"
 
 import ReactApexChart from "react-apexcharts"
@@ -16,6 +16,8 @@ const PoolVolumeCard: FunctionComponent<{ pool: Pool | null }> = ({ pool }) => {
     const [timePeriodIndex, setTimePeriodIndex] = useState<number>(0)
 
     const formattedData = useFormattedChartData("volume", pool, timePeriods[timePeriodIndex])
+    const formattedDataSpliced = useMemo(() =>
+        timePeriods[timePeriodIndex] !== "all" ? formattedData : formattedData.slice(formattedData.findIndex(({ y }) => y > 0)), [formattedData]) //eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="flex-1 flex flex-col rounded-md shadow-sm text-white text-xs pb-2 border border-gray-400 border-opacity-25">
@@ -23,12 +25,12 @@ const PoolVolumeCard: FunctionComponent<{ pool: Pool | null }> = ({ pool }) => {
                 <span className="text-gray-500 m-2 font-semibold">Pool{ pool === null ? "s" : "" } volume</span>
                 <span className="text-gray-500 font-bold mr-2">Last: ${ formatNumber(formattedData[formattedData.length - 1]?.y.toString()) }</span>
             </div>
-            <DimensionsProvider className="flex flex-row items-center justify-center my-auto mb-2 h-16" render={({ width, height}) =>
+            <DimensionsProvider className="flex flex-row items-center justify-center my-auto mb-2 h-24" render={({ width, height}) =>
                 <ReactApexChart
-                    type="area"
+                    type="bar"
                     height={height}
                     width={"100%"}
-                    series={[{ data: formattedData }]}
+                    series={[{ data: formattedDataSpliced }]}
                     options={{
                         chart: { toolbar: { show: false }, sparkline: { enabled: true } },
                         dataLabels: { enabled: false },

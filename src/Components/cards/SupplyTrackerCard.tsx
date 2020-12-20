@@ -1,9 +1,7 @@
 import { CurrencyAmount } from "@uniswap/sdk"
-import React, { FunctionComponent, useContext } from "react"
+import React, { FunctionComponent } from "react"
 import { Pool } from "../../Constants/Pool"
-import { useApiResult } from "../../hooks/useApiResult"
-import { useFormattedChartData, useStatsData } from "../../hooks/useGlobalState"
-import { Context } from "../../Store"
+import { useStatsData } from "../../hooks/useGlobalState"
 import { formatNumber } from "../../util/formatNumber"
 
 const SinglePoolSupply: FunctionComponent<{ pool: Pool }> = ({ pool }) => {

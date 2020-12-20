@@ -33,7 +33,7 @@ const ConnectModal: FunctionComponent<Modal.Props> = ({ ...props }) => {
         >
             <div className="flex flex-col space-y-4 p-4 px-16">
                 <h1 className="font-bold text-blue-500">Connect your wallet</h1>
-                <div className="flex flex-col md:flex-row w-full p-8 space-x-2">
+                <div className="flex flex-col md:flex-row w-full p-8 space-y-2 md:space-y-0 md:space-x-2">
                     <button
                         className="flex flex-col w-64 space-y-4 items-center p-4 border border-blue-500 rounded-md gradient-x"
                         onClick={e => { activate(injected); props.onRequestClose!(e) }}>

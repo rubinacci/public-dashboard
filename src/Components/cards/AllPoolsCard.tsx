@@ -1,8 +1,5 @@
 import React, { FunctionComponent } from "react"
 
-import ReactApexChart from "react-apexcharts"
-import DimensionsProvider from "../DimensionsProvider"
-import CustomTooltip from "../CustomTooltip"
 import { usePrice, useStatsData } from "../../hooks/useGlobalState"
 import { CurrencyAmount } from "@uniswap/sdk"
 import { parseEther } from "ethers/lib/utils"
@@ -23,7 +20,7 @@ const AllPoolsCard: FunctionComponent = () => {
                 <div className="flex-1 flex flex-row pt-1">
                     <div className="flex-1 flex flex-col">
                         <span className="text-base font-bold">All pools</span>
-                        <DimensionsProvider className="w-32 h-12 flex flex-row items-center justify-center" render={({ width, height }) => 
+                        { /*<DimensionsProvider className="w-32 h-12 flex flex-row items-center justify-center" render={({ width, height }) => 
                             <ReactApexChart
                                 type="area"
                                 width={width}
@@ -43,7 +40,7 @@ const AllPoolsCard: FunctionComponent = () => {
                                     legend: { show: false },
                                     tooltip: { custom: (e: any) => CustomTooltip({ ...e, format: true }) }        
                                 }} />
-                            } />
+                            } />*/ }
                     </div>
                     <div className="flex flex-col space-y-2 justify-end items-end font-bold text-md">
                         <span className="mt-auto">{ usePrice(priceUSD ? CurrencyAmount.ether(parseEther(priceUSD).toString()) : undefined, "usd") }</span>
@@ -51,14 +48,14 @@ const AllPoolsCard: FunctionComponent = () => {
                     </div>
                 </div>
             </div>
-            <hr className="opacity-25" />
-            <div className="flex-1 flex flex-row items-center p-2 space-x-2">
+            <hr className="opacity-25 mt-auto" />
+            <div className="h-16 flex flex-row items-center p-2 space-x-2">
                 <span className="font-thin text-base opacity-50">%APY</span>
-                <div className="flex-1 flex flex-row justify-between">
+                <div className="flex-1 flex flex-row justify-around">
                     { Object.entries(apy).map(([label, value]) => (
                         <div className="flex flex-col items-center" key={label}>
                             <span className="font-thin opacity-50">{ label }</span>
-                            <span className="">{ value as string }</span>
+                            <span className="">{ formatNumber(value as number, 2) }</span>
                         </div>
                     )) }
                 </div>

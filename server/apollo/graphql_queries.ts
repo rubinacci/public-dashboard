@@ -80,20 +80,52 @@ export const UNISWAP_PAIR_CHART = gql`
   }
 `
 
-export const BALANCER_PRICES_BY_BLOCK = (tokenAddress, blocks) => {
-    let queryString = 'query blocks {'
+export const UNISWAP_TOKEN_DAILY_DATA = (address: string, days: number) => gql`
+    query tokenDayDatas {
+        tokenDayDatas(where: { token: "${address}" }, orderBy: date, orderDirection: desc, first: ${days}) {
+            id
+            date
+            dailyVolumeUSD
+            totalLiquidityUSD
+        }
+    }
+`
+
+export const BALANCER_DAILY_VOLUME = (poolAddress, blocks) => {
+    let queryString = 'query dailyData {'
     queryString += blocks.map(
         (block) => `
-            t${block.timestamp}:token(id:"${tokenAddress}", block: { number: ${block.number} }) { 
-            derivedETH
+            t${block.timestamp}:pool(id:"${poolAddress}", block: { number: ${block.number} }) {
+                liquidity
+                totalSwapVolume
             }
         `
     )
-    queryString += ','
+    queryString += '}'
+    return gql(queryString)
+}
+
+export const BALANCER_DAILY_SWAP_FEE = (poolAddress, blocks) => {
+    let queryString = 'query dailyData {'
     queryString += blocks.map(
         (block) => `
-            b${block.timestamp}: bundle(id:"1", block: { number: ${block.number} }) { 
-            ethPrice
+            t${block.timestamp}:pool(id:"${poolAddress}", block: { number: ${block.number} }) {
+                liquidity
+                totalSwapFee
+            }
+        `
+    )
+    queryString += '}'
+    return gql(queryString)
+}
+
+export const BALANCER_PRICES_BY_BLOCK = (poolAddress, blocks) => {
+    let queryString = 'query blocks {'
+    queryString += blocks.map(
+        (block) => `
+            t${block.timestamp}:pool(id:"${poolAddress}", block: { number: ${block.number} }) { 
+                liquidity
+                totalShares
             }
         `
     )

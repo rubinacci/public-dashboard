@@ -44,7 +44,12 @@ export class APIRouter {
     });
 */
     this.router.get("/chartdata", async (req, res) => {
-      res.json(await StatsProvider.fetchChartData())
+      try {
+        res.json(await StatsProvider.fetchChartData())
+      } catch (e) {
+        console.error(e)
+        res.status(500).send(e.toString())
+      }
     });
 
     this.router.get("/statera/top_holders", async (req, res) => {
@@ -61,7 +66,12 @@ export class APIRouter {
     });
 
     this.router.get("/stats", async (req, res) => {
-      res.json(await StatsProvider.fetchStats())
+      try {
+        res.json(await StatsProvider.fetchStats())
+      } catch (e) {
+        console.error(e)
+        res.status(500).send(e.toString())
+      }
       /*res.json({
         topData: {
           statera: {
