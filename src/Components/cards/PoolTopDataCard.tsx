@@ -39,11 +39,11 @@ const PoolTopDataCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
             { apy ? <>
                 <hr className="opacity-25 mt-auto" />
                 <div className="h-16 flex flex-row items-center p-2 space-x-2">
-                    <span className="font-thin text-base opacity-50">%APY</span>
+                    <span className="text-base opacity-75 font-bold">%APY</span>
                     <div className="flex-1 flex flex-row justify-around">
                         { Object.entries(apy).sort().map(([label, value]: [string, number]) => (
                             <div className="flex flex-col items-center" key={label}>
-                                <span className="font-thin opacity-50">{ label }</span>
+                                <span className="font-thin opacity-75">{ label }</span>
                                 <span className="">{ formatNumber(value, 2) }</span>
                             </div>
                         )) }
@@ -54,12 +54,12 @@ const PoolTopDataCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
                 <hr className="opacity-25 mt-auto" />
                 <div className="h-16 flex flex-col items-start p-2 justify-around">
                     <div className="flex flex-row justify-between w-full">
-                        <span className="font-bold">Circulating supply: </span>
-                        <span className="">{ formatNumber(marketData["circulating_supply"], 2) } { pool.symbol }</span>
+                        <span className="font-bold">Circulating Supply: </span>
+                        <span className="font-bold">{ formatNumber(marketData["circulating_supply"], 2) } { pool.symbol }</span>
                     </div>
                     <div className="flex flex-row justify-between w-full">
-                        <span className="font-bold">Market cap: </span>
-                        <span className="">${ formatNumber(marketData["market_cap"], 2) }</span>
+                        <span className="font-bold">Market Cap: </span>
+                        <span className="font-bold">${ formatNumber(marketData["market_cap"], 2) }</span>
                     </div>
                 </div>
             </> : null }

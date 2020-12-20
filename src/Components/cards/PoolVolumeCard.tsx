@@ -22,8 +22,8 @@ const PoolVolumeCard: FunctionComponent<{ pool: Pool | null }> = ({ pool }) => {
     return (
         <div className="flex-1 flex flex-col rounded-md shadow-sm text-white text-xs pb-2 border border-gray-400 border-opacity-25">
             <div className="flex flex-row justify-between items-center">
-                <span className="text-gray-500 m-2 font-semibold">Pool{ pool === null ? "s" : "" } volume</span>
-                <span className="text-gray-500 font-bold mr-2">Last: ${ formatNumber(formattedData[formattedData.length - 1]?.y.toString()) }</span>
+                <span className="text-gray-600 m-2 font-semibold">Pool{ pool === null ? "s" : "" } volume</span>
+                <span className="text-gray-600 font-bold mr-2">Last: ${ formatNumber(formattedData[formattedData.length - 1]?.y.toString()) }</span>
             </div>
             <DimensionsProvider className="flex flex-row items-center justify-center my-auto mb-2 h-24" render={({ width, height}) =>
                 <ReactApexChart

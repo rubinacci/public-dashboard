@@ -10,7 +10,7 @@ const PoolsRevenueCard = () => {
 
     return (
         <div className="flex-1 flex flex-col rounded-md shadow-sm text-white text-xs pb-2 border border-gray-400 border-opacity-25">
-            <span className="text-gray-500 m-2 font-semibold">Pools Revenue</span>
+            <span className="text-gray-600 m-2 font-semibold">Pools Revenue</span>
             <DimensionsProvider className="w-full h-24 flex flex-row items-center justify-center mx-auto my-auto" render={({ width, height }) =>
                 <ReactApexChart
                     type="donut"

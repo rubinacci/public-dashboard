@@ -110,6 +110,7 @@ const Sidebar = () => {
                 ) : (
                     <button className="px-4 py-1 text-xs rounded-md bg-white text-white font-bold" onClick={() => setModalOpen(true)}><span className="text-gradient">Connect wallet</span></button>
                 ) }
+                <a className="font-bold underline" href="https://stateraproject.medium.com/sta-faqs-cafea2fda645" target="_blank" rel="noopener noreferrer">Statera FAQ</a>
             </div>
             <div className="flex-1 flex flex-col space-y-2 items-start shadow-inner py-4 pr-8 text-gray-300">
                 <NavLink

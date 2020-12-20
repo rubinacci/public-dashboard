@@ -45,8 +45,9 @@ const fetchAPYs = async (address: string, periods: Timeframe[], source: "uniswap
     return result
 }
 
-const fetchCoingeckoSupply = async (address: string) => {
-    return (await (await fetch(`https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=${address}&apikey=${"9JZTPJHQPBX716RAK6G9ZWVJT4EZHG1N51"}`)).json())["result"]
+const ETHERSCAN_API_KEY = "JJHP8IFWUGV1ZC3JTEIFHGFMV1YBJZT5YW"
+const fetchSupply = async (address: string) => {
+    return (await (await fetch(`https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=${address}&apikey=${ETHERSCAN_API_KEY}`)).json())["result"]
 }
 const fetchCoingeckoMarketData = async (name: string) => {
     const result = (await (await fetch(`https://api.coingecko.com/api/v3/coins/${name}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`)).json())
@@ -63,7 +64,7 @@ const STATERA = new Coin('statera', 'STA', Contracts.statera, 'statera',
     async () => {
         return {
             marketData: await fetchCoingeckoMarketData("statera"),
-            supply: await fetchCoingeckoSupply(Contracts.statera),
+            supply: await fetchSupply(Contracts.statera),
             liquidity: await getCurrentLiquidity("0x59f96b8571e3b11f859a09eaf5a790a138fc64d0", "uniswap")
         }
     })
@@ -73,7 +74,7 @@ const DELTA = new Coin('delta', 'UNI-V2', Contracts.delta, null,
     async () => {
         return {
             apy: await fetchAPYs(Contracts.delta, ["24h", "1w", "30d"], "uniswap"),
-            supply: await fetchCoingeckoSupply(Contracts.delta),
+            supply: await fetchSupply(Contracts.delta),
             liquidity: await getCurrentLiquidity("0x542bca1257c734d58fbea2edbb8f2f3a01eb306d", "uniswap")
         }
     })
@@ -83,7 +84,7 @@ const PHOENIX = new Coin("phoenix", "BPT", Contracts.bpt, null,
     async () => {
         return {
             apy: await fetchAPYs(Contracts.bpt, ["24h", "1w", "30d"], "balancer"),
-            supply: await fetchCoingeckoSupply(Contracts.bpt),
+            supply: await fetchSupply(Contracts.bpt),
             liquidity: await getCurrentLiquidity(Contracts.bpt, "balancer")
         }
     })

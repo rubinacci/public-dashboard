@@ -23,7 +23,7 @@ const PriceHistoryCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
     return (
         <div className="flex-1 flex flex-col rounded-md shadow-sm text-white text-xs pb-2 border border-gray-400 border-opacity-25">
             <div className="flex flex-row w-full justify-between pr-2">
-                <span className="text-gray-500 m-2 font-semibold">Price History</span>
+                <span className="text-gray-600 m-2 font-semibold">Price History</span>
                 <div className="flex flex-row space-x-2 items-center">
                     <div className="flex flex-row mt-auto self-center border-l border-r border-gray-500 border-opacity-25 rounded-sm overflow-hidden">
                         { timePeriods.map((label, i) => (
@@ -46,7 +46,7 @@ const PriceHistoryCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
                             </button>
                         )) }
                     </div>
-                    <span className="text-gray-500 font-bold">Last price: ${ formatNumber(lastPrice?.y.toString()) }</span>
+                    <span className="text-gray-600 font-bold">Last price: ${ formatNumber(lastPrice?.y.toString()) }</span>
                 </div>
             </div>
             <DimensionsProvider className="w-full h-24 flex flex-row mt-auto -mb-2" render={({ width, height }) =>
