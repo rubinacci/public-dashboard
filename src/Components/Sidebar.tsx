@@ -110,7 +110,6 @@ const Sidebar = () => {
                 ) : (
                     <button className="px-4 py-1 text-xs rounded-md bg-white text-white font-bold" onClick={() => setModalOpen(true)}><span className="text-gradient">Connect wallet</span></button>
                 ) }
-                <span className="text-gray-300 text-xs">Info message</span>
             </div>
             <div className="flex-1 flex flex-col space-y-2 items-start shadow-inner py-4 pr-8 text-gray-300">
                 <NavLink
@@ -154,7 +153,7 @@ const Sidebar = () => {
                 </div>
             </div>
         </div>
-        <ConnectModal isOpen={modalOpen} onRequestClose={() => setModalOpen(false)} />
+        <ConnectModal isOpen={modalOpen} onRequestClose={() => { setModalOpen(false); setMenuOpen(false) }} />
     </>
 }
 

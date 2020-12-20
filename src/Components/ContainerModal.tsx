@@ -21,6 +21,7 @@ const ContainerModal: FunctionComponent<Props & {
         shouldCloseOnEsc={true}
         shouldCloseOnOverlayClick={true}
         onRequestClose={onRequestClose}
+        style={{ overlay: { zIndex: 100 }, content: { zIndex: 100} }}
         { ...props }>
         <div className="relative">
             <button className="absolute text-black top-0 right-0 mr-4 mt-4" onClick={onRequestClose}><FiX /></button>
