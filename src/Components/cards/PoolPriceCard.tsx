@@ -22,7 +22,7 @@ const PoolPriceCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
     return (
         <div className="flex-1 flex flex-col rounded-md shadow-sm text-white text-xs pb-2 border border-gray-400 border-opacity-25">
             <div className="flex flex-row justify-between items-center">
-                <span className="text-gray-600 m-2 font-semibold">Pool price</span>
+                <span className="text-gray-600 m-2 font-semibold">Token price</span>
                 <span className="text-gray-600 font-bold mr-2">Last: ${ formatNumber(lastPrice?.y.toString()) }</span>
             </div>
             <DimensionsProvider className="flex flex-row h-20 w-full items-center justify-center mb-2 mt-auto" render={({ width, height }) =>
