@@ -45,27 +45,15 @@ app.use((req, res, next) => {
 
 // React site route
 app.use(express.static(path.join(__dirname, '../', 'build')));
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '../', 'build', 'index.html'));
-});
 
 app.use("/api", new APIRouter().router);
+
+// redirect to React app if unmatched
+app.use(function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'build', 'index.html'));
+})
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`server started on port ${port}`);
 });
-
-(async () => {
-  const bloxy = Bloxy.getInstance();
-  const r = await bloxy.getHolders(Contracts.bpt);
-  console.log(r);
-/*  const coingecko = new Coingecko();
-  const uniswap = new Uniswap(eth.web3);
-  await uniswap.setup();
-
-  const response = await coingecko.getCurrentPrices(AllCoins.map((c) => c.coingeckoId));
-  console.log(response);*/
-})();
-
-
