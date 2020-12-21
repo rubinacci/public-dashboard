@@ -74,3 +74,8 @@ html, body, #root {
     animation: animate-span 0.75s forwards;
     animation-delay: 0.75s;
 }
+
+a:hover > .parent-hover\:visible {
+    visibility: visible;
+    opacity: 1;
+}

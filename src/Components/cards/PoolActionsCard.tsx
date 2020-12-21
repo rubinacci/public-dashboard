@@ -1,6 +1,13 @@
 import React, { FunctionComponent } from "react"
 import { Pool } from "../../Constants/Pool"
 
+const Tooltip = () => (
+    <span className="absolute bottom-0 left-0 mb-12 p-2 w-full bg-white shadow-lg text-red-400 invisible opacity-0 parent-hover:visible rounded-md transition-all duration-300">
+        Set slippage tolerance above 1%. Check the side bar for detailed instructions
+        <svg className="absolute text-white h-2 w-full left-0 top-full mt-2" x="0px" y="0px" viewBox="0 0 255 255" xmlSpace="preserve"><polygon className="fill-current" points="0,0 127.5,127.5 255,0"/></svg>
+    </span>
+)
+
 const PoolActionsCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
     return (
         <div className="flex-1 flex flex-col rounded-md shadow-sm text-gray-500 text-xs p-2 border border-gray-400 border-opacity-25">
@@ -12,14 +19,16 @@ const PoolActionsCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
                         <a
                             href={`https://app.uniswap.org/#/swap?outputCurrency=${ pool.address }`}
                             target="_blank" rel="noreferrer noopener"
-                            className="flex-1 bg-blue-700 font-semibold text-white rounded-md p-2 px-0 text-center">
+                            className="relative flex-1 bg-blue-700 font-semibold text-white rounded-md p-2 px-0 text-center">
                             BUY { pool.name.split(" ")[0].toUpperCase() }
+                            { pool === Pool.STATERA ? <Tooltip /> : null }
                         </a>
                         <a
                             href={`https://app.uniswap.org/#/swap?inputCurrency=${ pool.address }`}
                             target="_blank" rel="noreferrer noopener"
-                            className="flex-1 bg-blue-700 font-semibold text-white rounded-md p-2 px-0 text-center">
+                            className="relative flex-1 bg-blue-700 font-semibold text-white rounded-md p-2 px-0 text-center">
                             SELL { pool.name.split(" ")[0].toUpperCase() }
+                            { pool === Pool.STATERA ? <Tooltip /> : null }
                         </a>
                     </div>
                 </div> : null }
