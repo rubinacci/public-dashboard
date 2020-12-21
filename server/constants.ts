@@ -45,7 +45,7 @@ const fetchAPYs = async (address: string, periods: Timeframe[], source: "uniswap
     return result
 }
 
-const ETHERSCAN_API_KEY = "JJHP8IFWUGV1ZC3JTEIFHGFMV1YBJZT5YW"
+const ETHERSCAN_API_KEY = "NKZ4HTP4DNJPB3KZSJKI9IN3NPWUQA1N5D"
 const fetchSupply = async (address: string) => {
     return (await (await fetch(`https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=${address}&apikey=${ETHERSCAN_API_KEY}`)).json())["result"]
 }
