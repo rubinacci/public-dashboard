@@ -81,7 +81,7 @@ export const getTokenPriceHistory = async (address: string, startTime: number, i
     const blocks = await Cache.getInstance().cachedValueOrClosureAsync(
         `BLOCKS_FROM_TIMESTAMP_${startTime}_${interval}`,
         async () => await getBlockIntervalFromStartTime(startTime, interval),
-        30 * 60)
+        parseInt(process.env.CACHE_TTL))
     switch (source) {
       case "uniswap": {
         const result = await splitQuery(UNISWAP_PRICES_BY_BLOCK, uniswapClient, [address], blocks, 50)
@@ -178,7 +178,7 @@ export const getTokenVolumeHistory = async (pairAddress, startTime: number, inte
       const blocks = await Cache.getInstance().cachedValueOrClosureAsync(
         `BLOCKS_FROM_TIMESTAMP_${startTime}_${interval}`,
         async () => await getBlockIntervalFromStartTime(startTime, interval),
-        30 * 60)
+        parseInt(process.env.CACHE_TTL))
       const result = await splitQuery(BALANCER_DAILY_VOLUME, balancerClient, [pairAddress], blocks, 50)
 
       const queryLabels = Object.keys(result)
@@ -212,7 +212,7 @@ export const getTokenAPY = async (address: string, startTime: number, interval: 
       const blocks = await Cache.getInstance().cachedValueOrClosureAsync(
         `BLOCKS_FROM_TIMESTAMP_${startTime}_${interval}`,
         async () => await getBlockIntervalFromStartTime(startTime, interval),
-        30 * 60)
+        parseInt(process.env.CACHE_TTL))
       const result = await splitQuery(BALANCER_DAILY_SWAP_FEE, balancerClient, [address], blocks, 50)
 
       const queryLabels = Object.keys(result)

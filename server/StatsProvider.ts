@@ -18,7 +18,7 @@ export class StatsProvider {
                 "prices": pricesPerCoin,
                 "volumes": volumesPerCoin
             }
-        }, 60 * 10 * 1000)
+        }, parseInt(process.env.CACHE_TTL))
     }
 
     static fetchStats = async () => {
@@ -27,7 +27,7 @@ export class StatsProvider {
             const statsPerCoin = {}
             AllCoins.forEach((coin, i) => { statsPerCoin[coin.name] = stats[i] })
             return statsPerCoin
-        }, 60 * 10 * 1000)
+        }, parseInt(process.env.CACHE_TTL))
     }
 
 }

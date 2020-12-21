@@ -19,7 +19,7 @@ const AllContracts = Object.keys(Contracts).map((x) => Contracts[x]);
 const fetchPricesWithPeriods = async (address: string, periods: Timeframe[], source: "uniswap" | "balancer") => {
     const result = {}
     await Promise.all(periods.map(async period => { 
-        const [startTime, interval] = Cache.getInstance().cachedValueOrClosure(`TIMEFRAME_${period}`, () => getTimeframeOptions(period), 30 * 60)
+        const [startTime, interval] = Cache.getInstance().cachedValueOrClosure(`TIMEFRAME_${period}`, () => getTimeframeOptions(period), parseInt(process.env.CACHE_TTL))
         result[period] = await getTokenPriceHistory(address, startTime, interval, source)
     }))
     return result
@@ -28,7 +28,7 @@ const fetchPricesWithPeriods = async (address: string, periods: Timeframe[], sou
 const fetchVolumesWithPeriods = async (address: string, periods: Timeframe[], source: "uniswap" | "balancer") => {
     const result = {}
     await Promise.all(periods.map(async period => { 
-        const [startTime, interval] = Cache.getInstance().cachedValueOrClosure(`TIMEFRAME_${period}`, () => getTimeframeOptions(period), 30 * 60)
+        const [startTime, interval] = Cache.getInstance().cachedValueOrClosure(`TIMEFRAME_${period}`, () => getTimeframeOptions(period), parseInt(process.env.CACHE_TTL))
         result[period] = await getTokenVolumeHistory(address, startTime, interval, source)
     }))
     return result
