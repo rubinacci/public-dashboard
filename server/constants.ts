@@ -10,6 +10,7 @@ enum Contracts {
     statera = '0xa7de087329bfcda5639247f96140f9dabe3deed1',
     bpt = '0xcd461b73d5fc8ea1d69a600f44618bdfac98364d',
     delta = '0x59f96b8571e3b11f859a09eaf5a790a138fc64d0',
+    wsta = "0xedeec5691f23e4914cf0183a4196bbeb30d027a0",
 
     weth = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
 };
@@ -68,14 +69,14 @@ const STATERA = new Coin('statera', 'STA', Contracts.statera, 'statera',
             liquidity: await getCurrentLiquidity("0x59f96b8571e3b11f859a09eaf5a790a138fc64d0", "uniswap")
         }
     })
-const DELTA = new Coin('delta', 'UNI-V2', Contracts.delta, null,
-    async () => await fetchPricesWithPeriods(Contracts.delta, ["24h", "30d", "all"], "uniswap"),
-    async () => await fetchVolumesWithPeriods("0x542bca1257c734d58fbea2edbb8f2f3a01eb306d", ["all"], "uniswap"),
+const WSTA = new Coin('wsta', 'WSTA', Contracts.wsta, null,
+    async () => await fetchPricesWithPeriods(Contracts.wsta, ["24h", "30d", "all"], "balancer"),
+    async () => await fetchVolumesWithPeriods(Contracts.wsta, ["all"], "balancer"),
     async () => {
         return {
-            apy: await fetchAPYs(Contracts.delta, ["24h", "1w", "30d"], "uniswap"),
-            supply: await fetchSupply(Contracts.delta),
-            liquidity: await getCurrentLiquidity("0x542bca1257c734d58fbea2edbb8f2f3a01eb306d", "uniswap")
+            apy: await fetchAPYs(Contracts.wsta, ["24h", "1w", "30d"], "balancer"),
+            supply: await fetchSupply(Contracts.wsta),
+            liquidity: await getCurrentLiquidity(Contracts.bpt, "balancer")
         }
     })
 const PHOENIX = new Coin("phoenix", "BPT", Contracts.bpt, null,
@@ -89,6 +90,6 @@ const PHOENIX = new Coin("phoenix", "BPT", Contracts.bpt, null,
         }
     })
 
-const AllCoins = [STATERA, DELTA, PHOENIX];
+const AllCoins = [STATERA, WSTA, PHOENIX];
 
-export { Contracts, AllContracts, STATERA, DELTA, AllCoins };
+export { Contracts, AllContracts, AllCoins };
