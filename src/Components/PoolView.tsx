@@ -16,7 +16,8 @@ const PoolView: FunctionComponent<{ pool: Pool }> = ({ pool }) => (
         <div className="flex flex-col lg:flex-row w-full space-y-2 lg:space-y-0 lg:space-x-2 lg:h-1/4">
             <div className="flex flex-col w-full lg:w-1/2 md:flex-row md:space-x-2 space-y-2 md:space-y-0">
                 <PoolTopDataCard pool={Pool.STATERA} />
-                <PoolTopDataCard pool={Pool.DELTA} />
+                {/* <PoolTopDataCard pool={Pool.DELTA} /> */}
+                <PoolTopDataCard pool={Pool.WSTA} />
             </div>
             <div className="flex flex-col w-full lg:w-1/2 md:flex-row md:space-x-2 space-y-2 md:space-y-0">
                 <PoolTopDataCard pool={Pool.PHOENIX} />
@@ -53,7 +54,6 @@ const PoolView: FunctionComponent<{ pool: Pool }> = ({ pool }) => (
                 <SupplyTrackerCard />
             </div>
         </div>
-
     </div>
 )
 

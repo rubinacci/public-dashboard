@@ -29,7 +29,7 @@ const ConnectModal: FunctionComponent<Modal.Props> = ({ ...props }) => {
     return (
         <ContainerModal
             className="bg-white rounded-md shadow-lg"
-            { ...props }
+            {...props}
         >
             <div className="flex flex-col space-y-4 p-4 px-16">
                 <h1 className="font-bold text-blue-500">Connect your wallet</h1>
@@ -38,7 +38,7 @@ const ConnectModal: FunctionComponent<Modal.Props> = ({ ...props }) => {
                         className="flex flex-col w-64 space-y-4 items-center p-4 border border-blue-500 rounded-md gradient-x"
                         onClick={e => { activate(injected); props.onRequestClose!(e) }}>
                         <span className="text-white font-bold">
-                            Connect with<br/>Metamask
+                            Connect with<br />Metamask
                         </span>
                         <img src={metamask} alt="metamask" className="h-8" />
                     </button>
@@ -46,7 +46,7 @@ const ConnectModal: FunctionComponent<Modal.Props> = ({ ...props }) => {
                         className="flex flex-col w-64 space-y-4 items-center p-4 border border-blue-500 rounded-md gradient-x"
                         onClick={e => { activate(walletConnect, undefined, true); props.onRequestClose!(e) }}>
                         <span className="text-white font-bold">
-                            Connect with<br/>Walletconnect
+                            Connect with<br />Walletconnect
                         </span>
                         <img src={walletconnect} alt="metamask" className="h-8" />
                     </button>
@@ -100,16 +100,16 @@ const Sidebar = () => {
 
             <div className="flex flex-col space-y-2 items-center py-8">
                 <img src={logo} alt="logo" className="w-16 shadow-sm rounded-full" />
-                { active ? (
+                {active ? (
                     <div className="flex flex-row items-center space-x-1">
-                        <span>{ formatAccount(account) }</span>
+                        <span>{formatAccount(account)}</span>
                         <button className="text-gray-300 hover:text-red-500" onClick={deactivate}>
                             <ImExit />
                         </button>
                     </div>
                 ) : (
-                    <button className="px-4 py-1 text-xs rounded-md bg-white text-white font-bold" onClick={() => setModalOpen(true)}><span className="text-gradient">Connect wallet</span></button>
-                ) }
+                        <button className="px-4 py-1 text-xs rounded-md bg-white text-white font-bold" onClick={() => setModalOpen(true)}><span className="text-gradient">Connect wallet</span></button>
+                    )}
                 <a className="font-bold underline" href="https://stateraproject.medium.com/sta-faqs-cafea2fda645" target="_blank" rel="noopener noreferrer">Statera FAQ</a>
                 <a className="font-bold underline" href="/slippage.mp4" target="_blank" rel="noopener noreferrer">Setting Slippage Tolerance</a>
             </div>
@@ -127,7 +127,7 @@ const Sidebar = () => {
                         className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 text-white rounded-r-md w-full text-gray-300 pr-2">
                         <FiPieChart className="text-xl" /><span className="font-thin">Pools</span><DropdownIcon size="1rem" style={{ marginLeft: "auto" }} />
                     </button>
-                    { poolsOpen ? (
+                    {poolsOpen ? (
                         <div className="flex-1 flex flex-col space-y-2 border-l border-gray-300 text-gray-300 ml-10 font-thin">
                             <NavLink
                                 to="/statera"
@@ -137,11 +137,11 @@ const Sidebar = () => {
                                 Statera
                             </NavLink>
                             <NavLink
-                                to="/delta"
+                                to="/wsta"
                                 activeClassName="bg-white text-gray-600 -ml-10"
                                 activeStyle={{ paddingLeft: "calc(2.5rem + 1rem)", width: "calc(100% + 2.5rem)" }}
                                 className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 rounded-r-md w-full">
-                                Delta
+                                WSTA
                             </NavLink>
                             <NavLink
                                 to="/phoenix"
@@ -151,7 +151,7 @@ const Sidebar = () => {
                                 Phoenix
                             </NavLink>
                         </div>
-                    ) : null }
+                    ) : null}
                 </div>
             </div>
         </div>

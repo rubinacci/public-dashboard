@@ -14,8 +14,11 @@ const Dashboard = () => (
                 <PoolColumn pool={Pool.STATERA} />
             </div>
             { <hr className="lg:hidden" /> }
-            <div className="grid grid-rows-4 w-full md:w-1/2 space-y-2">
+            {/* <div className="grid grid-rows-4 w-full md:w-1/2 space-y-2">
                 <PoolColumn pool={Pool.DELTA} />
+            </div> */}
+             <div className="grid grid-rows-4 w-full md:w-1/2 space-y-2">
+                <PoolColumn pool={Pool.WSTA} />
             </div>
         </div>
         { <hr className="lg:hidden" /> }

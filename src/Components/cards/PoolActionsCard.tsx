@@ -20,14 +20,14 @@ const PoolActionsCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
                             href={`https://app.uniswap.org/#/swap?outputCurrency=${ pool.address }`}
                             target="_blank" rel="noreferrer noopener"
                             className="relative flex-1 bg-blue-700 font-semibold text-white rounded-md p-2 px-0 text-center">
-                            BUY { pool.name.split(" ")[0].toUpperCase() }
+                            BUY { pool.symbol.toUpperCase() }
                             { pool === Pool.STATERA ? <Tooltip /> : null }
                         </a>
                         <a
                             href={`https://app.uniswap.org/#/swap?inputCurrency=${ pool.address }`}
                             target="_blank" rel="noreferrer noopener"
                             className="relative flex-1 bg-blue-700 font-semibold text-white rounded-md p-2 px-0 text-center">
-                            SELL { pool.name.split(" ")[0].toUpperCase() }
+                            SELL { pool.symbol.toUpperCase() }
                             { pool === Pool.STATERA ? <Tooltip /> : null }
                         </a>
                     </div>
