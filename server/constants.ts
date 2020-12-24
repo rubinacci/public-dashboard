@@ -76,7 +76,7 @@ const WSTA = new Coin('wsta', 'WSTA', Contracts.wsta, null,
         return {
             apy: await fetchAPYs(Contracts.wsta, ["24h", "1w", "30d"], "balancer"),
             supply: await fetchSupply(Contracts.wsta),
-            liquidity: await getCurrentLiquidity(Contracts.bpt, "balancer")
+            liquidity: await getCurrentLiquidity(Contracts.wsta, "balancer")
         }
     })
 const PHOENIX = new Coin("phoenix", "BPT", Contracts.bpt, null,
