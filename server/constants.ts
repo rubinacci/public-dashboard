@@ -70,13 +70,13 @@ const STATERA = new Coin('statera', 'STA', Contracts.statera, 'statera',
         }
     })
 const WSTA = new Coin('wsta', 'WSTA', Contracts.wsta, null,
-    async () => await fetchPricesWithPeriods(Contracts.wsta, ["24h", "30d", "all"], "balancer"),
-    async () => await fetchVolumesWithPeriods(Contracts.wsta, ["all"], "balancer"),
+    async () => await fetchPricesWithPeriods(Contracts.wsta, ["24h", "30d", "all"], "uniswap"),
+    async () => await fetchVolumesWithPeriods("0xa94700c1a1ae21324e78d5bdf6b2924e45a6068f", ["all"], "uniswap"),
     async () => {
         return {
-            apy: await fetchAPYs(Contracts.wsta, ["24h", "1w", "30d"], "balancer"),
+            apy: await fetchAPYs(Contracts.wsta, ["24h", "1w", "30d"], "uniswap"),
             supply: await fetchSupply(Contracts.wsta),
-            liquidity: await getCurrentLiquidity(Contracts.wsta, "balancer")
+            liquidity: await getCurrentLiquidity("0xa94700c1a1ae21324e78d5bdf6b2924e45a6068f", "uniswap")
         }
     })
 const PHOENIX = new Coin("phoenix", "BPT", Contracts.bpt, null,
