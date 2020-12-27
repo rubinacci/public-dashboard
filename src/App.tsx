@@ -106,7 +106,7 @@ const App = () => {
                                     <Route exact path="/" component={Dashboard} />
                                     <Route exact path="/statera" component={() => <PoolView pool={Pool.STATERA} />} />
                                     <Route exact path="/wsta" component={() => <PoolView pool={Pool.WSTA} />} />
-                                    <Route exact path="/phoenix" component={() => <PoolView pool={Pool.PHOENIX} />} />
+                                    <Route exact path="/stanos" component={() => <PoolView pool={Pool.STANOS} />} />
                                 </Switch>
                             </div>
                         </div>

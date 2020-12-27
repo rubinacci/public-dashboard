@@ -1,7 +1,6 @@
 import { Coin } from './model/coin';
 
 import fetch from "node-fetch"
-import { RateLimiter } from './rate-limiter';
 import { getTimeframeInterval, getTimeframeOptions, getTimeframeOptionsDays, Timeframe } from './util';
 import { getCurrentLiquidity, getTokenAPY, getTokenPriceHistory, getTokenVolumeHistory } from './apollo/util';
 import { Cache } from './cache';
@@ -9,6 +8,7 @@ import { Cache } from './cache';
 enum Contracts {
     statera = '0xa7de087329bfcda5639247f96140f9dabe3deed1',
     bpt = '0xcd461b73d5fc8ea1d69a600f44618bdfac98364d',
+    sbpt = '0x55353cbadda8fd525f0e6f307b3527d518416700',
     delta = '0x59f96b8571e3b11f859a09eaf5a790a138fc64d0',
     wsta = "0xedeec5691f23e4914cf0183a4196bbeb30d027a0",
 
@@ -79,17 +79,17 @@ const WSTA = new Coin('wsta', 'WSTA', Contracts.wsta, null,
             liquidity: await getCurrentLiquidity("0xa94700c1a1ae21324e78d5bdf6b2924e45a6068f", "uniswap")
         }
     })
-const PHOENIX = new Coin("phoenix", "BPT", Contracts.bpt, null,
-    async () => await fetchPricesWithPeriods(Contracts.bpt, ["24h", "30d", "all"], "balancer"),
-    async () => await fetchVolumesWithPeriods(Contracts.bpt, ["all"], "balancer"),
+const STANOS = new Coin("stanos", "SBPT", Contracts.sbpt, null,
+    async () => await fetchPricesWithPeriods(Contracts.sbpt, ["24h", "30d", "all"], "balancer"),
+    async () => await fetchVolumesWithPeriods(Contracts.sbpt, ["all"], "balancer"),
     async () => {
         return {
-            apy: await fetchAPYs(Contracts.bpt, ["24h", "1w", "30d"], "balancer"),
-            supply: await fetchSupply(Contracts.bpt),
-            liquidity: await getCurrentLiquidity(Contracts.bpt, "balancer")
+            apy: await fetchAPYs(Contracts.sbpt, ["24h", "1w", "30d"], "balancer"),
+            supply: await fetchSupply(Contracts.sbpt),
+            liquidity: await getCurrentLiquidity(Contracts.sbpt, "balancer")
         }
     })
 
-const AllCoins = [STATERA, WSTA, PHOENIX];
+const AllCoins = [STATERA, WSTA, STANOS];
 
 export { Contracts, AllContracts, AllCoins };

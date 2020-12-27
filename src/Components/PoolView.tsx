@@ -20,7 +20,7 @@ const PoolView: FunctionComponent<{ pool: Pool }> = ({ pool }) => (
                 <PoolTopDataCard pool={Pool.WSTA} />
             </div>
             <div className="flex flex-col w-full lg:w-1/2 md:flex-row md:space-x-2 space-y-2 md:space-y-0">
-                <PoolTopDataCard pool={Pool.PHOENIX} />
+                <PoolTopDataCard pool={Pool.STANOS} />
                 <AllPoolsCard />
             </div>
         </div>

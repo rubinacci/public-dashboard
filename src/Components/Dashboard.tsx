@@ -24,7 +24,7 @@ const Dashboard = () => (
         { <hr className="lg:hidden" /> }
         <div className="flex flex-col space-y-16 md:space-y-0 md:flex-row w-full lg:w-1/2 md:space-x-2">
             <div className="grid grid-rows-4 w-full md:w-1/2 space-y-2">
-                <PoolColumn pool={Pool.PHOENIX} />
+                <PoolColumn pool={Pool.STANOS} />
             </div>
             { <hr className="lg:hidden" /> }
             <div className="grid grid-rows-4 w-full md:w-1/2 space-y-2">

@@ -144,11 +144,11 @@ const Sidebar = () => {
                                 WSTA
                             </NavLink>
                             <NavLink
-                                to="/phoenix"
+                                to="/stanos"
                                 activeClassName="bg-white text-gray-600 -ml-10"
                                 activeStyle={{ paddingLeft: "calc(2.5rem + 1rem)", width: "calc(100% + 2.5rem)" }}
                                 className="flex flex-row items-center space-x-2 mr-4 px-4 py-2 rounded-r-md w-full">
-                                Phoenix
+                                Stanos
                             </NavLink>
                         </div>
                     ) : null}

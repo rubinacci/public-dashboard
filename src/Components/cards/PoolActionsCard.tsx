@@ -13,7 +13,7 @@ const PoolActionsCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
         <div className="flex-1 flex flex-col rounded-md shadow-sm text-gray-500 text-xs p-2 border border-gray-400 border-opacity-25">
             <span className="font-semibold">Transactions</span>
             <div className="flex-1 flex flex-col justify-center space-y-2">
-                { pool !== Pool.PHOENIX ? <div className="flex-1 flex flex-col items-center justify-center space-y-1">
+                { pool !== Pool.STANOS ? <div className="flex-1 flex flex-col items-center justify-center space-y-1">
                     <span className="text-sm font-thin">Trade</span>
                     <div className="flex flex-row w-full space-x-2">
                         <a
@@ -35,7 +35,7 @@ const PoolActionsCard: FunctionComponent<{ pool: Pool }> = ({ pool }) => {
                 <div className="flex-1 flex flex-col items-center justify-center space-y-1">
                     <span className="text-sm font-thin">Liquidity Pool</span>
                     <div className="flex flex-row w-full space-x-2">
-                        { pool === Pool.PHOENIX ? (
+                        { pool === Pool.STANOS ? (
                             <a
                                 href={`https://pools.balancer.exchange/#/pool/${ pool.address }`}
                                 target="_blank" rel="noreferrer noopener"
