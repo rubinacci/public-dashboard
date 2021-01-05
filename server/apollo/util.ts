@@ -181,10 +181,11 @@ export const getTokenVolumeHistory = async (pairAddress, startTime: number, inte
         parseInt(process.env.CACHE_TTL))
       const result = await splitQuery(BALANCER_DAILY_VOLUME, balancerClient, [pairAddress], blocks, 50)
 
-      const queryLabels = Object.keys(result)
-      const volumes = queryLabels.filter(r => !!result[r]).map(r => r.split("t")[1]).filter(r => !!r).map((timestamp, i) => {
-        const totalSwapVolume = parseFloat(result[`t${timestamp}`].totalSwapVolume)
-        const deltaVolume = totalSwapVolume - (i === 0 ? 0 : parseFloat(result[queryLabels[i-1]].totalSwapVolume))
+      const queryLabels = Object.keys(result).filter(r => !!result[r])
+      const getTotalSwapVolume = (t: string) => { try { return result[t].totalSwapVolume } catch { return 0 } }
+      const volumes = queryLabels.map(r => r.split("t")[1]).filter(r => !!r).map((timestamp, i) => {
+        const totalSwapVolume = parseFloat(getTotalSwapVolume(`t${timestamp}`))
+        const deltaVolume = totalSwapVolume - (i === 0 ? 0 : parseFloat(getTotalSwapVolume(queryLabels[i-1])))
         return [parseInt(timestamp), deltaVolume]
       })
       return volumes

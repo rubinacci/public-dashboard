@@ -76,7 +76,7 @@ const ChartDataLoader = () => {
             if (data["volumes"]) {
                 const allVolumes: { [timestamp: number]: number } = {}
                 Object.keys(data["volumes"] || {}).forEach(pool => {
-                    const poolVolumes = data["volumes"][pool]["all"]
+                    const poolVolumes = data["volumes"][pool]["all"] || []
                     poolVolumes.forEach(([timestamp, value]: [number, number], i: number) => {
                         allVolumes[timestamp] = (allVolumes[timestamp] || 0) + value
                     })

@@ -25,7 +25,7 @@ const AllPoolsCard: FunctionComponent = () => {
                     <span className="text-base font-bold">All pools - <b className="font-normal">Total liquidity</b></span>
                 </div>
                 <div className="flex flex-col space-y-2 text-sm mt-auto mb-1">
-                    { Pool.values.map(pool => <PoolLiquidity pool={pool} />) }
+                    { Pool.values.map(pool => <PoolLiquidity key={pool.id} pool={pool} />) }
                 </div>
             </div>
         </div>
