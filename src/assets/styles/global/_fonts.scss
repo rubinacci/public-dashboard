@@ -1,0 +1,12 @@
+$regular: 400;
+$medium: 500;
+$semi-bold: 600;
+$bold: 700;
+$extra-bold: 800;
+
+body, html {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
+  font-weight: $regular;
+}

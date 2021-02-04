@@ -1,26 +1,25 @@
 import React, { useContext, useEffect } from 'react'
-
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
-
 import Modal from "react-modal"
-
 import { Web3ReactProvider } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers'
-
-import Sidebar from './Components/Sidebar'
-import Dashboard from './Components/Dashboard'
 import { useEagerConnect } from './hooks/useEagerConnect'
 import { useInactiveListener } from './hooks/useInactiveListener'
 import { Pool } from './Constants/Pool'
-import PoolView from './Components/PoolView'
 import ReactDOM from 'react-dom'
-
-import logo from "./assets/images/pools/statera.png"
 import { Context, Store } from './Store'
 import { fetchETHPrice } from './hooks/useGlobalState'
 import { useApiResult } from './hooks/useApiResult'
+import classes from "./App.module.scss"
+import logo from "./assets/images/pools/statera.png"
+// Components
+import Sidebar from './Components/Sidebar/Sidebar'
+// import Dashboard from './Components/Dashboard'
+// import PoolView from './Components/PoolView'
+import IndexPage from './pages/IndexPage'
+import TokenPage from './pages/TokenPage'
+
 
 Modal.setAppElement('#root')
 
@@ -83,30 +82,29 @@ const ChartDataLoader = () => {
                 })
                 data["volumes"]["all"] = { all: Object.keys(allVolumes).map(timestamp => [timestamp, allVolumes[parseInt(timestamp)]]) }
             }
-            dispatch({ type: "SET_chartData", data }) 
+            dispatch({ type: "SET_chartData", data })
         }
     }, [data, dispatch])
     return null
 }
 
-const App = () => { 
+const App = () => {
     return (
         <ApolloProvider client={uniswapGraphClient}>
             <Web3ReactProvider getLibrary={getLibrary}>
                 <Store>
-                    <Loader />
                     <StatsDataLoader />
                     <ChartDataLoader />
                     <EagerConnect />
                     <Router>
-                        <div className="flex flex-row w-screen h-screen overflow-x-hidden">
-                            <Sidebar />
-                            <div className="flex flex-col w-full" style={{ minHeight: 720 /* anything smaller looks off */ }}>
+                        <div className={classes.app}>
+                            <div className={classes.sidebarContainer}>
+                                <Sidebar />
+                            </div>
+                            <div className={classes.main}>
                                 <Switch>
-                                    <Route exact path="/" component={Dashboard} />
-                                    <Route exact path="/statera" component={() => <PoolView pool={Pool.STATERA} />} />
-                                    <Route exact path="/wsta" component={() => <PoolView pool={Pool.WSTA} />} />
-                                    <Route exact path="/stanos" component={() => <PoolView pool={Pool.STANOS} />} />
+                                    <Route exact path="/" component={IndexPage} />
+                                    <Route exact path="/token" component={TokenPage} />
                                 </Switch>
                             </div>
                         </div>

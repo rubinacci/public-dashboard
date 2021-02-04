@@ -1,0 +1,29 @@
+@import "./assets/styles/global/colors";
+
+// Sidebar width 240px
+
+.app {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+.sidebarContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow: auto hidden;
+  width: 240px;
+  background: rgb(42,49,67);
+}
+
+.main {
+  height: 100vh;
+  width: calc(100vw - 240px);
+  overflow: auto hidden;
+  position: absolute;
+  left: 240px;
+  top: 0;
+  background: $bg;
+}
