@@ -49,7 +49,7 @@
   transition: 100ms all;
   border-radius: 4px;
 
-  &:hover {
+  &:hover, &.active {
     color: white;
     background: rgb(64,74,99);
   }

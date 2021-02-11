@@ -67,26 +67,71 @@ const Sidebar = () => {
         <div className={classes.section}>
           <div className={classes.sectionTitle}>Tokens</div>
           <div className={classes.sectionLinkContainer}>
-            <NavLink className={classes.sectionLink} to="/token/sta">STA</NavLink>
-            <NavLink className={classes.sectionLink} to="/token/wsta">wSTA</NavLink>
+            <NavLink
+              className={classes.sectionLink}
+              activeClassName={classes.active}
+              to="/sta"
+            >
+              STA / wSTA
+            </NavLink>
           </div>
         </div>
 
         <div className={classes.section}>
           <div className={classes.sectionTitle}>Dual-Asset Pools</div>
           <div className={classes.sectionLinkContainer}>
-            <NavLink className={classes.sectionLink} to="/pair/delta">Delta</NavLink>
-            <NavLink className={classes.sectionLink} to="/pair/infinity">Infinity</NavLink>
+            <NavLink
+              className={classes.sectionLink}
+              activeClassName={classes.active}
+              to="/pair/delta"
+            >
+              Delta
+            </NavLink>
+
+            <NavLink
+              className={classes.sectionLink}
+              activeClassName={classes.active}
+              to="/pair/infinity"
+            >
+              Infinity
+            </NavLink>
           </div>
         </div>
 
         <div className={classes.section}>
           <div className={classes.sectionTitle}>Multi-Asset Pools</div>
           <div className={classes.sectionLinkContainer}>
-            <NavLink className={classes.sectionLink} to="/token/alpha">Alpha</NavLink>
-            <NavLink className={classes.sectionLink} to="/token/pheonix">Pheonix</NavLink>
-            <NavLink className={classes.sectionLink} to="/token/high-risk">High-Risk</NavLink>
-            <NavLink className={classes.sectionLink} to="/token/low-risk">Low-Risk</NavLink>
+            <NavLink
+              className={classes.sectionLink}
+              activeClassName={classes.active}
+              to="/token/alpha"
+            >
+              Alpha
+            </NavLink>
+
+            <NavLink
+              className={classes.sectionLink}
+              activeClassName={classes.active}
+              to="/token/pheonix"
+            >
+              Pheonix
+            </NavLink>
+
+            <NavLink
+              className={classes.sectionLink}
+              activeClassName={classes.active}
+              to="/token/high-risk"
+            >
+              High-Risk
+            </NavLink>
+
+            <NavLink
+              className={classes.sectionLink}
+              activeClassName={classes.active}
+              to="/token/low-risk"
+            >
+              Low-Risk
+            </NavLink>
           </div>
         </div>
       </div>

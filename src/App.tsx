@@ -18,7 +18,7 @@ import Sidebar from './Components/Sidebar/Sidebar'
 // import Dashboard from './Components/Dashboard'
 // import PoolView from './Components/PoolView'
 import IndexPage from './pages/IndexPage'
-import TokenPage from './pages/TokenPage'
+import StaPage from './pages/StaPage'
 
 
 Modal.setAppElement('#root')
@@ -104,7 +104,7 @@ const App = () => {
                             <div className={classes.main}>
                                 <Switch>
                                     <Route exact path="/" component={IndexPage} />
-                                    <Route exact path="/token" component={TokenPage} />
+                                    <Route exact path="/sta" component={StaPage} />
                                 </Switch>
                             </div>
                         </div>
