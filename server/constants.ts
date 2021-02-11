@@ -9,9 +9,11 @@ enum Contracts {
     statera = '0xa7de087329bfcda5639247f96140f9dabe3deed1',
     bpt = '0xcd461b73d5fc8ea1d69a600f44618bdfac98364d',
     sbpt = '0x55353cbadda8fd525f0e6f307b3527d518416700',
+    highrisk = '0xe6cb1c3a212001d02706ef93ea0a87b35b36d016',
+    lowrisk = '0x5353e4294fcf069a5e8db9b8109d8f23dcd25f35',
     delta = '0x59f96b8571e3b11f859a09eaf5a790a138fc64d0',
     wsta = "0xedeec5691f23e4914cf0183a4196bbeb30d027a0",
-
+    infinity = "0xa94700c1a1ae21324e78d5bdf6b2924e45a6068f",
     weth = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
 };
 
@@ -19,7 +21,7 @@ const AllContracts = Object.keys(Contracts).map((x) => Contracts[x]);
 
 const fetchPricesWithPeriods = async (address: string, periods: Timeframe[], source: "uniswap" | "balancer") => {
     const result = {}
-    await Promise.all(periods.map(async period => { 
+    await Promise.all(periods.map(async period => {
         const [startTime, interval] = Cache.getInstance().cachedValueOrClosure(`TIMEFRAME_${period}`, () => getTimeframeOptions(period), parseInt(process.env.CACHE_TTL))
         result[period] = await getTokenPriceHistory(address, startTime, interval, source)
     }))
@@ -28,7 +30,7 @@ const fetchPricesWithPeriods = async (address: string, periods: Timeframe[], sou
 
 const fetchVolumesWithPeriods = async (address: string, periods: Timeframe[], source: "uniswap" | "balancer") => {
     const result = {}
-    await Promise.all(periods.map(async period => { 
+    await Promise.all(periods.map(async period => {
         const [startTime, interval] = Cache.getInstance().cachedValueOrClosure(`TIMEFRAME_${period}`, () => getTimeframeOptions(period), parseInt(process.env.CACHE_TTL))
         result[period] = await getTokenVolumeHistory(address, startTime, interval, source)
     }))
