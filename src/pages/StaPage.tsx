@@ -1,26 +1,26 @@
 import React, { FunctionComponent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCoingeckoMarketData } from '../store/actions/statera'
+import { load } from '../store/actions/statera'
 
 const TokenPage: FunctionComponent<void> = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getCoingeckoMarketData())
-  }, [])
+    dispatch(load())
+  }, [dispatch])
 
 
-  const priceState = useSelector((state:any) => state.statera.price)
+  const stateraState = useSelector((state:any) => state.statera)
 
   let priceDom
-  if (priceState.meta.loading) {
+  if (stateraState.meta.loading) {
     priceDom = <div>Loading</div>
-  } else if (priceState.meta.success) {
+  } else if (stateraState.meta.success) {
     priceDom = (
       <div>
-        Current Price: { priceState.current }
+        Current Price: { stateraState.price.current }
         <br />
-        Previous Price: { priceState.previous }
+        Previous Price: { stateraState.price.previous }
       </div>
     )
   }

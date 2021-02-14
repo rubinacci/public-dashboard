@@ -1,20 +1,12 @@
 import React, { FunctionComponent, useState } from 'react'
 import Modal from 'react-modal'
 import classes from './Sidebar.module.scss'
-import cx from 'classnames'
 import { NavLink } from 'react-router-dom'
 import ContainerModal from '../ContainerModal'
-import { RiCloseLine, RiDashboardLine } from 'react-icons/ri'
-import { FiPieChart } from 'react-icons/fi'
-import { HiOutlineChevronDown, HiOutlineChevronUp } from 'react-icons/hi'
-import { ImExit } from 'react-icons/im'
-import { GiHamburgerMenu } from 'react-icons/gi'
-import logo from '../../assets/logo.png'
 import metamask from '../../assets/images/web3/metamask.svg'
 import walletconnect from '../../assets/images/web3/walletconnect.svg'
 import { useWeb3React } from '@web3-react/core'
 import { injected, walletConnect } from '../../web3/connectors'
-import { formatAccount } from '../../util/formatAccount'
 
 const ConnectModal: FunctionComponent<Modal.Props> = ({ ...props }) => {
   const { activate } = useWeb3React()
@@ -54,8 +46,6 @@ const Sidebar = () => {
   const [poolsOpen, setPoolsOpen] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
   const { account, active, deactivate } = useWeb3React()
-
-  const DropdownIcon = poolsOpen ? HiOutlineChevronUp : HiOutlineChevronDown
 
   return (
     <>

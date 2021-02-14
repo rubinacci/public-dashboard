@@ -1,32 +1,38 @@
+import { STA_TOTAL_SUPPLY } from '../../Constants/Constants'
+
 const INITIAL_STATE = {
+  price: {
+    sta: {
+      current: null,
+      previous: null,
+      change: null,
+      changePerc: null,
+    },
+    wsta: {
+      current: null,
+      previous: null,
+      change: null,
+      changePerc: null,
+    },
+  },
   swapRatios: {
     staToWSta: null,
     wStaToSta: null,
   },
-  price: {
+  volume: {
+    inCurrency: null,
+    inSta: null,
+  },
+  supply: {
     current: null,
-    previous: null,
-    meta: {
-      success: false,
-      loading: false,
-      error: false,
-      errorMessage: null,
-    },
+    total: STA_TOTAL_SUPPLY,
+    wsta: null,
   },
-  volume: {},
-  stats: {
-    remainingSupply: null,
-    burn: null,
-    wrappedSupply: null,
-  },
+  burn24h: null,
+  wrappedSupply: null,
   chart: {
-    data: null,
-    meta: {
-      success: false,
-      loading: false,
-      error: false,
-      errorMessage: null,
-    },
+    price: null,
+    volumne: null,
   },
   meta: {
     success: false,
@@ -39,51 +45,60 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action:any) => {
 	switch (action.type) {
 
-		case 'PRICE_LOADING': {
-			return Object.assign({}, state, {
-        price: {
-          current: null,
-          previous: null,
-          meta: {
-            success: false,
-            loading: true,
-            error: false,
-            errorMessage: null,
-          }
-        },
+		case 'STATERA_LOADING': {
+			return Object.assign({}, INITIAL_STATE, {
+        meta: {
+          loading: true,
+        }
       })
     }
 
-    case 'PRICE_SUCCESS': {
-      const current = action.payload.market_data?.current_price?.usd
-      const previous = action.payload.market_data?.price_change_24h_in_currency?.usd
+    case 'STATERA_SUCCESS': {
+      const _results = action.payload
+      const priceVolumeStaResult = _results.find((result:any) => result.name === 'price:sta').result
+      const priceWStaResult = _results.find((result:any) => result.name === 'price:wsta').result
+      const supplyStaResult = _results.find((result:any) => result.name === 'supply:sta').result
+      const supplyWStaResult = _results.find((result:any) => result.name === 'supply:wsta').result
+      const chartResult = _results.find((result:any) => result.name === 'chart').result
 
-			return Object.assign({}, state, {
+			return Object.assign({}, INITIAL_STATE, {
         price: {
-          current,
-          previous,
-          meta: {
-            success: true,
-            loading: false,
-            error: false,
-            errorMessage: null,
-          }
+          sta: {
+            current: priceVolumeStaResult.currentPrice,
+            previous: priceVolumeStaResult.previousPrice,
+            change: priceVolumeStaResult.priceChange,
+            changePerc: priceVolumeStaResult.priceChangePerc,
+          },
+          wsta: {
+            current: priceWStaResult.currentPrice,
+            previous: priceWStaResult.previousPrice,
+            change: priceWStaResult.priceChange,
+            changePerc: priceWStaResult.priceChangePerc,
+          },
         },
+        volume: {
+          inCurrency: priceVolumeStaResult.volumeInCurrency,
+          inSta: priceVolumeStaResult.volumeInSta,
+        },
+        supply: {
+          current: supplyStaResult,
+          wsta: supplyWStaResult,
+        },
+        chart: {
+          price: chartResult.price,
+          volumne: chartResult.volume,
+        },
+        meta: {
+          success: true,
+        }
       })
     }
 
-    case 'PRICE_ERROR': {
-			return Object.assign({}, state, {
-        price: {
-          current: null,
-          previous: null,
-          meta: {
-            success: false,
-            loading: false,
-            error: true,
-            errorMessage: null,
-          }
-        },
+    case 'STATERA_ERROR': {
+			return Object.assign({}, INITIAL_STATE, {
+        meta: {
+          error: true,
+        }
       })
     }
 
