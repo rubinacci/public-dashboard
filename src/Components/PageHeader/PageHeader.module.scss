@@ -1,0 +1,31 @@
+@import '../../assets/styles/index';
+
+.container {
+  padding: 8px 4px 24px;
+  font-size: 22px;
+  color: $text-dark;
+}
+
+.title {
+  display: inline-block;
+  font-weight: $semi-bold;
+}
+
+.price {
+  padding-left: 20px;
+  display: inline-block;
+  font-weight: $regular;
+}
+
+.priceChange {
+  padding-left: 14px;
+  display: inline-block;
+
+  &.green {
+    color: $text-green;
+  }
+
+  &.red {
+    color: $text-red;
+  }
+}
