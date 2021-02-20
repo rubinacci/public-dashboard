@@ -20,6 +20,10 @@
   font-size: 19px;
   margin-bottom: 12px;
   font-weight: $medium;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
 // Progress

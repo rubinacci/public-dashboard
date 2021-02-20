@@ -16,7 +16,7 @@ const INITIAL_STATE = {
       changePerc: null,
     },
   },
-  swapRatios: {
+  exchangeRate: {
     staToWSta: null,
     wStaToSta: null,
   },
@@ -85,6 +85,10 @@ export default (state = INITIAL_STATE, action:any) => {
             change: priceWStaResult.priceChange,
             changePerc: priceWStaResult.priceChangePerc,
           },
+        },
+        exchangeRate: {
+          staToWSta: priceVolumeStaResult.currentPrice / priceWStaResult.currentPrice,
+          wStaToSta: priceWStaResult.currentPrice / priceVolumeStaResult.currentPrice,
         },
         volume: {
           inCurrency: priceVolumeStaResult.volumeInCurrency,

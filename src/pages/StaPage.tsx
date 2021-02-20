@@ -5,7 +5,15 @@ import PageHeader from '../Components/PageHeader/PageHeader'
 import classes from './StaPage.module.scss'
 import cx from 'classnames'
 import Metric from '../Components/Metric/Metric'
-import { JSBI } from "@uniswap/sdk"
+
+const genFormattedNumber = (number:any, dp?:number) => {
+  const options = dp ? {
+    minimumFractionDigits: dp,
+    maximumFractionDigits: dp,
+  } : undefined
+
+  return Intl.NumberFormat('en-GB', options).format(number)
+}
 
 const TokenPage: FunctionComponent<void> = () => {
   const dispatch = useDispatch()
@@ -37,27 +45,33 @@ const TokenPage: FunctionComponent<void> = () => {
   let staSupplyProgress
   let wStaSupply
   let wStaSupplyProgress
-  if (stateraState.supply.remainingSta && stateraState.supply.remainingWSta) {
-    staSupply = Intl.NumberFormat('en-GB').format(stateraState.supply.remainingSta.toFixed(0));
-    wStaSupply = Intl.NumberFormat('en-GB').format(stateraState.supply.remainingWSta.toFixed(0));
+  let staExchangeRate
+  let wStaExchangeRate
+  if (
+    stateraState.supply.remainingSta &&
+    stateraState.supply.remainingWSta &&
+    stateraState.exchangeRate.staToWSta &&
+    stateraState.exchangeRate.wStaToSta
+  ) {
+    staSupply = genFormattedNumber(stateraState.supply.remainingSta.toFixed(0));
+    wStaSupply = genFormattedNumber(stateraState.supply.remainingWSta.toFixed(0));
 
     staSupplyProgress = stateraState.supply.remainingSta.div(stateraState.supply.total)
     wStaSupplyProgress = stateraState.supply.remainingWSta.div(stateraState.supply.remainingSta)
+
+    staExchangeRate = stateraState.exchangeRate.staToWSta
+    wStaExchangeRate = stateraState.exchangeRate.wStaToSta
   }
+
+
 
   return (
     <div className={classes.container}>
       <div className={classes.dashboardContainer}>
         <PageHeader
           title="Statera (STA)"
-          price={Intl.NumberFormat('en-GB', {
-            minimumFractionDigits: 4,
-            maximumFractionDigits: 4,
-          }).format(stateraState.price.sta.current)}
-          priceChangePerc={Intl.NumberFormat('en-GB', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          }).format(stateraState.price.sta.changePerc)}
+          price={genFormattedNumber(stateraState.price.sta.current, 4)}
+          priceChangePerc={genFormattedNumber(stateraState.price.sta.changePerc, 2)}
         />
 
         <div className={classes.dashboard}>
@@ -93,16 +107,19 @@ const TokenPage: FunctionComponent<void> = () => {
                 classname={classes.metric}
                 label="Volume (24h)"
                 valueItems={[{
-                  value: Intl.NumberFormat('en-GB', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                  }).format(stateraState.volume.inSta),
+                  value: genFormattedNumber(stateraState.volume.inSta, 0),
                   unit: 'STA',
                 }, {
-                  value: Intl.NumberFormat('en-GB').format(stateraState.volume.inCurrency),
+                  value: genFormattedNumber(stateraState.volume.inCurrency),
                   unit: 'USD',
                 }]}
               />
+            </div>
+
+            <div className={cx(classes.exchangeRate, classes.card)}>
+              { `1 STA = ${genFormattedNumber(staExchangeRate, 2) } WSTA` }
+              <br />
+              { `1 WSTA = ${genFormattedNumber(wStaExchangeRate, 2) } STA` }
             </div>
           </div>
         </div>
