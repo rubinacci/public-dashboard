@@ -97,7 +97,7 @@ const StaPage: FunctionComponent<void> = () => {
           chartType="LineChart"
           loader={<div>Loading Chart</div>}
           data={[
-            ['Datetime', 'Price'],
+            ['Datetime', 'Volume'],
             ...stateraState.chart.volume,
           ]}
           options={{
@@ -105,7 +105,7 @@ const StaPage: FunctionComponent<void> = () => {
               title: 'Datetime',
             },
             vAxis: {
-              title: 'Price',
+              title: 'Volume',
             },
           }}
           rootProps={{ 'data-testid': '1' }}
