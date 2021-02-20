@@ -39,6 +39,7 @@
 
 
 // Card
+
 .card {
   background: white;
   border: 1px solid $border;
@@ -49,6 +50,25 @@
 
 .metric {
   margin-bottom: 20px;
+}
+
+
+// Exchange rate
+
+.exchangeRateRow {
+  margin-bottom: 10px
+}
+
+.exchangeRateRowIcon {
+  position: relative;
+  top: 3px;
+}
+
+.exchangeRateRowText {
+  display: inline-block;
+  color: $text-dark;
+  font-size: 19px;
+  font-weight: $medium;
 }
 
 
