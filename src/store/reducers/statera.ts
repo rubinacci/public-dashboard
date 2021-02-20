@@ -1,4 +1,5 @@
 import { STA_TOTAL_SUPPLY } from '../../Constants/Constants'
+import Big from 'big.js'
 
 const INITIAL_STATE = {
   price: {
@@ -24,9 +25,9 @@ const INITIAL_STATE = {
     inSta: null,
   },
   supply: {
-    current: null,
-    total: STA_TOTAL_SUPPLY,
-    wsta: null,
+    remainingSta: null,
+    total: Big(STA_TOTAL_SUPPLY),
+    remainingWSta: null,
   },
   burn24h: null,
   wrappedSupply: null,
@@ -61,6 +62,15 @@ export default (state = INITIAL_STATE, action:any) => {
       const supplyWStaResult = _results.find((result:any) => result.name === 'supply:wsta').result
       const chartResult = _results.find((result:any) => result.name === 'chart').result
 
+      // Convert Supply from 18dp string to BigInt
+      let rawRemainingStaSupply = supplyStaResult.split('')
+      rawRemainingStaSupply.splice(-18, 0, '.')
+      const remainingSta = Big(rawRemainingStaSupply.join(''))
+
+      let rawRemainingWStaSupply = supplyWStaResult.split('')
+      rawRemainingWStaSupply.splice(-18, 0, '.')
+      const remainingWSta = Big(rawRemainingWStaSupply.join(''))
+
 			return Object.assign({}, INITIAL_STATE, {
         price: {
           sta: {
@@ -81,8 +91,8 @@ export default (state = INITIAL_STATE, action:any) => {
           inSta: priceVolumeStaResult.volumeInSta,
         },
         supply: {
-          current: supplyStaResult,
-          wsta: supplyWStaResult,
+          remainingSta,
+          remainingWSta,
         },
         chart: {
           price: chartResult.price,

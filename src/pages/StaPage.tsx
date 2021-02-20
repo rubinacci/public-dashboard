@@ -30,17 +30,25 @@ const TokenPage: FunctionComponent<void> = () => {
     )
   }
 
-  const staSupply = stateraState.supply.total - stateraState.supply.current
-  console.log('staSupply: ', staSupply);
-  const wStaSupply = stateraState.supply.total - stateraState.supply.wsta
+  const staSupplyString = stateraState.supply.remainingSta ? stateraState.supply.remainingSta.toFixed(0) : 0
+  const staSupply = Intl.NumberFormat('en-GB').format(staSupplyString);
+
+  const wStaSupplyString = stateraState.supply.remainingWSta ? stateraState.supply.remainingWSta.toFixed(0) : 0
+  const wStaSupply = Intl.NumberFormat('en-GB').format(wStaSupplyString);
 
   return (
     <div className={classes.container}>
       <div className={classes.dashboardContainer}>
         <PageHeader
           title="Statera (STA)"
-          price={stateraState.price.sta.current}
-          priceChangePerc={stateraState.price.sta.changePerc}
+          price={Intl.NumberFormat('en-GB', {
+            minimumFractionDigits: 4,
+            maximumFractionDigits: 4,
+          }).format(stateraState.price.sta.current)}
+          priceChangePerc={Intl.NumberFormat('en-GB', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }).format(stateraState.price.sta.changePerc)}
         />
 
         <div className={classes.dashboard}>
@@ -74,10 +82,13 @@ const TokenPage: FunctionComponent<void> = () => {
                 classname={classes.metric}
                 label="Volume (24h)"
                 valueItems={[{
-                  value: stateraState.volume.inSta,
+                  value: Intl.NumberFormat('en-GB', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  }).format(stateraState.volume.inSta),
                   unit: 'STA',
                 }, {
-                  value: stateraState.volume.inCurrency,
+                  value: Intl.NumberFormat('en-GB').format(stateraState.volume.inCurrency),
                   unit: 'USD',
                 }]}
               />
