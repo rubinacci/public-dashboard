@@ -30,11 +30,20 @@ const TokenPage: FunctionComponent<void> = () => {
     )
   }
 
-  const staSupplyString = stateraState.supply.remainingSta ? stateraState.supply.remainingSta.toFixed(0) : 0
-  const staSupply = Intl.NumberFormat('en-GB').format(staSupplyString);
 
-  const wStaSupplyString = stateraState.supply.remainingWSta ? stateraState.supply.remainingWSta.toFixed(0) : 0
-  const wStaSupply = Intl.NumberFormat('en-GB').format(wStaSupplyString);
+  // Supply calcs
+
+  let staSupply
+  let staSupplyProgress
+  let wStaSupply
+  let wStaSupplyProgress
+  if (stateraState.supply.remainingSta && stateraState.supply.remainingWSta) {
+    staSupply = Intl.NumberFormat('en-GB').format(stateraState.supply.remainingSta.toFixed(0));
+    wStaSupply = Intl.NumberFormat('en-GB').format(stateraState.supply.remainingWSta.toFixed(0));
+
+    staSupplyProgress = stateraState.supply.remainingSta.div(stateraState.supply.total)
+    wStaSupplyProgress = stateraState.supply.remainingWSta.div(stateraState.supply.remainingSta)
+  }
 
   return (
     <div className={classes.container}>
@@ -65,6 +74,7 @@ const TokenPage: FunctionComponent<void> = () => {
                   value: staSupply,
                   unit: 'STA',
                 }]}
+                progressPerc={staSupplyProgress}
               />
 
               <Metric
@@ -74,6 +84,7 @@ const TokenPage: FunctionComponent<void> = () => {
                   value: wStaSupply,
                   unit: 'wSTA',
                 }]}
+                progressPerc={wStaSupplyProgress}
               />
             </div>
 

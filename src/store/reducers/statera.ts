@@ -26,7 +26,7 @@ const INITIAL_STATE = {
   },
   supply: {
     remainingSta: null,
-    total: Big(STA_TOTAL_SUPPLY),
+    total: null,
     remainingWSta: null,
   },
   burn24h: null,
@@ -93,6 +93,7 @@ export default (state = INITIAL_STATE, action:any) => {
         supply: {
           remainingSta,
           remainingWSta,
+          total: Big(STA_TOTAL_SUPPLY),
         },
         chart: {
           price: chartResult.price,

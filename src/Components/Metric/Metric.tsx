@@ -3,7 +3,7 @@ import classes from './Metric.module.scss'
 
 
 const Metric = (props:any) => {
-  const { label, valueItems, valueRatio } = props
+  const { label, valueItems, progressPerc } = props
 
   let valueDoms = valueItems.map((item:any, index:Number) => {
     return (
@@ -13,10 +13,23 @@ const Metric = (props:any) => {
     )
   })
 
+  let progressDom
+  if (progressPerc) {
+    progressDom = (
+      <div className={classes.progressContainer}>
+        <div
+          className={classes.progressBar}
+          style={{ width: `${progressPerc * 100}%` }}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className={classes.container}>
       <div className={classes.label}>{ label }</div>
       { valueDoms }
+      { progressDom }
     </div>
   )
 }
