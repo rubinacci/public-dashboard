@@ -1,5 +1,6 @@
 import { STA_TOTAL_SUPPLY } from '../../Constants/Constants'
 import Big from 'big.js'
+import { DateTime } from "luxon";
 
 const INITIAL_STATE = {
   price: {
@@ -61,8 +62,18 @@ export default (state = INITIAL_STATE, action:any) => {
       const supplyStaResult = _results.find((result:any) => result.name === 'supply:sta').result
       const supplyWStaResult = _results.find((result:any) => result.name === 'supply:wsta').result
       const chartResult = _results.find((result:any) => result.name === 'chart').result
-      const chartPriceData:any[] = [...chartResult.price.map((item:any) => item)]
-      const chartVolumeData:any[] = [...chartResult.volume.map((item:any) => item)]
+      const chartPriceData:any[] = [...chartResult.price.map((item:any) => {
+        return [
+          DateTime.fromMillis(item[0]).toISO(),
+          item[1],
+        ]
+      })]
+      const chartVolumeData:any[] = [...chartResult.volume.map((item:any) => {
+        return [
+          DateTime.fromMillis(item[0]).toISO(),
+          item[1],
+        ]
+      })]
 
       // Convert Supply from 18dp string to BigInt
       let rawRemainingStaSupply = supplyStaResult.split('')

@@ -117,10 +117,26 @@ const StaPage: FunctionComponent<void> = () => {
                         gridlines: {
                           color: 'transparent'
                         },
+                        textStyle: {
+                          fontName: 'Inter',
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: '#595e78',
+                        },
                       },
                       vAxis: {
+                        format: 'currency',
+                        gridlines: {
+                          color: '#e6e6f0'
+                        },
                         minorGridlines: {
                           color: 'transparent'
+                        },
+                        textStyle: {
+                          fontName: 'Inter',
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: '#595e78',
                         },
                       },
                     }}
