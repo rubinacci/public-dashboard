@@ -26,19 +26,8 @@
 
 }
 
-.chart {
-  width: 100%;
-  min-height: 410px;
-}
 
-.supply {
-}
-
-.volume {
-}
-
-
-// Card
+// Cards
 
 .card {
   background: white;
@@ -50,6 +39,33 @@
 
 .metric {
   margin-bottom: 20px;
+}
+
+.chartCard {
+  width: 100%;
+  min-height: 410px;
+  padding: 20px 20px 26px;
+  text-align: center;
+}
+
+.chartContainer {
+}
+
+.chartActions {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding-top: 20px;
+}
+
+.typeTabContainer {
+  float: left;
+  width: 200px;
+}
+
+.timePeriodTabContainer {
+  float: right;
+  width: 160px;
 }
 
 

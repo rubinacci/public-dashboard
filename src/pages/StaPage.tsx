@@ -21,100 +21,70 @@ const genFormattedNumber = (number:any, dp?:number) => {
 
 const StaPage: FunctionComponent<void> = () => {
   const dispatch = useDispatch()
-  const [currentTab, setCurrentTab] = useState('price')
+  const [chartType, setChartType] = useState('price')
+  const [chartTimePeriod, setChartTimePeriod] = useState('1_day')
 
   useEffect(() => {
     dispatch(load())
   }, [dispatch])
 
-  const handleChartTabInput = (value:any) => {
-    setCurrentTab(value)
+  const handleChartTypeTab = (value:string) => {
+    setChartType(value)
+  }
+
+  const handleChartTimePeriodTab = (value:string) => {
+    setChartTimePeriod(value)
   }
 
   const stateraState = useSelector((state:any) => state.statera)
 
-  let priceDom
-  if (stateraState.meta.loading) {
-    priceDom = <div>Loading</div>
-  } else if (stateraState.meta.success) {
-    priceDom = (
-      <div>
-        Current Price: { stateraState.price.current }
-        <br />
-        Previous Price: { stateraState.price.previous }
-      </div>
-    )
-  }
-
-
-  // Supply calcs
-
-  let staSupply
-  let staSupplyProgress
-  let wStaSupply
-  let wStaSupplyProgress
-  let staExchangeRate
-  let wStaExchangeRate
-  let priceChartData
-  let chartDom
   if (stateraState.meta.success) {
-    staSupply = genFormattedNumber(stateraState.supply.remainingSta.toFixed(0));
-    wStaSupply = genFormattedNumber(stateraState.supply.remainingWSta.toFixed(0));
+    const staSupply = genFormattedNumber(stateraState.supply.remainingSta.toFixed(0));
+    const wStaSupply = genFormattedNumber(stateraState.supply.remainingWSta.toFixed(0));
 
-    staSupplyProgress = stateraState.supply.remainingSta.div(stateraState.supply.total)
-    wStaSupplyProgress = stateraState.supply.remainingWSta.div(stateraState.supply.remainingSta)
+    const staSupplyProgress = stateraState.supply.remainingSta.div(stateraState.supply.total)
+    const wStaSupplyProgress = stateraState.supply.remainingWSta.div(stateraState.supply.remainingSta)
 
-    staExchangeRate = stateraState.exchangeRate.staToWSta
-    wStaExchangeRate = stateraState.exchangeRate.wStaToSta
+    const staExchangeRate = stateraState.exchangeRate.staToWSta
+    const wStaExchangeRate = stateraState.exchangeRate.wStaToSta
 
-    if (currentTab === 'price') {
-      chartDom = (
-        <Chart
-          width={'500px'}
-          height={'400px'}
-          chartType="LineChart"
-          loader={<div>Loading Chart</div>}
-          data={[
-            ['Datetime', 'Price'],
-            ...stateraState.chart.price,
-          ]}
-          options={{
-            hAxis: {
-              title: 'Datetime',
-            },
-            vAxis: {
-              title: 'Price',
-            },
-          }}
-          rootProps={{ 'data-testid': '1' }}
-        />
-      )
-    } else if (currentTab === 'volume') {
-      chartDom = (
-        <Chart
-          width={'500px'}
-          height={'400px'}
-          chartType="LineChart"
-          loader={<div>Loading Chart</div>}
-          data={[
-            ['Datetime', 'Volume'],
-            ...stateraState.chart.volume,
-          ]}
-          options={{
-            hAxis: {
-              title: 'Datetime',
-            },
-            vAxis: {
-              title: 'Volume',
-            },
-          }}
-          rootProps={{ 'data-testid': '1' }}
-        />
-      )
+    // Transform chart data by period
+    let chartPriceData
+    let chartVolumeData
+    switch (chartTimePeriod) {
+      case "1_day": {
+        chartPriceData = _.takeRight(stateraState.chart.price, 24)
+        chartVolumeData = _.takeRight(stateraState.chart.volume, 24)
+        break;
+      }
+
+      case "7_day": {
+        chartPriceData = _.takeRight(stateraState.chart.price, 168)
+        chartVolumeData = _.takeRight(stateraState.chart.volume, 168)
+        break;
+      }
+
+      case "30_day": {
+        chartPriceData = stateraState.chart.price
+        chartVolumeData = stateraState.chart.volume
+        break;
+      }
     }
-  }
 
-  if (stateraState.meta.success) {
+    let chartData
+    if (chartType === 'price') {
+      chartData = [
+        ['Datetime', 'Price'],
+        ...chartPriceData,
+      ]
+    } else if (chartType === 'volume') {
+      chartData = [
+        ['Datetime', 'Volume'],
+        ...chartVolumeData,
+      ]
+    }
+
+
     return (
       <div className={classes.container}>
         <div className={classes.dashboardContainer}>
@@ -126,19 +96,69 @@ const StaPage: FunctionComponent<void> = () => {
 
           <div className={classes.dashboard}>
             <div className={classes.dashboardLeft}>
-              <div className={cx(classes.chart, classes.card)}>
-                { chartDom }
-                <SegmentedTabs
-                  items={[{
-                    text: 'Price',
-                    value: 'price',
-                  }, {
-                    text: 'Volume',
-                    value: 'volume',
-                  }]}
-                  value={currentTab}
-                  onInput={handleChartTabInput}
-                />
+              <div className={cx(classes.chartCard, classes.card)}>
+                <div className={classes.chartContainer}>
+                  <Chart
+                    width={'100%'}
+                    height={'400px'}
+                    chartType="LineChart"
+                    loader={<div>Loading Chart</div>}
+                    data={chartData}
+                    options={{
+                      legend: 'none',
+                      chartArea: {
+                        left: 40,
+                        top: 20,
+                        width: '90%',
+                        height: '90%',
+                      },
+                      hAxis: {
+                        textPosition: 'none',
+                        gridlines: {
+                          color: 'transparent'
+                        },
+                      },
+                      vAxis: {
+                        minorGridlines: {
+                          color: 'transparent'
+                        },
+                      },
+                    }}
+                  />
+                </div>
+
+                <div className={classes.chartActions}>
+                  <div className={classes.typeTabContainer}>
+                    <SegmentedTabs
+                      items={[{
+                        text: 'Price',
+                        value: 'price',
+                      }, {
+                        text: 'Volume',
+                        value: 'volume',
+                      }]}
+                      value={chartType}
+                      onInput={handleChartTypeTab}
+                    />
+                  </div>
+
+                  <div className={classes.timePeriodTabContainer}>
+                    <SegmentedTabs
+                      items={[{
+                        text: '1D',
+                        value: '1_day',
+                      }, {
+                        text: '7D',
+                        value: '7_day',
+                      }, {
+                        text: '30D',
+                        value: '30_day',
+                      }]}
+                      value={chartTimePeriod}
+                      onInput={handleChartTimePeriodTab}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
 
