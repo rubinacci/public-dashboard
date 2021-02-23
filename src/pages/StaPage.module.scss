@@ -72,12 +72,18 @@
 // Exchange rate
 
 .exchangeRateRow {
-  margin-bottom: 10px
+  margin-bottom: 14px;
+
+  &:last-of-type {
+    margin-bottom: 4px;
+  }
 }
 
 .exchangeRateRowIcon {
   position: relative;
-  top: 3px;
+  top: 4px;
+  display: inline-block;
+  margin-right: 8px;
 }
 
 .exchangeRateRowText {

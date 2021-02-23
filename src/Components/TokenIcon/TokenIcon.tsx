@@ -5,24 +5,26 @@ import classes from './TokenIcon.module.scss'
 const TokenIcon = (props:any) => {
   const { token } = props
 
-  let iconSrc
+  let iconSrc:any
   switch (token) {
     case 'STA': {
-      iconSrc = 'images/tokenIcons/sta.svg'
+      iconSrc = '/images/tokenIcons/sta.svg'
       break
     }
 
     case 'WSTA': {
-      iconSrc = 'images/tokenIcons/wsta.png'
+      iconSrc = '/images/tokenIcons/wsta.png'
       break
     }
   }
 
   return (
     <div className={classes.container}>
-      <img
+      <div
         className={classes.icon}
-        src={iconSrc}
+        style={{
+          backgroundImage: `url(${iconSrc})`
+        }}
       />
     </div>
   )
