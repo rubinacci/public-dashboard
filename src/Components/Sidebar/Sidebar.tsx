@@ -7,6 +7,7 @@ import metamask from '../../assets/images/web3/metamask.svg'
 import walletconnect from '../../assets/images/web3/walletconnect.svg'
 import { useWeb3React } from '@web3-react/core'
 import { injected, walletConnect } from '../../web3/connectors'
+import { POOLS } from '../../Constants/Constants'
 
 const ConnectModal: FunctionComponent<Modal.Props> = ({ ...props }) => {
   const { activate } = useWeb3React()
@@ -73,7 +74,7 @@ const Sidebar = () => {
             <NavLink
               className={classes.sectionLink}
               activeClassName={classes.active}
-              to="/pair/delta"
+              to={`/pool/${POOLS.delta.contractAddress}`}
             >
               Delta
             </NavLink>
@@ -81,7 +82,7 @@ const Sidebar = () => {
             <NavLink
               className={classes.sectionLink}
               activeClassName={classes.active}
-              to="/pair/infinity"
+              to={`/pool/${POOLS.infinity.contractAddress}`}
             >
               Infinity
             </NavLink>
@@ -104,7 +105,7 @@ const Sidebar = () => {
               activeClassName={classes.active}
               to="/token/pheonix"
             >
-              Pheonix
+              Phoenix
             </NavLink>
 
             <NavLink

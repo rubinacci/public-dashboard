@@ -19,6 +19,7 @@ import Sidebar from './Components/Sidebar/Sidebar'
 // import PoolView from './Components/PoolView'
 import IndexPage from './pages/IndexPage'
 import StaPage from './pages/StaPage'
+import PoolPage from './pages/PoolPage'
 
 
 Modal.setAppElement('#root')
@@ -93,8 +94,8 @@ const App = () => {
         <ApolloProvider client={uniswapGraphClient}>
             <Web3ReactProvider getLibrary={getLibrary}>
                 <Store>
-                    <StatsDataLoader />
-                    <ChartDataLoader />
+                    {/* <StatsDataLoader /> */}
+                    {/* <ChartDataLoader /> */}
                     <EagerConnect />
                     <Router>
                         <div className={classes.app}>
@@ -105,6 +106,7 @@ const App = () => {
                                 <Switch>
                                     <Route exact path="/" component={IndexPage} />
                                     <Route exact path="/sta" component={StaPage} />
+                                    <Route exact path="/pool/:contract_address" component={PoolPage} />
                                 </Switch>
                             </div>
                         </div>

@@ -9,15 +9,8 @@ import TokenIcon from '../Components/TokenIcon/TokenIcon'
 import { Chart } from 'react-google-charts'
 import _ from 'lodash'
 import SegmentedTabs from '../Components/SegmentedTabs/SegmentedTabs'
+import { genFormattedNumber } from '../util/numberFormat'
 
-const genFormattedNumber = (number:any, dp?:number) => {
-  const options = dp ? {
-    minimumFractionDigits: dp,
-    maximumFractionDigits: dp,
-  } : undefined
-
-  return Intl.NumberFormat('en-GB', options).format(number)
-}
 
 const StaPage: FunctionComponent<void> = () => {
   const dispatch = useDispatch()
