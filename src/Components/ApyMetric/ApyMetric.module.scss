@@ -1,0 +1,24 @@
+@import '../../assets/styles/index';
+
+.container {
+  color: $text-dark;
+}
+
+.apy {
+  font-size: 30px;
+  padding: 14px 6px 28px;
+  width: 100%;
+
+  &.green {
+    color: $text-green;
+  }
+
+  &.red {
+    color: $text-red;
+  }
+}
+
+.textDark {
+  color: $text-dark;
+  margin-left: 8px;
+}

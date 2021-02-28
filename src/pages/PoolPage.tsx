@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadPool } from '../store/actions/pool'
 import PageHeader from '../Components/PageHeader/PageHeader'
-import classes from './StaPage.module.scss'
+import classes from './PoolPage.module.scss'
 import cx from 'classnames'
 import Metric from '../Components/Metric/Metric'
 import TokenIcon from '../Components/TokenIcon/TokenIcon'
@@ -11,6 +11,7 @@ import { Chart } from 'react-google-charts'
 import _ from 'lodash'
 import SegmentedTabs from '../Components/SegmentedTabs/SegmentedTabs'
 import { genFormattedNumber } from '../util/numberFormat'
+import ApyMetric from '../Components/ApyMetric/ApyMetric'
 
 const PoolPage: FunctionComponent<void> = () => {
   const mounted:any = useRef()
@@ -198,7 +199,7 @@ const PoolPage: FunctionComponent<void> = () => {
             </div>
 
             <div className={classes.dashboardRight}>
-              <div className={cx(classes.supply, classes.card)}>
+              <div className={classes.card}>
                 <div className={classes.cardTitle}>Assets</div>
                 <Chart
                   width={'100%'}
@@ -220,6 +221,10 @@ const PoolPage: FunctionComponent<void> = () => {
                     pieSliceText: 'label',
                   }}
                 />
+              </div>
+
+              <div className={classes.card}>
+                <ApyMetric />
               </div>
             </div>
           </div>

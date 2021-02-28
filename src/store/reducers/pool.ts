@@ -21,9 +21,9 @@ const INITIAL_STATE = {
       feeReturns: null,
     },
     apy: {
-      period1: 0.02,
-      period7: 0.06,
-      period30: 0.09,
+      day1: null,
+      day7: null,
+      day30: null,
     },
   },
   meta: {
@@ -105,6 +105,11 @@ export default (state = INITIAL_STATE, action:any) => {
             volume: chartResult.volume,
             liquidity: chartResult.liquidity,
             feeReturns: chartResult.feeReturns,
+          },
+          apy: {
+            day1: 1.02,
+            day7: 1.06,
+            day30: 1.09,
           },
         },
         meta: _.merge({}, INITIAL_STATE.meta, {
