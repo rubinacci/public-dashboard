@@ -182,9 +182,11 @@ const getChartData = (contractAddress:string) => {
           const parsedVolume = Big(item.dailyVolumeUSD)
           const parsedLiquidity = Big(item.reserveUSD)
 
-          const feeReturns1 = parsedVolume.times(0.003)
-          const feeReturns2 = feeReturns1.div(parsedLiquidity)
-          const parsedFeeReturns = feeReturns2.pow(365)
+          // const feeReturns1 = parsedVolume.times(0.003)
+          // const feeReturns2 = feeReturns1.div(parsedLiquidity)
+          // const feeReturns3 = feeReturns2.plus(1)
+          // const feeReturns4 = feeReturns3.pow(365)
+          // const parsedFeeReturns = feeReturns4.minus(1)
 
           volume.push([
             date,
@@ -198,7 +200,7 @@ const getChartData = (contractAddress:string) => {
 
           feeReturns.push([
             date,
-            parsedFeeReturns,
+            Big('0'),
           ])
         })
 

@@ -7,10 +7,28 @@ export const POOLS = {
   delta: {
     contractAddress: '0x59f96b8571e3b11f859a09eaf5a790a138fc64d0',
     name: 'Delta Liquidity Pool',
+    assets: [{
+      name: 'Statera',
+      ticker: 'STA',
+      proportion: 0.5,
+    }, {
+      name: 'Ethereum',
+      ticker: 'ETH',
+      proportion: 0.5,
+    }],
   },
   infinity: {
     contractAddress: '0xa94700c1a1ae21324e78d5bdf6b2924e45a6068f',
     name: 'Infinity Liquidity Pool',
+    assets: [{
+      name: 'Statera',
+      ticker: 'STA',
+      proportion: 0.5,
+    }, {
+      name: 'Wrapped Statera',
+      ticker: 'wSTA',
+      proportion: 0.5,
+    }],
   },
 }
 

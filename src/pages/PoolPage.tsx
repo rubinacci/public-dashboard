@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from 'react'
+import React, { FunctionComponent, useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadPool } from '../store/actions/pool'
@@ -13,8 +13,11 @@ import SegmentedTabs from '../Components/SegmentedTabs/SegmentedTabs'
 import { genFormattedNumber } from '../util/numberFormat'
 
 const PoolPage: FunctionComponent<void> = () => {
+  const mounted:any = useRef()
+
   const params:any = useParams()
   const contractAddress:string = params.contract_address
+  console.log('contractAddress: ', contractAddress);
 
   const dispatch = useDispatch()
 
@@ -23,9 +26,21 @@ const PoolPage: FunctionComponent<void> = () => {
   const [chartTimePeriod, setChartTimePeriod] = useState('7_day')
 
   useEffect(() => {
-    dispatch({ type: 'SET_POOL', payload: { contractAddress } })
-    dispatch(loadPool())
-  }, [dispatch])
+    if (!mounted.current) {
+      // do componentDidMount logic
+      dispatch({ type: 'SET_POOL', payload: { contractAddress } })
+      dispatch(loadPool())
+
+      mounted.current = true;
+    } else {
+      // do componentDidUpdate logic
+      if (contractAddress && contractAddress !== poolState.contractAddress) {
+        dispatch({ type: 'RESET_POOL' })
+        dispatch({ type: 'SET_POOL', payload: { contractAddress } })
+        dispatch(loadPool())
+      }
+    }
+  })
 
   const handleChartTypeTab = (value:string) => {
     setChartType(value)
@@ -82,7 +97,6 @@ const PoolPage: FunctionComponent<void> = () => {
         ])), timePeriod),
       ]
     }
-    console.log('chartData: ', chartData);
 
     return (
       <div className={classes.container}>
@@ -180,6 +194,32 @@ const PoolPage: FunctionComponent<void> = () => {
                     />
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div className={classes.dashboardRight}>
+              <div className={cx(classes.supply, classes.card)}>
+                <div className={classes.cardTitle}>Assets</div>
+                <Chart
+                  width={'100%'}
+                  height={'200px'}
+                  chartType="PieChart"
+                  loader={<div>Loading Chart</div>}
+                  data={[
+                    ['Asset', 'Portion'],
+                    ...poolState.assets.map((item:any) => ([ item.ticker, item.proportion ])),
+                  ]}
+                  options={{
+                    chartArea: {
+                      left: 0,
+                      top: 10,
+                      width: '100%',
+                      height: '90%',
+                    },
+                    legend: 'none',
+                    pieSliceText: 'label',
+                  }}
+                />
               </div>
             </div>
           </div>

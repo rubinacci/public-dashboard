@@ -7,6 +7,7 @@ import _ from 'lodash'
 const INITIAL_STATE = {
   name: null,
   contractAddress: null,
+  assets: null,
   data: {
     price: {
       current: null,
@@ -19,17 +20,6 @@ const INITIAL_STATE = {
       liquidity: null,
       feeReturns: null,
     },
-    assets: [
-      // {
-      //   name: 'Statera',
-      //   ticker: 'STA',
-      //   proportion: 0.5,
-      // }, {
-      //   name: 'Ethereum',
-      //   ticker: 'ETH',
-      //   proportion: 0.5,
-      // }
-    ],
     apy: {
       period1: 0.02,
       period7: 0.06,
@@ -50,15 +40,18 @@ export default (state = INITIAL_STATE, action:any) => {
 		case 'SET_POOL': {
       const contractAddress = action.payload.contractAddress
       let name
+      let assets
       _.mapValues(POOLS, (item, key) => {
         if (item.contractAddress === contractAddress) {
           name = item.name
+          assets = item.assets
         }
       })
 
       if (name) {
         return Object.assign({}, INITIAL_STATE, {
           name,
+          assets,
           contractAddress: contractAddress,
         })
       } else {
