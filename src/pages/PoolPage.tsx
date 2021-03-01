@@ -18,7 +18,6 @@ const PoolPage: FunctionComponent<void> = () => {
 
   const params:any = useParams()
   const contractAddress:string = params.contract_address
-  console.log('contractAddress: ', contractAddress);
 
   const dispatch = useDispatch()
 
@@ -76,26 +75,17 @@ const PoolPage: FunctionComponent<void> = () => {
     if (chartType === 'volume') {
       chartData = [
         ['Datetime', 'Volume'],
-        ..._.takeRight(poolState.data.chart.volume.map((item:any) => ([
-          item[0],
-          item[1].toNumber(),
-        ])), timePeriod),
+        ..._.takeRight(poolState.data.chart.volume, timePeriod),
       ]
     } else if (chartType === 'liquidity') {
       chartData = [
         ['Datetime', 'Liquidity'],
-        ..._.takeRight(poolState.data.chart.liquidity.map((item:any) => ([
-          item[0],
-          item[1].toNumber(),
-        ])), timePeriod),
+        ..._.takeRight(poolState.data.chart.liquidity, timePeriod),
       ]
     } else if (chartType === 'feeReturns') {
       chartData = [
         ['Datetime', 'Fee Returns'],
-        ..._.takeRight(poolState.data.chart.feeReturns.map((item:any) => ([
-          item[0],
-          item[1].toNumber(),
-        ])), timePeriod),
+        ..._.takeRight(poolState.data.chart.feeReturns, timePeriod),
       ]
     }
 
@@ -137,7 +127,7 @@ const PoolPage: FunctionComponent<void> = () => {
                         },
                       },
                       vAxis: {
-                        format: 'currency',
+                        format: chartType === 'feeReturns' ? '#,###%' : 'currency',
                         gridlines: {
                           color: '#e6e6f0'
                         },

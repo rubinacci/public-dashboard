@@ -7,7 +7,7 @@ import SegmentedTabs from '../SegmentedTabs/SegmentedTabs'
 const ApyMetric = (props:any) => {
   const poolState = useSelector((state:any) => state.pool)
 
-  const [chartTimePeriod, setChartTimePeriod] = useState('1_day')
+  const [chartTimePeriod, setChartTimePeriod] = useState('7_day')
 
   const handleChartTimePeriodTab = (value:string) => {
     setChartTimePeriod(value)
@@ -29,18 +29,20 @@ const ApyMetric = (props:any) => {
     }
   }
 
+  const displayedApy = (apy * 100).toFixed(0)
+
   let apyDom
   if (apy >= 1) {
     apyDom = (
       <div className={cx(classes.apy, classes.green)}>
-        <span>+{ apy }%</span>
+        <span>+{ displayedApy }%</span>
         <span className={classes.textDark}>APY</span>
       </div>
     )
   } else if (apy < 1) {
     apyDom = (
       <div className={cx(classes.apy, classes.red)}>
-        <span>-{ apy }%</span>
+        <span>-{ displayedApy }%</span>
         <span className={classes.textDark}>APY</span>
       </div>
     )
@@ -52,13 +54,13 @@ const ApyMetric = (props:any) => {
 
       <SegmentedTabs
         items={[{
-          text: '7D',
+          text: '1D',
           value: '1_day',
         }, {
-          text: '30D',
+          text: '7D',
           value: '7_day',
         }, {
-          text: '1Y',
+          text: '30D',
           value: '30_day',
         }]}
         value={chartTimePeriod}

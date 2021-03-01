@@ -179,14 +179,9 @@ const getChartData = (contractAddress:string) => {
 
         data.forEach((item:any) => {
           const date = DateTime.fromSeconds(item.date).toISO()
-          const parsedVolume = Big(item.dailyVolumeUSD)
-          const parsedLiquidity = Big(item.reserveUSD)
-
-          // const feeReturns1 = parsedVolume.times(0.003)
-          // const feeReturns2 = feeReturns1.div(parsedLiquidity)
-          // const feeReturns3 = feeReturns2.plus(1)
-          // const feeReturns4 = feeReturns3.pow(365)
-          // const parsedFeeReturns = feeReturns4.minus(1)
+          const parsedVolume = Big(item.dailyVolumeUSD).toNumber()
+          const parsedLiquidity = Big(item.reserveUSD).toNumber()
+          const parsedFeeReturns = Math.pow((((parsedVolume * 0.003) / parsedLiquidity) + 1), 365)
 
           volume.push([
             date,
@@ -200,17 +195,29 @@ const getChartData = (contractAddress:string) => {
 
           feeReturns.push([
             date,
-            Big('0'),
+            parsedFeeReturns,
           ])
         })
+
+        const day1ApyItems:any = _.takeRight(feeReturns, 1)
+        console.log('day1ApyItems: ', day1ApyItems);
+        const day7ApyItems:any = _.takeRight(feeReturns, 7)
+        const day30ApyItems:any = _.takeRight(feeReturns, 30)
 
         resolve({
           name: 'chart',
           status: 'success',
           result: {
-            volume,
-            liquidity,
-            feeReturns,
+            chart: {
+              volume,
+              liquidity,
+              feeReturns,
+            },
+            apy: {
+              day1: day1ApyItems[0][1],
+              day7: _.meanBy(day7ApyItems, (item:any) => item[1]),
+              day30: _.meanBy(day30ApyItems, (item:any) => item[1]),
+            },
           },
         })
       })

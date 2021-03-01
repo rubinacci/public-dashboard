@@ -102,14 +102,14 @@ export default (state = INITIAL_STATE, action:any) => {
         ...state,
         data: {
           chart: {
-            volume: chartResult.volume,
-            liquidity: chartResult.liquidity,
-            feeReturns: chartResult.feeReturns,
+            volume: chartResult.chart.volume,
+            liquidity: chartResult.chart.liquidity,
+            feeReturns: chartResult.chart.feeReturns,
           },
           apy: {
-            day1: 1.02,
-            day7: 1.06,
-            day30: 1.09,
+            day1: chartResult.apy.day1,
+            day7: chartResult.apy.day7,
+            day30: chartResult.apy.day30,
           },
         },
         meta: _.merge({}, INITIAL_STATE.meta, {
