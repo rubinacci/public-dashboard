@@ -169,9 +169,9 @@ const getChartData = (contractAddress:string) => {
       `
     })
       .then(_res => {
+        log.info('pool:getChartData:success', _res.data)
         let data = _res.data.data.pairDayDatas
         data.reverse()
-        console.log('data: ', data);
 
         let volume:any = []
         let liquidity:any = []
@@ -181,7 +181,7 @@ const getChartData = (contractAddress:string) => {
           const date = DateTime.fromSeconds(item.date).toISO()
           const parsedVolume = Big(item.dailyVolumeUSD).toNumber()
           const parsedLiquidity = Big(item.reserveUSD).toNumber()
-          const parsedFeeReturns = Math.pow((((parsedVolume * 0.003) / parsedLiquidity) + 1), 365)
+          const parsedFeeReturns = (Math.pow((((parsedVolume * 0.003) / parsedLiquidity) + 1), 365)) -1
 
           volume.push([
             date,

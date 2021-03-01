@@ -32,14 +32,14 @@ const ApyMetric = (props:any) => {
   const displayedApy = (apy * 100).toFixed(0)
 
   let apyDom
-  if (apy >= 1) {
+  if (apy >= 0) {
     apyDom = (
       <div className={cx(classes.apy, classes.green)}>
         <span>+{ displayedApy }%</span>
         <span className={classes.textDark}>APY</span>
       </div>
     )
-  } else if (apy < 1) {
+  } else if (apy < 0) {
     apyDom = (
       <div className={cx(classes.apy, classes.red)}>
         <span>-{ displayedApy }%</span>

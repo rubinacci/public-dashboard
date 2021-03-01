@@ -79,24 +79,7 @@ export default (state = INITIAL_STATE, action:any) => {
 
     case 'POOL_SUCCESS': {
       const _results = action.payload
-      console.log('POOL_SUCCESS: ', _results);
-      // const priceVolumeStaResult = _results.find((result:any) => result.name === 'price:sta').result
-      // const priceWStaResult = _results.find((result:any) => result.name === 'price:wsta').result
-      // const supplyStaResult = _results.find((result:any) => result.name === 'supply:sta').result
-      // const supplyWStaResult = _results.find((result:any) => result.name === 'supply:wsta').result
-
       const chartResult = _results.find((result:any) => result.name === 'chart').result
-      console.log('chartResult: ', chartResult);
-
-      // // Convert Supply from 18dp string to BigInt
-      // let rawRemainingStaSupply = supplyStaResult.split('')
-      // rawRemainingStaSupply.splice(-18, 0, '.')
-      // const remainingSta = Big(rawRemainingStaSupply.join(''))
-
-      // let rawRemainingWStaSupply = supplyWStaResult.split('')
-      // rawRemainingWStaSupply.splice(-18, 0, '.')
-      // const remainingWSta = Big(rawRemainingWStaSupply.join(''))
-
 
 			return {
         ...state,
