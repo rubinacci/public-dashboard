@@ -169,7 +169,7 @@ const getChartData = (contractAddress:string) => {
       `
     })
       .then(_res => {
-        log.info('pool:getChartData:success', _res.data)
+        log.info('pool:getChartData:success', _res.data.data)
         let data = _res.data.data.pairDayDatas
         data.reverse()
 
