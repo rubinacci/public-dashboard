@@ -55,6 +55,56 @@ export const POOLS = {
       proportion: 0.125,
     }],
   },
+  highRisk: {
+    contractAddress: '0xe6cb1c3a212001d02706ef93ea0a87b35b36d016',
+    name: 'High-Risk Pool',
+    assets: [{
+      name: 'Wrapped Statera',
+      ticker: 'wSTA',
+      proportion: 0.5,
+    }, {
+      name: 'yearn.finance',
+      ticker: 'YFI',
+      proportion: 0.1188,
+    }, {
+      name: 'Uniswap',
+      ticker: 'UNI',
+      proportion: 0.1188,
+    }, {
+      name: 'Aave',
+      ticker: 'AAVE',
+      proportion: 0.1188,
+    }, {
+      name: 'Wrapped Ethereum',
+      ticker: 'wETH',
+      proportion: 0.1188,
+    }, {
+      name: 'Foundry',
+      ticker: 'FRY',
+      proportion: 0.025,
+    }],
+  },
+  lowRisk: {
+    contractAddress: '0x5353e4294fcf069a5e8db9b8109d8f23dcd25f35',
+    name: 'Low-Risk Pool',
+    assets: [{
+      name: 'Wrapped Statera',
+      ticker: 'wSTA',
+      proportion: 0.5,
+    }, {
+      name: 'Dai',
+      ticker: 'DAI',
+      proportion: 0.0225,
+    }, {
+      name: 'USD Coin',
+      ticker: 'USDC',
+      proportion: 0.0225,
+    }, {
+      name: 'Wrapped Ethereum',
+      ticker: 'wETH',
+      proportion: 0.05,
+    }],
+  },
 }
 
 

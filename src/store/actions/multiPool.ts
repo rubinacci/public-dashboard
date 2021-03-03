@@ -6,7 +6,7 @@ import { DateTime } from 'luxon'
 import Big from 'big.js'
 
 export const loadMultiPool = () => async (dispatch:Dispatch, getState:any) => {
-  const contractAddress:string = getState().pool.contractAddress
+  const contractAddress:string = getState().multiPool.contractAddress
   log.info('store:multiPool:load', contractAddress)
   dispatch({ type: 'MULTI_POOL_LOADING' })
 
@@ -34,7 +34,7 @@ const getData = (contractAddress:string) => {
     axios.post('https://api.thegraph.com/subgraphs/name/balancer-labs/balancer', {
       query: `
         {
-          pool(id: "0x55353cbadda8fd525f0e6f307b3527d518416700") {
+          pool(id: "${contractAddress}") {
             id
             swapFee
             totalShares

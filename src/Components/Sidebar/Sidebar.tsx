@@ -95,14 +95,6 @@ const Sidebar = () => {
             <NavLink
               className={classes.sectionLink}
               activeClassName={classes.active}
-              to="/token/alpha"
-            >
-              Alpha
-            </NavLink>
-
-            <NavLink
-              className={classes.sectionLink}
-              activeClassName={classes.active}
               to={`/multi_pool/${POOLS.titan.contractAddress}`}
             >
               Titan
@@ -111,7 +103,7 @@ const Sidebar = () => {
             <NavLink
               className={classes.sectionLink}
               activeClassName={classes.active}
-              to="/token/high-risk"
+              to={`/multi_pool/${POOLS.highRisk.contractAddress}`}
             >
               High-Risk
             </NavLink>
@@ -119,7 +111,7 @@ const Sidebar = () => {
             <NavLink
               className={classes.sectionLink}
               activeClassName={classes.active}
-              to="/token/low-risk"
+              to={`/multi_pool/${POOLS.lowRisk.contractAddress}`}
             >
               Low-Risk
             </NavLink>
