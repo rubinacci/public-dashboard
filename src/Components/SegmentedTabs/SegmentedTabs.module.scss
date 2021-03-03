@@ -27,6 +27,7 @@
   cursor: pointer;
   border-right: 1px solid #e6e6f0;
   font-weight: 600;
+  transition-duration: 100ms;
 
   &:first-of-type {
     border-top-left-radius: 3px;

@@ -112,6 +112,10 @@
 
 // Wallet
 
-.wallet {
-  background: white;
+.walletContainer {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 200px;
 }
