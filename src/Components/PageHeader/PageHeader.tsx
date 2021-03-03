@@ -7,9 +7,9 @@ const PageHeader = (props:any) => {
   const { title, price, priceChangePerc } = props
 
   let priceChangeDom
-  if (priceChangeDom && priceChangePerc >= 0) {
+  if (priceChangePerc && priceChangePerc >= 1) {
     priceChangeDom = <div className={cx(classes.priceChange, classes.green)}>{ priceChangePerc }%</div>
-  } else if (priceChangeDom && priceChangePerc < 0) {
+  } else if (priceChangePerc && priceChangePerc < 1) {
     priceChangeDom = <div className={cx(classes.priceChange, classes.red)}>{ priceChangePerc }%</div>
   }
 
