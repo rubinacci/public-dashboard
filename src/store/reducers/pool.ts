@@ -3,6 +3,7 @@ import Big from 'big.js'
 import { DateTime } from 'luxon'
 import { POOLS } from '../../Constants/Constants'
 import _ from 'lodash'
+import { resolvePoolFromContractAddress } from '../../util/resolvePool'
 
 const INITIAL_STATE = {
   name: null,
@@ -39,14 +40,7 @@ export default (state = INITIAL_STATE, action:any) => {
 
 		case 'SET_POOL': {
       const contractAddress = action.payload.contractAddress
-      let name
-      let assets
-      _.mapValues(POOLS, (item, key) => {
-        if (item.contractAddress === contractAddress) {
-          name = item.name
-          assets = item.assets
-        }
-      })
+      const { name, assets } = resolvePoolFromContractAddress(contractAddress)
 
       if (name) {
         return Object.assign({}, INITIAL_STATE, {
