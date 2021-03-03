@@ -29,125 +29,6 @@ export const loadPool = () => async (dispatch:Dispatch, getState:any) => {
 }
 
 
-// Price & volume
-
-// const getPrice = (contractAddress:string) => {
-//   return new Promise(resolve => {
-//     axios.get('https://api.coingecko.com/api/v3/coins/statera', {
-//       params: {
-//         localization: 'false',
-//         tickers: 'true',
-//         market_data: 'true',
-//         community_data: 'false',
-//         developer_data: 'false',
-//         sparkline: 'false',
-//       }
-//     })
-
-
-//     axios.get('https://api.coingecko.com/api/v3/coins/statera', {
-//       params: {
-//         localization: 'false',
-//         tickers: 'true',
-//         market_data: 'true',
-//         community_data: 'false',
-//         developer_data: 'false',
-//         sparkline: 'false',
-//       }
-//     })
-//       .then(_res => {
-//         const currentPrice = _res.data.market_data?.current_price?.usd
-//         const priceChangePerc = _res.data.market_data?.price_change_percentage_24h
-//         const priceChange = _res.data.market_data?.price_change_24h_in_currency?.usd
-//         const previousPrice = currentPrice + priceChange
-
-//         const tickers = _res.data.tickers
-//         const tickerData = tickers.find((item:any) => item.market.identifier === 'uniswap')
-//         const volumeInSta = tickerData.volume
-//         const volumeInCurrency = tickerData.converted_volume?.usd
-
-
-//         resolve({
-//           name: 'price',
-//           status: 'success',
-//           result: {
-//             currentPrice,
-//             priceChangePerc,
-//             priceChange,
-//             previousPrice,
-//             volumeInSta,
-//             volumeInCurrency,
-//           },
-//         })
-//       })
-//       .catch(_error => {
-//         resolve({
-//           name: 'price',
-//           status: 'error',
-//           result: _error
-//         })
-//       })
-//   })
-// }
-
-
-// Supply
-
-// const getStaSupply = () => {
-//   return new Promise(resolve => {
-//     axios.get('https://api.etherscan.io/api', {
-//       params: {
-//         module: 'stats',
-//         action: 'tokensupply',
-//         contractaddress: STA_CONTRACT_ADDRESS,
-//         apikey: process.env.REACT_APP_ETHERSCAN_API_KEY,
-//       }
-//     })
-//       .then(_res => {
-//         resolve({
-//           name: 'supply:sta',
-//           status: 'success',
-//           result: _res.data.result,
-//         })
-//       })
-//       .catch(_error => {
-//         resolve({
-//           name: 'supply:sta',
-//           status: 'error',
-//           result: _error
-//         })
-//       })
-//   })
-// }
-
-// const getWStaSupply = () => {
-//   return new Promise(resolve => {
-//     axios.get('https://api.etherscan.io/api', {
-//       params: {
-//         module: 'stats',
-//         action: 'tokensupply',
-//         contractaddress: WSTA_CONTRACT_ADDRESS,
-//         apikey: process.env.REACT_APP_ETHERSCAN_API_KEY,
-//       }
-//     })
-//       .then(_res => {
-//         resolve({
-//           name: 'supply:wsta',
-//           status: 'success',
-//           result: _res.data.result,
-//         })
-//       })
-//       .catch(_error => {
-//         resolve({
-//           name: 'supply:wsta',
-//           status: 'error',
-//           result: _error
-//         })
-//       })
-//   })
-// }
-
-
 // Chart
 
 const getChartData = (contractAddress:string) => {
@@ -200,7 +81,6 @@ const getChartData = (contractAddress:string) => {
         })
 
         const day1ApyItems:any = _.takeRight(feeReturns, 1)
-        console.log('day1ApyItems: ', day1ApyItems);
         const day7ApyItems:any = _.takeRight(feeReturns, 7)
         const day30ApyItems:any = _.takeRight(feeReturns, 30)
 

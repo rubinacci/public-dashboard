@@ -103,9 +103,9 @@ const Sidebar = () => {
             <NavLink
               className={classes.sectionLink}
               activeClassName={classes.active}
-              to="/token/pheonix"
+              to={`/multi_pool/${POOLS.titan.contractAddress}`}
             >
-              Phoenix
+              Titan
             </NavLink>
 
             <NavLink
