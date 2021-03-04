@@ -5,7 +5,6 @@ import PageHeader from '../Components/PageHeader/PageHeader'
 import classes from './PoolPage.module.scss'
 import cx from 'classnames'
 import Metric from '../Components/Metric/Metric'
-import Wallet from '../Components/Wallet/Wallet'
 import TokenIcon from '../Components/TokenIcon/TokenIcon'
 import { Chart } from 'react-google-charts'
 import _ from 'lodash'
@@ -235,10 +234,6 @@ const StaPage: FunctionComponent<void> = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className={classes.walletContainer}>
-          <Wallet />
         </div>
       </div>
     )

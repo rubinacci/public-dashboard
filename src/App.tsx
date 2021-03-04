@@ -21,6 +21,7 @@ import IndexPage from './pages/IndexPage'
 import StaPage from './pages/StaPage'
 import PoolPage from './pages/PoolPage'
 import MultiPoolPage from './pages/MultiPoolPage'
+import Wallet from './Components/Wallet/Wallet'
 
 
 Modal.setAppElement('#root')
@@ -110,6 +111,10 @@ const App = () => {
                                     <Route exact path="/pool/:contract_address" component={PoolPage} />
                                     <Route exact path="/multi_pool/:contract_address" component={MultiPoolPage} />
                                 </Switch>
+
+                                <div className={classes.walletContainer}>
+                                    <Wallet />
+                                </div>
                             </div>
                         </div>
                     </Router>
