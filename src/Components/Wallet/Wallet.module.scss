@@ -5,4 +5,28 @@
   width: 100%;
   border-top: 1px solid $border;
   background: white;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-gap: 0 14px;
+  align-items: start;
+  padding: 20px 22px;
+}
+
+
+.gridItem {
+
+}
+
+.title {
+  margin-bottom: 14px;
+  font-size: 16px;
+  color: $text-dark;
+  display: inline-block;
+  font-weight: $semi-bold;
+  width: 100%;
+}
+
+.actionButton {
+  width: 100%;
 }

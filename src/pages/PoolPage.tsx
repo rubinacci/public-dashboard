@@ -12,8 +12,9 @@ import _ from 'lodash'
 import SegmentedTabs from '../Components/SegmentedTabs/SegmentedTabs'
 import { genFormattedNumber } from '../util/numberFormat'
 import ApyMetric from '../Components/ApyMetric/ApyMetric'
+import Loader from '../Components/Loader/Loader'
 
-const PoolPage: FunctionComponent<void> = () => {
+const PoolPage: FunctionComponent = () => {
   const mounted:any = useRef()
 
   const params:any = useParams()
@@ -226,7 +227,7 @@ const PoolPage: FunctionComponent<void> = () => {
       </div>
     )
   } else {
-    return <div>Loading</div>
+    return <Loader size='medium' />
   }
 }
 

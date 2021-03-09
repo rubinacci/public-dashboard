@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./dist/index.js",
-    "dev": "concurrently --kill-others \"react-scripts start\" \"node ./dist/index.js\"",
-    "dev:client": "react-scripts start",
+    "dev": "react-scripts start",
     "dev:server": "node ./dist/index.js",
     "build": "npm run react-scripts build && npm run build-server",
     "build-server": "tsc --p server",

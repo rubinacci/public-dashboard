@@ -22,6 +22,8 @@ import StaPage from './pages/StaPage'
 import PoolPage from './pages/PoolPage'
 import MultiPoolPage from './pages/MultiPoolPage'
 import Wallet from './Components/Wallet/Wallet'
+import Loader from './Components/Loader/Loader'
+import { useWeb3React, getWeb3ReactContext } from '@web3-react/core'
 
 
 Modal.setAppElement('#root')
@@ -29,99 +31,119 @@ Modal.setAppElement('#root')
 const getLibrary = (provider: any) => new Web3Provider(provider)
 
 const EagerConnect = () => {
-    const triedEager = useEagerConnect()
-    useInactiveListener(!triedEager)
-    return null
+  const triedEager = useEagerConnect()
+  useInactiveListener(!triedEager)
+  return null
 }
 
 const uniswapGraphClient = new ApolloClient({
-    cache: new InMemoryCache(),
-    uri: "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2"
+  cache: new InMemoryCache(),
+  uri: "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2"
 })
 
-const LoadingScreen = () => {
-    document.getElementById("loading")!.className += " loading-container"
-    return <>
-        <div className="flex flex-row relative">
-            <img src={logo} className="w-12 h-12" alt="statera" />
-            <span className="font-bold text-gradient text-3xl ml-2">Statera</span>
-        </div>
-    </>
-}
-
 const renderLoading = () => {
-    ReactDOM.render(<LoadingScreen />, document.getElementById("loading"))
+  ReactDOM.render(<Loader />, document.getElementById("loading"))
 }
 
-const Loader = () => {
-    const { dispatch } = useContext(Context)
-    useEffect(() => {
-        renderLoading()
-        ;(async () => {
-            dispatch({ type: "SET_ethPrice", data: await fetchETHPrice() })
-        })()
-    }, [dispatch])
-    return null
-}
+// const Loader = () => {
+//     const { dispatch } = useContext(Context)
+//     useEffect(() => {
+//         renderLoading()
+//         ;(async () => {
+//             dispatch({ type: "SET_ethPrice", data: await fetchETHPrice() })
+//         })()
+//     }, [dispatch])
+//     return null
+// }
 
-const StatsDataLoader = () => {
-    const data = useApiResult("/stats", {}).data
-    const { dispatch } = useContext(Context)
-    useEffect(() => { if (data) dispatch({ type: "SET_statsData", data }) }, [data, dispatch])
-    return null
-}
-const ChartDataLoader = () => {
-    const data = useApiResult("/chartdata", {}).data as any
-    const { dispatch } = useContext(Context)
-    useEffect(() => {
-        if (data) {
-            if (data["volumes"]) {
-                const allVolumes: { [timestamp: number]: number } = {}
-                Object.keys(data["volumes"] || {}).forEach(pool => {
-                    const poolVolumes = data["volumes"][pool]["all"] || []
-                    poolVolumes.forEach(([timestamp, value]: [number, number], i: number) => {
-                        allVolumes[timestamp] = (allVolumes[timestamp] || 0) + value
-                    })
-                })
-                data["volumes"]["all"] = { all: Object.keys(allVolumes).map(timestamp => [timestamp, allVolumes[parseInt(timestamp)]]) }
-            }
-            dispatch({ type: "SET_chartData", data })
-        }
-    }, [data, dispatch])
-    return null
+// const StatsDataLoader = () => {
+//     const data = useApiResult("/stats", {}).data
+//     const { dispatch } = useContext(Context)
+//     useEffect(() => { if (data) dispatch({ type: "SET_statsData", data }) }, [data, dispatch])
+//     return null
+// }
+// const ChartDataLoader = () => {
+//     const data = useApiResult("/chartdata", {}).data as any
+//     const { dispatch } = useContext(Context)
+//     useEffect(() => {
+//         if (data) {
+//             if (data["volumes"]) {
+//                 const allVolumes: { [timestamp: number]: number } = {}
+//                 Object.keys(data["volumes"] || {}).forEach(pool => {
+//                     const poolVolumes = data["volumes"][pool]["all"] || []
+//                     poolVolumes.forEach(([timestamp, value]: [number, number], i: number) => {
+//                         allVolumes[timestamp] = (allVolumes[timestamp] || 0) + value
+//                     })
+//                 })
+//                 data["volumes"]["all"] = { all: Object.keys(allVolumes).map(timestamp => [timestamp, allVolumes[parseInt(timestamp)]]) }
+//             }
+//             dispatch({ type: "SET_chartData", data })
+//         }
+//     }, [data, dispatch])
+//     return null
+// }
+
+const genPageDom = () => {
+  return
 }
 
 const App = () => {
-    return (
-        <ApolloProvider client={uniswapGraphClient}>
-            <Web3ReactProvider getLibrary={getLibrary}>
-                <Store>
-                    {/* <StatsDataLoader /> */}
-                    {/* <ChartDataLoader /> */}
-                    <EagerConnect />
-                    <Router>
-                        <div className={classes.app}>
-                            <div className={classes.sidebarContainer}>
-                                <Sidebar />
-                            </div>
-                            <div className={classes.main}>
-                                <Switch>
-                                    <Route exact path="/" component={IndexPage} />
-                                    <Route exact path="/sta" component={StaPage} />
-                                    <Route exact path="/pool/:contract_address" component={PoolPage} />
-                                    <Route exact path="/multi_pool/:contract_address" component={MultiPoolPage} />
-                                </Switch>
+  const { activate, deactivate, account, active } = useWeb3React()
 
-                                <div className={classes.walletContainer}>
-                                    <Wallet />
-                                </div>
-                            </div>
-                        </div>
-                    </Router>
-                </Store>
-            </Web3ReactProvider>
-        </ApolloProvider>
-    )
+  return (
+    <ApolloProvider client={uniswapGraphClient}>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <Store>
+          <EagerConnect />
+          <Router>
+            <div className={classes.app}>
+              <div className={classes.sidebarContainer}>
+                <Sidebar />
+              </div>
+              <Switch>
+                <Route exact path="/" component={IndexPage} />
+
+                <Route path="/sta" render={(props:any) => (
+                  <div className={classes.main}>
+                    <StaPage />
+                    <div className={classes.walletContainer}>
+                      <Wallet
+                        isStaPage={true}
+                      />
+                    </div>
+                  </div>
+                )} />
+
+                <Route path="/pool/:contract_address" render={(props:any) => (
+                  <div className={classes.main}>
+                    <PoolPage />
+                    <div className={classes.walletContainer}>
+                      <Wallet
+                        isStaPage={false}
+                        poolContractAddress={props.match.params.contract_address}
+                      />
+                    </div>
+                  </div>
+                )} />
+
+                <Route path="/multi_pool/:contract_address" render={(props:any) => (
+                  <div className={classes.main}>
+                    <MultiPoolPage />
+                    <div className={classes.walletContainer}>
+                      <Wallet
+                        isStaPage={false}
+                        poolContractAddress={props.match.params.contract_address}
+                      />
+                    </div>
+                  </div>
+                )} />
+              </Switch>
+            </div>
+          </Router>
+        </Store>
+      </Web3ReactProvider>
+    </ApolloProvider>
+  )
 }
 
 export default App

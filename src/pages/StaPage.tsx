@@ -10,9 +10,10 @@ import { Chart } from 'react-google-charts'
 import _ from 'lodash'
 import SegmentedTabs from '../Components/SegmentedTabs/SegmentedTabs'
 import { genFormattedNumber } from '../util/numberFormat'
+import Loader from '../Components/Loader/Loader'
 
 
-const StaPage: FunctionComponent<void> = () => {
+const StaPage: FunctionComponent = () => {
   const dispatch = useDispatch()
   const [chartType, setChartType] = useState('price')
   const [chartTimePeriod, setChartTimePeriod] = useState('1_day')
@@ -238,7 +239,7 @@ const StaPage: FunctionComponent<void> = () => {
       </div>
     )
   } else {
-    return <div>Loading</div>
+    return <Loader size='medium' />
   }
 }
 

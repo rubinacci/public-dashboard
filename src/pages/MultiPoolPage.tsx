@@ -8,8 +8,9 @@ import Metric from '../Components/Metric/Metric'
 import _ from 'lodash'
 import { genFormattedNumber } from '../util/numberFormat'
 import { Chart } from 'react-google-charts'
+import Loader from '../Components/Loader/Loader'
 
-const MultiPoolPage: FunctionComponent<void> = () => {
+const MultiPoolPage: FunctionComponent = () => {
   const mounted:any = useRef()
 
   const params:any = useParams()
@@ -146,7 +147,7 @@ const MultiPoolPage: FunctionComponent<void> = () => {
       </div>
     )
   } else {
-    return <div>Loading</div>
+    return <Loader size='medium' />
   }
 }
 
