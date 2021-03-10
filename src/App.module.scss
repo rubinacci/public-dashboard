@@ -1,4 +1,4 @@
-@import "./assets/styles/global/colors";
+@import "./assets/styles/index.scss";
 
 // Sidebar width 240px
 
@@ -17,6 +17,7 @@
   overflow-x: hidden;
   width: 240px;
   background: rgb(42,49,67);
+  z-index: 10;
 }
 
 .main {
@@ -28,6 +29,18 @@
   left: 240px;
   top: 0;
   background: $bg;
+  padding-top: 40px;
+}
+
+.menuIcon {
+  // display: none;
+  background: url('/images/hamburger-menu.svg') 0 0 / 25px 21px;
+  width: 25px;
+  height: 21px;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: 40;
 }
 
 
@@ -39,4 +52,46 @@
   position: absolute;
   bottom: 0;
   height: 200px;
+}
+
+@media screen and (max-width: $mobile) {
+  .sidebarContainer {
+    position: absolute;
+    left: -240px;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+
+    &.open {
+      left: 0;
+    }
+  }
+
+  .sidebarShade {
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(64,65,72,0.3);
+    z-index: 9;
+    opacity: 0;
+    transition-duration: 150ms;
+
+    &.open {
+      pointer-events: all;
+      opacity: 1;
+    }
+  }
+
+  .main {
+    width: 100%;
+    left: 0;
+  }
+
+  .walletContainer {
+    position: sticky;
+    bottom: 0;
+  }
 }

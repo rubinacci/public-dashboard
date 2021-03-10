@@ -1,12 +1,8 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import classes from './Wallet.module.scss'
-import cx from 'classnames'
-import { useSelector } from 'react-redux'
 import StaButton from '../StaButton/StaButton'
 import { useWeb3React, getWeb3ReactContext } from '@web3-react/core'
 import { injected, walletConnect } from '../../web3/connectors'
-import { useTokenBalance } from '../../hooks/useTokenBalance'
 import { POOLS, ASSETS } from '../../Constants/Constants'
 import _ from 'lodash'
 
@@ -14,7 +10,7 @@ const Wallet = (props:any) => {
   const { isStaPage, poolContractAddress } = props
 
   const web3 = useWeb3React()
-  const { activate, deactivate, account, active } = web3
+  const { activate, account } = web3
 
   // TODO: web3 work goes here ;)
   // Resolve the
@@ -36,7 +32,6 @@ const Wallet = (props:any) => {
       })
     }
   }
-  console.log('assetContractAddress: ', assetContractAddress);
   // TODO: Retrieve the balances of each of these assets in the users' wallet
 
   let walletDom

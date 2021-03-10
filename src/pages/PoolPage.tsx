@@ -13,6 +13,7 @@ import SegmentedTabs from '../Components/SegmentedTabs/SegmentedTabs'
 import { genFormattedNumber } from '../util/numberFormat'
 import ApyMetric from '../Components/ApyMetric/ApyMetric'
 import Loader from '../Components/Loader/Loader'
+import ResizeObserver from 'react-resize-observer'
 
 const PoolPage: FunctionComponent = () => {
   const mounted:any = useRef()

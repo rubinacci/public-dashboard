@@ -21,11 +21,11 @@
 }
 
 .dashboardLeft {
-
+  width: 100%;
 }
 
 .dashboardRight {
-
+  width: 100%;
 }
 
 
@@ -58,6 +58,7 @@
 }
 
 .chartContainer {
+  width: 100%;
 }
 
 .chartActions {
@@ -109,4 +110,21 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   grid-gap: 0 14px;
   align-items: start;
+}
+
+
+// Mobile
+
+@media screen and (max-width: $mobile) {
+  .dashboardContainer {
+    width: 100%;
+    padding: 20px 14px;
+  }
+
+  .dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-column-gap: 12px;
+  }
 }

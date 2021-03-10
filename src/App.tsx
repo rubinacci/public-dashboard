@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
 import Modal from "react-modal"
@@ -6,13 +6,10 @@ import { Web3ReactProvider } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers'
 import { useEagerConnect } from './hooks/useEagerConnect'
 import { useInactiveListener } from './hooks/useInactiveListener'
-import { Pool } from './Constants/Pool'
 import ReactDOM from 'react-dom'
-import { Context, Store } from './Store'
-import { fetchETHPrice } from './hooks/useGlobalState'
-import { useApiResult } from './hooks/useApiResult'
-import classes from "./App.module.scss"
-import logo from "./assets/images/pools/statera.png"
+import { Store } from './Store'
+import classes from './App.module.scss'
+import cx from 'classnames'
 // Components
 import Sidebar from './Components/Sidebar/Sidebar'
 // import Dashboard from './Components/Dashboard'
@@ -23,7 +20,7 @@ import PoolPage from './pages/PoolPage'
 import MultiPoolPage from './pages/MultiPoolPage'
 import Wallet from './Components/Wallet/Wallet'
 import Loader from './Components/Loader/Loader'
-import { useWeb3React, getWeb3ReactContext } from '@web3-react/core'
+import { useWeb3React } from '@web3-react/core'
 
 
 Modal.setAppElement('#root')
@@ -45,50 +42,9 @@ const renderLoading = () => {
   ReactDOM.render(<Loader />, document.getElementById("loading"))
 }
 
-// const Loader = () => {
-//     const { dispatch } = useContext(Context)
-//     useEffect(() => {
-//         renderLoading()
-//         ;(async () => {
-//             dispatch({ type: "SET_ethPrice", data: await fetchETHPrice() })
-//         })()
-//     }, [dispatch])
-//     return null
-// }
-
-// const StatsDataLoader = () => {
-//     const data = useApiResult("/stats", {}).data
-//     const { dispatch } = useContext(Context)
-//     useEffect(() => { if (data) dispatch({ type: "SET_statsData", data }) }, [data, dispatch])
-//     return null
-// }
-// const ChartDataLoader = () => {
-//     const data = useApiResult("/chartdata", {}).data as any
-//     const { dispatch } = useContext(Context)
-//     useEffect(() => {
-//         if (data) {
-//             if (data["volumes"]) {
-//                 const allVolumes: { [timestamp: number]: number } = {}
-//                 Object.keys(data["volumes"] || {}).forEach(pool => {
-//                     const poolVolumes = data["volumes"][pool]["all"] || []
-//                     poolVolumes.forEach(([timestamp, value]: [number, number], i: number) => {
-//                         allVolumes[timestamp] = (allVolumes[timestamp] || 0) + value
-//                     })
-//                 })
-//                 data["volumes"]["all"] = { all: Object.keys(allVolumes).map(timestamp => [timestamp, allVolumes[parseInt(timestamp)]]) }
-//             }
-//             dispatch({ type: "SET_chartData", data })
-//         }
-//     }, [data, dispatch])
-//     return null
-// }
-
-const genPageDom = () => {
-  return
-}
-
 const App = () => {
   const { activate, deactivate, account, active } = useWeb3React()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <ApolloProvider client={uniswapGraphClient}>
@@ -97,9 +53,27 @@ const App = () => {
           <EagerConnect />
           <Router>
             <div className={classes.app}>
-              <div className={classes.sidebarContainer}>
+              <div
+                className={classes.menuIcon}
+                onClick={() => setMenuOpen(!menuOpen)}
+              />
+              <div className={cx(
+                classes.sidebarContainer,
+                {
+                  [classes.open]: menuOpen,
+                }
+              )} >
                 <Sidebar />
               </div>
+              <div
+                onClick={() => setMenuOpen(!menuOpen)}
+                className={cx(
+                  classes.sidebarShade,
+                  {
+                    [classes.open]: menuOpen,
+                  }
+                )
+              } />
               <Switch>
                 <Route exact path="/" component={IndexPage} />
 

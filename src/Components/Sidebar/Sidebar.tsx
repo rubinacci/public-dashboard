@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { useState } from 'react'
 import classes from './Sidebar.module.scss'
 import { NavLink } from 'react-router-dom'
 import { POOLS } from '../../Constants/Constants'
