@@ -104,7 +104,7 @@ const PoolPage: FunctionComponent = () => {
                 <div className={classes.chartContainer}>
                   <Chart
                     width={'100%'}
-                    height={'400px'}
+                    height={'300px'}
                     chartType="LineChart"
                     loader={<div>Loading Chart</div>}
                     data={chartData}
