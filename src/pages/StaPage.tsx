@@ -66,16 +66,25 @@ const StaPage: FunctionComponent = () => {
     }
 
     let chartData
-    if (chartType === 'price') {
-      chartData = [
-        ['Datetime', 'Price'],
-        ...chartPriceData,
-      ]
-    } else if (chartType === 'volume') {
-      chartData = [
-        ['Datetime', 'Volume'],
-        ...chartVolumeData,
-      ]
+    let chartLeftMargin
+    switch (chartType) {
+      case 'price': {
+        chartData = [
+          ['Datetime', 'Price'],
+          ...chartPriceData,
+        ]
+        chartLeftMargin = 20
+        break
+      }
+
+      case 'volume': {
+        chartData = [
+          ['Datetime', 'Volume'],
+          ...chartVolumeData,
+        ]
+        chartLeftMargin = 100
+        break
+      }
     }
 
 
@@ -101,7 +110,7 @@ const StaPage: FunctionComponent = () => {
                     options={{
                       legend: 'none',
                       chartArea: {
-                        left: 40,
+                        left: chartLeftMargin,
                         top: 20,
                         width: '90%',
                         height: '90%',
