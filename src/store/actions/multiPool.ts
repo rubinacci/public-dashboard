@@ -13,6 +13,8 @@ export const loadMultiPool = () => async (dispatch:Dispatch, getState:any) => {
 
   Promise.all([
     getData(contractAddress),
+    getBalancerLiquidity(),
+    getBalancerPrice(),
     getChartData(contractAddress),
   ])
     .then(_results => {
@@ -59,7 +61,6 @@ const getData = (contractAddress:string) => {
         const assetValue = liquidity / data.totalShares
         const feesEarned = volume * data.swapFee
         const feesApy = (Math.pow(((feesEarned / liquidity) + 1), 365)) -1
-        const balReturns = Math.exp(-Math.pow(data.swapFee * 25, 2))
 
         resolve({
           name: 'data',
@@ -71,7 +72,78 @@ const getData = (contractAddress:string) => {
             feesEarned,
             feesApy,
             liquidityProviderCount: Number(data.holdersCount),
-            balReturns,
+          },
+        })
+      })
+      .catch(_error => {
+        resolve({
+          name: 'data',
+          status: 'error',
+          result: _error
+        })
+      })
+  })
+}
+
+
+// Balancer Liquidity
+
+const getBalancerLiquidity = () => {
+  return new Promise(resolve => {
+    axios.post('https://api.thegraph.com/subgraphs/name/balancer-labs/balancer', {
+      query: `
+        {
+          balancers {
+            totalLiquidity
+          }
+        }
+      `
+    })
+      .then(_res => {
+        const totalBalancerLiquidity = _res?.data?.data?.balancers[0]?.totalLiquidity
+        log.info('multiPool:getBalancerLiquidity:success', totalBalancerLiquidity)
+
+        resolve({
+          name: 'balancerLiquidity',
+          status: 'success',
+          result: {
+            totalBalancerLiquidity: Big(totalBalancerLiquidity).toNumber(),
+          },
+        })
+      })
+      .catch(_error => {
+        resolve({
+          name: 'data',
+          status: 'error',
+          result: _error
+        })
+      })
+  })
+}
+
+
+// Balancer Price
+
+const getBalancerPrice = () => {
+  return new Promise(resolve => {
+    axios.get('https://api.coingecko.com/api/v3/coins/balancer', {
+      params: {
+        localization: false,
+        market_data: true,
+        sparkline: false,
+        current_price: true,
+        currency: 'usd',
+      },
+    })
+      .then(_res => {
+        const balancerPrice = _res?.data?.market_data?.current_price?.usd
+        log.info('multiPool:getBalancerPrice:success', balancerPrice)
+
+        resolve({
+          name: 'balancerPrice',
+          status: 'success',
+          result: {
+            balancerPrice,
           },
         })
       })

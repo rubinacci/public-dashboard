@@ -11,6 +11,7 @@ import Loader from '../Components/Loader/Loader'
 import SegmentedTabs from '../Components/SegmentedTabs/SegmentedTabs'
 import cx from 'classnames'
 import _ from 'lodash'
+import BalApyMetric from '../Components/BalApyMetric/BalApyMetric'
 
 const MultiPoolPage: FunctionComponent = () => {
   const [chartType, setChartType] = useState('assetPrice')
@@ -298,6 +299,10 @@ const MultiPoolPage: FunctionComponent = () => {
                     pieSliceText: 'label',
                   }}
                 />
+              </div>
+
+              <div className={classes.card}>
+                <BalApyMetric />
               </div>
             </div>
 

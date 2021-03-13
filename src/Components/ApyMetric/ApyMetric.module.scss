@@ -18,7 +18,23 @@
   }
 }
 
+.apyCenter {
+  @extend .apy;
+  text-align: center;
+
+  .textDark {
+    margin-right: 6px;
+  }
+}
+
 .textDark {
   color: $text-dark;
   margin-left: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: $text-med;
+  width: 100%;
+  text-align: center;
 }

@@ -12,7 +12,10 @@ const INITIAL_STATE = {
     feesEarned: null,
     feesApy: null,
     liquidityProviderCount: null,
+    totalBalancerLiquidity: null,
+    balancerPrice: null,
     balReturns: null,
+    feesAndBalReturns: null,
     chart: {
       assetPrice: null,
       volume: null,
@@ -67,13 +70,23 @@ export default (state = INITIAL_STATE, action:any) => {
     case 'MULTI_POOL_SUCCESS': {
       const _results = action.payload
       const dataResult = _results.find((result:any) => result.name === 'data').result
+      const balancerLiquidityResult = _results.find((result:any) => result.name === 'balancerLiquidity').result
+      const balancerPriceResult = _results.find((result:any) => result.name === 'balancerPrice').result
       const chartDataResult = _results.find((result:any) => result.name === 'chart').result
+
+      const balReturns = (Math.pow((((((dataResult.liquidity / balancerLiquidityResult.totalBalancerLiquidity) * 145000) * balancerPriceResult.balancerPrice) / dataResult.liquidity) + 1 ), 52)) - 1
+
+      const feesAndBalReturns = dataResult.feesApy + balReturns
 
 			return {
         ...state,
         data: {
           ...dataResult,
+          ...balancerLiquidityResult,
+          ...balancerPriceResult,
           ...chartDataResult,
+          balReturns,
+          feesAndBalReturns,
         },
         meta: _.merge({}, INITIAL_STATE.meta, {
           success: true,
