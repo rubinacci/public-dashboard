@@ -125,7 +125,7 @@ const MultiPoolPage: FunctionComponent = () => {
                   <Chart
                     width={'100%'}
                     height={'300px'}
-                    chartType="LineChart"
+                    chartType="ColumnChart"
                     loader={<div>Loading Chart</div>}
                     data={chartData}
                     options={{

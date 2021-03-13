@@ -105,13 +105,13 @@ const PoolPage: FunctionComponent = () => {
                   <Chart
                     width={'100%'}
                     height={'300px'}
-                    chartType="LineChart"
+                    chartType="ColumnChart"
                     loader={<div>Loading Chart</div>}
                     data={chartData}
                     options={{
                       legend: 'none',
                       chartArea: {
-                        left: 40,
+                        left: 100,
                         top: 20,
                         width: '90%',
                         height: '90%',
