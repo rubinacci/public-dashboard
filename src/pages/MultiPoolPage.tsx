@@ -75,7 +75,7 @@ const MultiPoolPage: FunctionComponent = () => {
     switch (chartType) {
       case 'assetPrice': {
         chartData = [
-          ['Datetime', 'Volume'],
+          ['Datetime', 'Asset Price'],
           ..._.takeRight(multiPoolState.data.chart.assetPrice, timePeriod),
         ]
         chartLeftMargin = 70

@@ -143,9 +143,7 @@ const getChartData = (contractAddress:string) => {
           }
 
           const parsedVolume = (assetPrice0 * assetVolume0) + (assetPrice1 * assetVolume1)
-
-
-          const parsedFeeReturns = (Math.pow((((parsedVolume * 0.003) / parsedLiquidity) + 1), 365)) -1
+          const parsedFeeReturns = (parsedVolume > 0 && parsedLiquidity > 0) ? (Math.pow((((parsedVolume * 0.003) / parsedLiquidity) + 1), 365)) -1 : 0
 
           volume.push([
             displayDate,

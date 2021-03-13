@@ -74,21 +74,34 @@ const PoolPage: FunctionComponent = () => {
     }
 
     let chartData
-    if (chartType === 'volume') {
-      chartData = [
-        ['Datetime', 'Volume'],
-        ..._.takeRight(poolState.data.chart.volume, timePeriod),
-      ]
-    } else if (chartType === 'liquidity') {
-      chartData = [
-        ['Datetime', 'Liquidity'],
-        ..._.takeRight(poolState.data.chart.liquidity, timePeriod),
-      ]
-    } else if (chartType === 'feeReturns') {
-      chartData = [
-        ['Datetime', 'Fee Returns'],
-        ..._.takeRight(poolState.data.chart.feeReturns, timePeriod),
-      ]
+    let chartLeftMargin
+    switch (chartType) {
+      case 'volume': {
+        chartData = [
+          ['Datetime', 'Volume'],
+          ..._.takeRight(poolState.data.chart.volume, timePeriod),
+        ]
+        chartLeftMargin = 86
+        break
+      }
+
+      case 'liquidity': {
+        chartData = [
+          ['Datetime', 'Liquidity'],
+          ..._.takeRight(poolState.data.chart.liquidity, timePeriod),
+        ]
+        chartLeftMargin = 100
+        break
+      }
+
+      case 'feeReturns': {
+        chartData = [
+          ['Datetime', 'Fee Returns'],
+          ..._.takeRight(poolState.data.chart.feeReturns, timePeriod),
+        ]
+        chartLeftMargin = 40
+        break
+      }
     }
 
     return (
@@ -111,7 +124,7 @@ const PoolPage: FunctionComponent = () => {
                     options={{
                       legend: 'none',
                       chartArea: {
-                        left: 100,
+                        left: chartLeftMargin,
                         top: 20,
                         width: '90%',
                         height: '90%',
