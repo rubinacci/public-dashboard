@@ -4,6 +4,7 @@ import _ from 'lodash'
 import log from '../../util/log'
 import { DateTime } from 'luxon'
 import Big from 'big.js'
+import MultiPoolApi from '../mocks/multiPoolApi.json'
 
 export const loadMultiPool = () => async (dispatch:Dispatch, getState:any) => {
   const contractAddress:string = getState().multiPool.contractAddress
@@ -12,7 +13,7 @@ export const loadMultiPool = () => async (dispatch:Dispatch, getState:any) => {
 
   Promise.all([
     getData(contractAddress),
-    // Leaving space here for future chart data calls
+    getChartData(contractAddress),
   ])
     .then(_results => {
       const anyErrors = _.some(_results, (result:any) => result.status === 'error')
@@ -27,7 +28,7 @@ export const loadMultiPool = () => async (dispatch:Dispatch, getState:any) => {
 }
 
 
-// Chart
+// General Data
 
 const getData = (contractAddress:string) => {
   return new Promise(resolve => {
@@ -79,5 +80,85 @@ const getData = (contractAddress:string) => {
           result: _error
         })
       })
+  })
+}
+
+
+// Chart
+
+const getChartData = (contractAddress:string) => {
+  return new Promise(resolve => {
+    const _res:any = MultiPoolApi
+
+    log.info('multiPool:getChartData:success', _res)
+    let data = _res.map((item:any) => {
+      const matchedPool = item.data.find((item:any) => item.id === contractAddress)
+      return {
+        date: item.inserted_at,
+        volume: matchedPool['24HourVolume'],
+        liquidity: matchedPool.liquidity,
+        swapFee: matchedPool.swapFee,
+        totalShares: matchedPool.totalShares,
+        holdersCount: matchedPool.holdersCount,
+      }
+    })
+
+    let assetPrice:any = []
+    let volume:any = []
+    let liquidity:any = []
+    let feeReturns:any = []
+
+    data.forEach((item:any) => {
+      const date = item.date
+      const parsedVolume = Big(item.volume).toNumber()
+      const parsedLiquidity = Big(item.liquidity).toNumber()
+      const parsedFeeReturns = (Math.pow((((parsedVolume * 0.003) / parsedLiquidity) + 1), 365)) - 1
+      const parsedTotalShares = Big(item.totalShares).toNumber()
+      const parsedAssetPrice = parsedLiquidity / parsedTotalShares
+
+      assetPrice.push([
+        date,
+        parsedAssetPrice,
+      ])
+
+      volume.push([
+        date,
+        parsedVolume,
+      ])
+
+      liquidity.push([
+        date,
+        parsedLiquidity,
+      ])
+
+      feeReturns.push([
+        date,
+        parsedFeeReturns,
+      ])
+    })
+
+    resolve({
+      name: 'chart',
+      status: 'success',
+      result: {
+        chart: {
+          assetPrice,
+          volume,
+          liquidity,
+          feeReturns,
+        },
+      },
+    })
+    // axios.get(`${process.env.REACT_APP_MULTI_POOL_DATA_API}/api/data`)
+    //   .then(_res => {
+
+    //   })
+    //   .catch(_error => {
+    //     resolve({
+    //       name: 'chart',
+    //       status: 'error',
+    //       result: _error
+    //     })
+    //   })
   })
 }

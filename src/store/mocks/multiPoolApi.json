@@ -1,0 +1,826 @@
+[
+  {
+    "inserted_at": "2021-03-05T20:26:23",
+    "data": [
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "1",
+        "id": "0x4c321a9487128b84679d375acd967a6b8b8559fb",
+        "liquidity": "11568.57834416198767247481758786253",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1386.721173373943083062453257350686"
+          }
+        ],
+        "totalShares": "208.33529029966282943",
+        "totalSwapVolume": "1386.721173373943083062453257350686"
+      },
+      {
+        "24HourVolume": "3236.992726647085077646791264",
+        "holdersCount": "2",
+        "id": "0x5353e4294fcf069a5e8db9b8109d8f23dcd25f35",
+        "liquidity": "60577.3500451473106534246297352929",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "174220.6046804268642434719859034642"
+          }
+        ],
+        "totalShares": "2220.611515137354656979",
+        "totalSwapVolume": "177457.5974070739493211187771672649"
+      },
+      {
+        "24HourVolume": "9714.782414624493241479941119",
+        "holdersCount": "80",
+        "id": "0x55353cbadda8fd525f0e6f307b3527d518416700",
+        "liquidity": "805158.413147279754674215476553121",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "6455598.760635855143863139080232855"
+          }
+        ],
+        "totalShares": "20396.621843729707453724",
+        "totalSwapVolume": "6465313.543050479637104619021352"
+      },
+      {
+        "24HourVolume": "0E-29",
+        "holdersCount": "1",
+        "id": "0x555dee5f67db53c66ca62442477624ebb0ebfbb9",
+        "liquidity": "212.1831888665177366091670160178211",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "98490.26304168625879759875915777292"
+          }
+        ],
+        "totalShares": "0.819109445769940694",
+        "totalSwapVolume": "98490.26304168625879759875915777292"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "1",
+        "id": "0x7f8ec02007ea664b3cac5694f8f57ad020a921db",
+        "liquidity": "2397.163758531925227090550316116692",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1256.278425360478076792975546003695"
+          }
+        ],
+        "totalShares": "120.9574853762404619",
+        "totalSwapVolume": "1256.278425360478076792975546003695"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "0",
+        "id": "0xb2c1ef6177d0e2923f9a40327fd10c07ebd5aea8",
+        "liquidity": "0",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "8989.280087942408337155026234018085"
+          }
+        ],
+        "totalShares": "0",
+        "totalSwapVolume": "8989.280087942408337155026234018085"
+      },
+      {
+        "24HourVolume": "5156.073529755426330084003623",
+        "holdersCount": "11",
+        "id": "0xe6cb1c3a212001d02706ef93ea0a87b35b36d016",
+        "liquidity": "194991.7955227678055088714781670791",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "805231.5849857599939922720336136494"
+          }
+        ],
+        "totalShares": "2064.990711687067257537",
+        "totalSwapVolume": "810387.6585155154203223560372366869"
+      }
+    ]
+  },
+  {
+    "inserted_at": "2021-03-06T23:00:57",
+    "data": [
+      {
+        "24HourVolume": "26.13264607453030643603173383",
+        "holdersCount": "1",
+        "id": "0x4c321a9487128b84679d375acd967a6b8b8559fb",
+        "liquidity": "11370.64026818133251275055829798563",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1386.721173373943083062453257350686"
+          }
+        ],
+        "totalShares": "208.33529029966282943",
+        "totalSwapVolume": "1412.853819448473389498484991181396"
+      },
+      {
+        "24HourVolume": "0E-28",
+        "holdersCount": "2",
+        "id": "0x5353e4294fcf069a5e8db9b8109d8f23dcd25f35",
+        "liquidity": "60577.3500451473106534246297352929",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "177457.5974070739493211187771672649"
+          }
+        ],
+        "totalShares": "2220.611515137354656979",
+        "totalSwapVolume": "177457.5974070739493211187771672649"
+      },
+      {
+        "24HourVolume": "6408.639423402921529830743986",
+        "holdersCount": "79",
+        "id": "0x55353cbadda8fd525f0e6f307b3527d518416700",
+        "liquidity": "817052.471393848594058729360290723",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "6466170.237053623272101798646722195"
+          }
+        ],
+        "totalShares": "20348.435075172106949914",
+        "totalSwapVolume": "6472578.876477026193631629390708665"
+      },
+      {
+        "24HourVolume": "0E-29",
+        "holdersCount": "1",
+        "id": "0x555dee5f67db53c66ca62442477624ebb0ebfbb9",
+        "liquidity": "212.1831888665177366091670160178211",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "98490.26304168625879759875915777292"
+          }
+        ],
+        "totalShares": "0.819109445769940694",
+        "totalSwapVolume": "98490.26304168625879759875915777292"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "1",
+        "id": "0x7f8ec02007ea664b3cac5694f8f57ad020a921db",
+        "liquidity": "2397.163758531925227090550316116692",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1256.278425360478076792975546003695"
+          }
+        ],
+        "totalShares": "120.9574853762404619",
+        "totalSwapVolume": "1256.278425360478076792975546003695"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "0",
+        "id": "0xb2c1ef6177d0e2923f9a40327fd10c07ebd5aea8",
+        "liquidity": "0",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "8989.280087942408337155026234018085"
+          }
+        ],
+        "totalShares": "0",
+        "totalSwapVolume": "8989.280087942408337155026234018085"
+      },
+      {
+        "24HourVolume": "3004.674543140260601598185554",
+        "holdersCount": "11",
+        "id": "0xe6cb1c3a212001d02706ef93ea0a87b35b36d016",
+        "liquidity": "200231.348191496352797796438751088",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "810629.6715573449080985587880603564"
+          }
+        ],
+        "totalShares": "2064.990711687067257537",
+        "totalSwapVolume": "813634.3461004851687001569736146579"
+      }
+    ]
+  },
+  {
+    "inserted_at": "2021-03-07T23:01:02",
+    "data": [
+      {
+        "24HourVolume": "416.8197628923702774018071627",
+        "holdersCount": "1",
+        "id": "0x4c321a9487128b84679d375acd967a6b8b8559fb",
+        "liquidity": "11488.91895948137050023076556396285",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1412.853819448473389498484991181396"
+          }
+        ],
+        "totalShares": "208.33529029966282943",
+        "totalSwapVolume": "1829.673582340843666900292153854407"
+      },
+      {
+        "24HourVolume": "324.8157248659151879752840966",
+        "holdersCount": "2",
+        "id": "0x5353e4294fcf069a5e8db9b8109d8f23dcd25f35",
+        "liquidity": "63913.76322002011841769685582159",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "177457.5974070739493211187771672649"
+          }
+        ],
+        "totalShares": "2220.611515137354656979",
+        "totalSwapVolume": "177782.4131319398645090940612638349"
+      },
+      {
+        "24HourVolume": "33022.25020299569112527277177",
+        "holdersCount": "77",
+        "id": "0x55353cbadda8fd525f0e6f307b3527d518416700",
+        "liquidity": "763494.21274083932466353367714024",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "6472578.876477026193631629390708665"
+          }
+        ],
+        "totalShares": "19331.924411887292600881",
+        "totalSwapVolume": "6505601.126680021884756902162473954"
+      },
+      {
+        "24HourVolume": "19.64020341358658714891328480",
+        "holdersCount": "1",
+        "id": "0x555dee5f67db53c66ca62442477624ebb0ebfbb9",
+        "liquidity": "195.1755843534586997872504043709234",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "98490.26304168625879759875915777292"
+          }
+        ],
+        "totalShares": "0.819109445769940694",
+        "totalSwapVolume": "98509.90324509984538474767244257348"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "1",
+        "id": "0x7f8ec02007ea664b3cac5694f8f57ad020a921db",
+        "liquidity": "2397.163758531925227090550316116692",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1256.278425360478076792975546003695"
+          }
+        ],
+        "totalShares": "120.9574853762404619",
+        "totalSwapVolume": "1256.278425360478076792975546003695"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "0",
+        "id": "0xb2c1ef6177d0e2923f9a40327fd10c07ebd5aea8",
+        "liquidity": "0",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "8989.280087942408337155026234018085"
+          }
+        ],
+        "totalShares": "0",
+        "totalSwapVolume": "8989.280087942408337155026234018085"
+      },
+      {
+        "24HourVolume": "9516.207523279592597109863772",
+        "holdersCount": "12",
+        "id": "0xe6cb1c3a212001d02706ef93ea0a87b35b36d016",
+        "liquidity": "201487.2095897526724247278577723828",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "813634.3461004851687001569736146579"
+          }
+        ],
+        "totalShares": "2067.694019734245835469",
+        "totalSwapVolume": "823150.5536237647612972668373862075"
+      }
+    ]
+  },
+  {
+    "inserted_at": "2021-03-08T23:00:44",
+    "data": [
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "1",
+        "id": "0x4c321a9487128b84679d375acd967a6b8b8559fb",
+        "liquidity": "11488.91895948137050023076556396285",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1829.673582340843666900292153854407"
+          }
+        ],
+        "totalShares": "208.33529029966282943",
+        "totalSwapVolume": "1829.673582340843666900292153854407"
+      },
+      {
+        "24HourVolume": "115.8203071020850270169648666",
+        "holdersCount": "2",
+        "id": "0x5353e4294fcf069a5e8db9b8109d8f23dcd25f35",
+        "liquidity": "59523.84404569952266485402700147815",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "177782.4131319398645090940612638349"
+          }
+        ],
+        "totalShares": "2220.611515137354656979",
+        "totalSwapVolume": "177898.2334390419495361110261304289"
+      },
+      {
+        "24HourVolume": "29223.98447874320749304880333",
+        "holdersCount": "77",
+        "id": "0x55353cbadda8fd525f0e6f307b3527d518416700",
+        "liquidity": "793803.511715085583334176438859018",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "6505601.126680021884756902162473954"
+          }
+        ],
+        "totalShares": "19331.924411887292600881",
+        "totalSwapVolume": "6534825.111158765092249950965802149"
+      },
+      {
+        "24HourVolume": "0E-29",
+        "holdersCount": "1",
+        "id": "0x555dee5f67db53c66ca62442477624ebb0ebfbb9",
+        "liquidity": "195.1755843534586997872504043709234",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "98509.90324509984538474767244257348"
+          }
+        ],
+        "totalShares": "0.819109445769940694",
+        "totalSwapVolume": "98509.90324509984538474767244257348"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "1",
+        "id": "0x7f8ec02007ea664b3cac5694f8f57ad020a921db",
+        "liquidity": "2397.163758531925227090550316116692",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1256.278425360478076792975546003695"
+          }
+        ],
+        "totalShares": "120.9574853762404619",
+        "totalSwapVolume": "1256.278425360478076792975546003695"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "0",
+        "id": "0xb2c1ef6177d0e2923f9a40327fd10c07ebd5aea8",
+        "liquidity": "0",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "8989.280087942408337155026234018085"
+          }
+        ],
+        "totalShares": "0",
+        "totalSwapVolume": "8989.280087942408337155026234018085"
+      },
+      {
+        "24HourVolume": "6723.510418475510503349645277",
+        "holdersCount": "12",
+        "id": "0xe6cb1c3a212001d02706ef93ea0a87b35b36d016",
+        "liquidity": "209295.961450198571340255232178574",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "823150.5536237647612972668373862075"
+          }
+        ],
+        "totalShares": "2067.694019734245835469",
+        "totalSwapVolume": "829874.064042240271800616482663145"
+      }
+    ]
+  },
+  {
+    "inserted_at": "2021-03-09T23:01:08",
+    "data": [
+      {
+        "24HourVolume": "411.3646760811149576533162525",
+        "holdersCount": "1",
+        "id": "0x4c321a9487128b84679d375acd967a6b8b8559fb",
+        "liquidity": "12430.60409731769132304063421200292",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1829.673582340843666900292153854407"
+          }
+        ],
+        "totalShares": "208.33529029966282943",
+        "totalSwapVolume": "2241.03825842195862455360840632068"
+      },
+      {
+        "24HourVolume": "0E-28",
+        "holdersCount": "2",
+        "id": "0x5353e4294fcf069a5e8db9b8109d8f23dcd25f35",
+        "liquidity": "59523.84404569952266485402700147815",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "177898.2334390419495361110261304289"
+          }
+        ],
+        "totalShares": "2220.611515137354656979",
+        "totalSwapVolume": "177898.2334390419495361110261304289"
+      },
+      {
+        "24HourVolume": "16227.27024391245461060131656",
+        "holdersCount": "75",
+        "id": "0x55353cbadda8fd525f0e6f307b3527d518416700",
+        "liquidity": "783853.3601678998368828237044259225",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "6534825.111158765092249950965802149"
+          }
+        ],
+        "totalShares": "19028.663832041944593248",
+        "totalSwapVolume": "6551052.381402677546860552282361427"
+      },
+      {
+        "24HourVolume": "0E-29",
+        "holdersCount": "1",
+        "id": "0x555dee5f67db53c66ca62442477624ebb0ebfbb9",
+        "liquidity": "195.1755843534586997872504043709234",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "98509.90324509984538474767244257348"
+          }
+        ],
+        "totalShares": "0.819109445769940694",
+        "totalSwapVolume": "98509.90324509984538474767244257348"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "1",
+        "id": "0x7f8ec02007ea664b3cac5694f8f57ad020a921db",
+        "liquidity": "2397.163758531925227090550316116692",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1256.278425360478076792975546003695"
+          }
+        ],
+        "totalShares": "120.9574853762404619",
+        "totalSwapVolume": "1256.278425360478076792975546003695"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "0",
+        "id": "0xb2c1ef6177d0e2923f9a40327fd10c07ebd5aea8",
+        "liquidity": "0",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "8989.280087942408337155026234018085"
+          }
+        ],
+        "totalShares": "0",
+        "totalSwapVolume": "8989.280087942408337155026234018085"
+      },
+      {
+        "24HourVolume": "2293.209219502319737128565774",
+        "holdersCount": "12",
+        "id": "0xe6cb1c3a212001d02706ef93ea0a87b35b36d016",
+        "liquidity": "209472.0425854422702116106888331562",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "829874.064042240271800616482663145"
+          }
+        ],
+        "totalShares": "2067.694019734245835469",
+        "totalSwapVolume": "832167.2732617425915377450484372849"
+      }
+    ]
+  },
+  {
+    "inserted_at": "2021-03-10T23:01:20",
+    "data": [
+      {
+        "24HourVolume": "0E-29",
+        "holdersCount": "1",
+        "id": "0x4c321a9487128b84679d375acd967a6b8b8559fb",
+        "liquidity": "12430.60409731769132304063421200292",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "2241.03825842195862455360840632068"
+          }
+        ],
+        "totalShares": "208.33529029966282943",
+        "totalSwapVolume": "2241.03825842195862455360840632068"
+      },
+      {
+        "24HourVolume": "2342.722641963956058484476700",
+        "holdersCount": "2",
+        "id": "0x5353e4294fcf069a5e8db9b8109d8f23dcd25f35",
+        "liquidity": "65229.5171119429008406734657306563",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "177898.2334390419495361110261304289"
+          }
+        ],
+        "totalShares": "2298.187648680135446525",
+        "totalSwapVolume": "180240.9560810059055945955028299693"
+      },
+      {
+        "24HourVolume": "13970.05775973178614726612363",
+        "holdersCount": "74",
+        "id": "0x55353cbadda8fd525f0e6f307b3527d518416700",
+        "liquidity": "765653.04295222251603360469506546",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "6551052.381402677546860552282361427"
+          }
+        ],
+        "totalShares": "18917.416454238412927785",
+        "totalSwapVolume": "6565022.43916240933300781840598738"
+      },
+      {
+        "24HourVolume": "15.75293495009004165575536407",
+        "holdersCount": "1",
+        "id": "0x555dee5f67db53c66ca62442477624ebb0ebfbb9",
+        "liquidity": "186.7043354703617017133836490169147",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "98509.90324509984538474767244257348"
+          }
+        ],
+        "totalShares": "0.819109445769940694",
+        "totalSwapVolume": "98525.65618004993542640342780664481"
+      },
+      {
+        "24HourVolume": "101.6722710226324426896945404",
+        "holdersCount": "1",
+        "id": "0x7f8ec02007ea664b3cac5694f8f57ad020a921db",
+        "liquidity": "2500.660349606925301926840921329112",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1256.278425360478076792975546003695"
+          }
+        ],
+        "totalShares": "120.9574853762404619",
+        "totalSwapVolume": "1357.950696383110519482670086378909"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "0",
+        "id": "0xb2c1ef6177d0e2923f9a40327fd10c07ebd5aea8",
+        "liquidity": "0",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "8989.280087942408337155026234018085"
+          }
+        ],
+        "totalShares": "0",
+        "totalSwapVolume": "8989.280087942408337155026234018085"
+      },
+      {
+        "24HourVolume": "1162.642540101967574935728551",
+        "holdersCount": "12",
+        "id": "0xe6cb1c3a212001d02706ef93ea0a87b35b36d016",
+        "liquidity": "217996.7756988647885575757244596712",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "832167.2732617425915377450484372849"
+          }
+        ],
+        "totalShares": "2067.694019734245835469",
+        "totalSwapVolume": "833329.9158018445591126807769880916"
+      }
+    ]
+  },
+  {
+    "inserted_at": "2021-03-11T23:01:29",
+    "data": [
+      {
+        "24HourVolume": "0E-29",
+        "holdersCount": "1",
+        "id": "0x4c321a9487128b84679d375acd967a6b8b8559fb",
+        "liquidity": "12430.60409731769132304063421200292",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "2241.03825842195862455360840632068"
+          }
+        ],
+        "totalShares": "208.33529029966282943",
+        "totalSwapVolume": "2241.03825842195862455360840632068"
+      },
+      {
+        "24HourVolume": "904.4470984141602180673042184",
+        "holdersCount": "2",
+        "id": "0x5353e4294fcf069a5e8db9b8109d8f23dcd25f35",
+        "liquidity": "60190.5191832477612247199918619297",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "180240.9560810059055945955028299693"
+          }
+        ],
+        "totalShares": "2298.187648680135446525",
+        "totalSwapVolume": "181145.4031794200658126628070484094"
+      },
+      {
+        "24HourVolume": "40459.25585407422778238841095",
+        "holdersCount": "73",
+        "id": "0x55353cbadda8fd525f0e6f307b3527d518416700",
+        "liquidity": "724083.392677188483911985165802579",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "6565022.43916240933300781840598738"
+          }
+        ],
+        "totalShares": "18585.845151921769711939",
+        "totalSwapVolume": "6605481.695016483560790206816938228"
+      },
+      {
+        "24HourVolume": "0E-29",
+        "holdersCount": "1",
+        "id": "0x555dee5f67db53c66ca62442477624ebb0ebfbb9",
+        "liquidity": "186.7043354703617017133836490169147",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "98525.65618004993542640342780664481"
+          }
+        ],
+        "totalShares": "0.819109445769940694",
+        "totalSwapVolume": "98525.65618004993542640342780664481"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "1",
+        "id": "0x7f8ec02007ea664b3cac5694f8f57ad020a921db",
+        "liquidity": "2500.660349606925301926840921329112",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1357.950696383110519482670086378909"
+          }
+        ],
+        "totalShares": "120.9574853762404619",
+        "totalSwapVolume": "1357.950696383110519482670086378909"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "0",
+        "id": "0xb2c1ef6177d0e2923f9a40327fd10c07ebd5aea8",
+        "liquidity": "0",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "8989.280087942408337155026234018085"
+          }
+        ],
+        "totalShares": "0",
+        "totalSwapVolume": "8989.280087942408337155026234018085"
+      },
+      {
+        "24HourVolume": "312.8196585621325684864940496",
+        "holdersCount": "12",
+        "id": "0xe6cb1c3a212001d02706ef93ea0a87b35b36d016",
+        "liquidity": "209666.9018818863230486780891721886",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "833329.9158018445591126807769880916"
+          }
+        ],
+        "totalShares": "2067.694019734245835469",
+        "totalSwapVolume": "833642.7354604066916811672710376885"
+      }
+    ]
+  },
+  {
+    "inserted_at": "2021-03-12T23:00:17",
+    "data": [
+      {
+        "24HourVolume": "0E-29",
+        "holdersCount": "1",
+        "id": "0x4c321a9487128b84679d375acd967a6b8b8559fb",
+        "liquidity": "12430.60409731769132304063421200292",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "2241.03825842195862455360840632068"
+          }
+        ],
+        "totalShares": "208.33529029966282943",
+        "totalSwapVolume": "2241.03825842195862455360840632068"
+      },
+      {
+        "24HourVolume": "66.31066308683997552116947447",
+        "holdersCount": "2",
+        "id": "0x5353e4294fcf069a5e8db9b8109d8f23dcd25f35",
+        "liquidity": "63756.6546657096509663860037003997",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "181145.4031794200658126628070484094"
+          }
+        ],
+        "totalShares": "2298.187648680135446525",
+        "totalSwapVolume": "181211.7138425069057881839765228747"
+      },
+      {
+        "24HourVolume": "14614.29999807926456272895976",
+        "holdersCount": "72",
+        "id": "0x55353cbadda8fd525f0e6f307b3527d518416700",
+        "liquidity": "666022.193823910187694174022926552",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "6605481.695016483560790206816938228"
+          }
+        ],
+        "totalShares": "16963.695755766778484366",
+        "totalSwapVolume": "6620095.995014562825352935776699239"
+      },
+      {
+        "24HourVolume": "0E-29",
+        "holdersCount": "1",
+        "id": "0x555dee5f67db53c66ca62442477624ebb0ebfbb9",
+        "liquidity": "186.7043354703617017133836490169147",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "98525.65618004993542640342780664481"
+          }
+        ],
+        "totalShares": "0.819109445769940694",
+        "totalSwapVolume": "98525.65618004993542640342780664481"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "1",
+        "id": "0x7f8ec02007ea664b3cac5694f8f57ad020a921db",
+        "liquidity": "2500.660349606925301926840921329112",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "1357.950696383110519482670086378909"
+          }
+        ],
+        "totalShares": "120.9574853762404619",
+        "totalSwapVolume": "1357.950696383110519482670086378909"
+      },
+      {
+        "24HourVolume": "0E-30",
+        "holdersCount": "0",
+        "id": "0xb2c1ef6177d0e2923f9a40327fd10c07ebd5aea8",
+        "liquidity": "0",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "8989.280087942408337155026234018085"
+          }
+        ],
+        "totalShares": "0",
+        "totalSwapVolume": "8989.280087942408337155026234018085"
+      },
+      {
+        "24HourVolume": "1585.449922983888631334861667",
+        "holdersCount": "12",
+        "id": "0xe6cb1c3a212001d02706ef93ea0a87b35b36d016",
+        "liquidity": "201065.6266521256087662725717467932",
+        "swapFee": "0.003",
+        "swaps": [
+          {
+            "poolTotalSwapVolume": "833642.7354604066916811672710376885"
+          }
+        ],
+        "totalShares": "2067.694019734245835469",
+        "totalSwapVolume": "835228.185383390580312502132704544"
+      }
+    ]
+  }
+]

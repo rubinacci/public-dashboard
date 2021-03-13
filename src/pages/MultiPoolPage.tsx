@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef } from 'react'
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadMultiPool } from '../store/actions/multiPool'
@@ -8,8 +8,14 @@ import Metric from '../Components/Metric/Metric'
 import { genFormattedNumber } from '../util/numberFormat'
 import { Chart } from 'react-google-charts'
 import Loader from '../Components/Loader/Loader'
+import SegmentedTabs from '../Components/SegmentedTabs/SegmentedTabs'
+import cx from 'classnames'
+import _ from 'lodash'
 
 const MultiPoolPage: FunctionComponent = () => {
+  const [chartType, setChartType] = useState('assetPrice')
+  const [chartTimePeriod, setChartTimePeriod] = useState('7_day')
+
   const mounted:any = useRef()
 
   const params:any = useParams()
@@ -36,8 +42,74 @@ const MultiPoolPage: FunctionComponent = () => {
     }
   })
 
+  const handleChartTypeTab = (value:string) => {
+    setChartType(value)
+  }
+
+  const handleChartTimePeriodTab = (value:string) => {
+    setChartTimePeriod(value)
+  }
 
   if (multiPoolState.meta.success) {
+    // Transform chart data by period
+    let timePeriod
+    switch (chartTimePeriod) {
+      case "7_day": {
+        timePeriod = 7
+        break;
+      }
+
+      case "30_day": {
+        timePeriod = 30
+        break;
+      }
+
+      case "365_day": {
+        timePeriod = 365
+        break;
+      }
+    }
+
+    let chartData
+    let chartLeftMargin
+    switch (chartType) {
+      case 'assetPrice': {
+        chartData = [
+          ['Datetime', 'Volume'],
+          ..._.takeRight(multiPoolState.data.chart.assetPrice, timePeriod),
+        ]
+        chartLeftMargin = 70
+        break
+      }
+
+      case 'volume': {
+        chartData = [
+          ['Datetime', 'Volume'],
+          ..._.takeRight(multiPoolState.data.chart.volume, timePeriod),
+        ]
+        chartLeftMargin = 86
+        break
+      }
+
+      case 'liquidity': {
+        chartData = [
+          ['Datetime', 'Liquidity'],
+          ..._.takeRight(multiPoolState.data.chart.liquidity, timePeriod),
+        ]
+        chartLeftMargin = 100
+        break
+      }
+
+      case 'feeReturns': {
+        chartData = [
+          ['Datetime', 'Fee Returns'],
+          ..._.takeRight(multiPoolState.data.chart.feeReturns, timePeriod),
+        ]
+        chartLeftMargin = 40
+        break
+      }
+    }
+
     return (
       <div className={classes.container}>
         <div className={classes.dashboardContainer}>
@@ -48,6 +120,98 @@ const MultiPoolPage: FunctionComponent = () => {
           <div className={classes.dashboard}>
 
             <div className={classes.dashboardLeft}>
+            <div className={cx(classes.chartCard, classes.card)}>
+                <div className={classes.chartContainer}>
+                  <Chart
+                    width={'100%'}
+                    height={'300px'}
+                    chartType="LineChart"
+                    loader={<div>Loading Chart</div>}
+                    data={chartData}
+                    options={{
+                      legend: 'none',
+                      chartArea: {
+                        left: chartLeftMargin,
+                        top: 20,
+                        width: '90%',
+                        height: '90%',
+                      },
+                      hAxis: {
+                        textPosition: 'none',
+                        gridlines: {
+                          color: 'transparent'
+                        },
+                        textStyle: {
+                          fontName: 'Inter',
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: '#595e78',
+                        },
+                      },
+                      vAxis: {
+                        format: chartType === 'feeReturns' ? '#,###%' : 'currency',
+                        gridlines: {
+                          color: '#e6e6f0'
+                        },
+                        minorGridlines: {
+                          color: 'transparent'
+                        },
+                        textStyle: {
+                          fontName: 'Inter',
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: '#595e78',
+                        },
+                      },
+                    }}
+                  />
+                </div>
+
+                <div className={classes.chartActions}>
+                  <div
+                    className={classes.typeTabContainer}
+                    style={{
+                      width: '380px'
+                    }}
+                  >
+                    <SegmentedTabs
+                      items={[{
+                        text: 'Asset Price',
+                        value: 'assetPrice',
+                      },{
+                        text: 'Volume',
+                        value: 'volume',
+                      },{
+                        text: 'Liquidity',
+                        value: 'liquidity',
+                      },{
+                        text: 'Fee Returns',
+                        value: 'feeReturns',
+                      }]}
+                      value={chartType}
+                      onInput={handleChartTypeTab}
+                    />
+                  </div>
+
+                  <div className={classes.timePeriodTabContainer}>
+                    <SegmentedTabs
+                      items={[{
+                        text: '7D',
+                        value: '7_day',
+                      }, {
+                        text: '30D',
+                        value: '30_day',
+                      }, {
+                        text: '1Y',
+                        value: '365_day',
+                      }]}
+                      value={chartTimePeriod}
+                      onInput={handleChartTimePeriodTab}
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div className={classes.threeGrid}>
                 <div className={classes.card}>
                   <Metric

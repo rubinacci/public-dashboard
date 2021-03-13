@@ -12,6 +12,12 @@ const INITIAL_STATE = {
     feesEarned: null,
     feesApy: null,
     liquidityProviderCount: null,
+    chart: {
+      assetPrice: null,
+      volume: null,
+      liquidity: null,
+      feeReturns: null,
+    },
   },
   meta: {
     success: false,
@@ -60,11 +66,13 @@ export default (state = INITIAL_STATE, action:any) => {
     case 'MULTI_POOL_SUCCESS': {
       const _results = action.payload
       const dataResult = _results.find((result:any) => result.name === 'data').result
+      const chartDataResult = _results.find((result:any) => result.name === 'chart').result
 
 			return {
         ...state,
         data: {
           ...dataResult,
+          ...chartDataResult,
         },
         meta: _.merge({}, INITIAL_STATE.meta, {
           success: true,
