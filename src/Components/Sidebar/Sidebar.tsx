@@ -32,14 +32,6 @@ const Sidebar = () => {
             <NavLink
               className={classes.sectionLink}
               activeClassName={classes.active}
-              to={`/pool/${POOLS.delta.contractAddress}`}
-            >
-              Delta
-            </NavLink>
-
-            <NavLink
-              className={classes.sectionLink}
-              activeClassName={classes.active}
               to={`/pool/${POOLS.infinity.contractAddress}`}
             >
               Infinity

@@ -4,20 +4,20 @@ export const STA_CONTRACT_ADDRESS = '0xa7DE087329BFcda5639247F96140f9DAbe3DeED1'
 export const WSTA_CONTRACT_ADDRESS = '0xedeec5691f23e4914cf0183a4196bbeb30d027a0'
 
 export const POOLS = {
-  delta: {
-    contractAddress: '0x59f96b8571e3b11f859a09eaf5a790a138fc64d0',
-    name: 'Delta Liquidity Pool',
-    isMulti: false,
-    assets: [{
-      // Statera
-      contractAddress: '0xa7DE087329BFcda5639247F96140f9DAbe3DeED1',
-      proportion: 0.5,
-    }, {
-      // Ethereum
-      contractAddress: '0x64ff637fb478863b7468bc97d30a5bf3a428a1fd',
-      proportion: 0.5,
-    }],
-  },
+  // delta: {
+  //   contractAddress: '0x59f96b8571e3b11f859a09eaf5a790a138fc64d0',
+  //   name: 'Delta Liquidity Pool',
+  //   isMulti: false,
+  //   assets: [{
+  //     // Statera
+  //     contractAddress: '0xa7DE087329BFcda5639247F96140f9DAbe3DeED1',
+  //     proportion: 0.5,
+  //   }, {
+  //     // Ethereum
+  //     contractAddress: '0x64ff637fb478863b7468bc97d30a5bf3a428a1fd',
+  //     proportion: 0.5,
+  //   }],
+  // },
   infinity: {
     contractAddress: '0xa94700c1a1ae21324e78d5bdf6b2924e45a6068f',
     name: 'Infinity Liquidity Pool',
