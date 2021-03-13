@@ -73,7 +73,7 @@ const StaPage: FunctionComponent = () => {
           ['Datetime', 'Price'],
           ...chartPriceData,
         ]
-        chartLeftMargin = 20
+        chartLeftMargin = 40
         break
       }
 
@@ -147,7 +147,12 @@ const StaPage: FunctionComponent = () => {
                 </div>
 
                 <div className={classes.chartActions}>
-                  <div className={classes.typeTabContainer}>
+                  <div
+                    className={classes.typeTabContainer}
+                    style={{
+                      maxWidth: '200px'
+                    }}
+                  >
                     <SegmentedTabs
                       items={[{
                         text: 'Price',

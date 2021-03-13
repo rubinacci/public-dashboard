@@ -18,7 +18,7 @@
   text-align: center;
   flex-grow: 1;
   color: $text-med;
-  padding: 9px 14px 10px;
+  padding: 7px 14px 8px;
   cursor: pointer;
   border-right: 1px solid #e6e6f0;
   font-weight: 600;
@@ -50,5 +50,11 @@
     &:hover {
       background: $brand-bright-blue;
     }
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .tab {
+    padding: 9px 14px 10px;
   }
 }

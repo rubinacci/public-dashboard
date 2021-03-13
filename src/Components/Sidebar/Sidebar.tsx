@@ -10,7 +10,10 @@ const Sidebar = () => {
     <>
       <div className={classes.container}>
         <div className={classes.logoContainer}>
-          <div className={classes.logo} />
+            <NavLink
+              className={classes.logo}
+              to="/sta"
+            />
         </div>
 
         <div className={classes.section}>

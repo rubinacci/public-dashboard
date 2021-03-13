@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
 import Modal from "react-modal"
 import { Web3ReactProvider } from '@web3-react/core'
@@ -75,7 +75,9 @@ const App = () => {
                 )
               } />
               <Switch>
-                <Route exact path="/" component={IndexPage} />
+                <Route exact path="/">
+                  <Redirect to="/sta" />
+                </Route>
 
                 <Route path="/sta" render={(props:any) => (
                   <div className={classes.main}>
