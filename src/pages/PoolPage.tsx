@@ -163,7 +163,7 @@ const PoolPage: FunctionComponent = () => {
                   <div
                     className={classes.typeTabContainer}
                     style={{
-                      width: '300px'
+                      maxWidth: '300px'
                     }}
                   >
                     <SegmentedTabs

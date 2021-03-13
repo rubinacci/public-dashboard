@@ -172,7 +172,7 @@ const MultiPoolPage: FunctionComponent = () => {
                   <div
                     className={classes.typeTabContainer}
                     style={{
-                      width: '380px'
+                      maxWidth: '380px'
                     }}
                   >
                     <SegmentedTabs
