@@ -59,6 +59,7 @@ const getData = (contractAddress:string) => {
         const assetValue = liquidity / data.totalShares
         const feesEarned = volume * data.swapFee
         const feesApy = (Math.pow(((feesEarned / liquidity) + 1), 365)) -1
+        const balReturns = Math.exp(-Math.pow(data.swapFee * 25, 2))
 
         resolve({
           name: 'data',
@@ -70,6 +71,7 @@ const getData = (contractAddress:string) => {
             feesEarned,
             feesApy,
             liquidityProviderCount: Number(data.holdersCount),
+            balReturns,
           },
         })
       })

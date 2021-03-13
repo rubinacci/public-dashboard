@@ -12,6 +12,7 @@ const INITIAL_STATE = {
     feesEarned: null,
     feesApy: null,
     liquidityProviderCount: null,
+    balReturns: null,
     chart: {
       assetPrice: null,
       volume: null,
