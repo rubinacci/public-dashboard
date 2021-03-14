@@ -9,11 +9,21 @@ const Metric = (props:any) => {
   let progressDom
   if (!children) {
     valueDoms = valueItems.map((item:any, index:Number) => {
-      return (
-        <div key={`metric-${index}`} className={classes.value}>
-          { item.value } { item.unit }
-        </div>
-      )
+      if (item.prefix) {
+        return (
+          <div key={`metric-${index}`} className={classes.value}>
+            <span className={classes.prefix}>{ item.prefix }</span>
+            <span className={classes.value}>{ item.value }</span>
+            <span className={classes.suffix}>{ item.suffix }</span>
+          </div>
+        )
+      } else {
+        return (
+          <div key={`metric-${index}`} className={classes.value}>
+            { item.value } { item.suffix }
+          </div>
+        )
+      }
     })
 
     if (progressPerc) {

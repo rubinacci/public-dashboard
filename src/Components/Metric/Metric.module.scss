@@ -26,6 +26,17 @@
   }
 }
 
+.prefix {
+  margin-right: 2px;
+}
+
+.suffix {
+  margin-left: 5px;
+  color: $text-light;
+  font-weight: 400;
+}
+
+
 // Progress
 
 .progressContainer {

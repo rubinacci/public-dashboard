@@ -193,7 +193,7 @@ const StaPage: FunctionComponent = () => {
                   label="Remaining Supply"
                   valueItems={[{
                     value: staSupply,
-                    unit: 'STA',
+                    suffix: 'STA',
                   }]}
                   progressPerc={staSupplyProgress}
                 />
@@ -203,7 +203,7 @@ const StaPage: FunctionComponent = () => {
                   label="Supply Wrapped"
                   valueItems={[{
                     value: wStaSupply,
-                    unit: 'wSTA',
+                    suffix: 'wSTA',
                   }]}
                   progressPerc={wStaSupplyProgress}
                 />
@@ -215,10 +215,10 @@ const StaPage: FunctionComponent = () => {
                   label="Volume (24h)"
                   valueItems={[{
                     value: genFormattedNumber(stateraState.volume.inSta, 0),
-                    unit: 'STA',
+                    suffix: 'STA',
                   }, {
                     value: genFormattedNumber(stateraState.volume.inCurrency),
-                    unit: 'USD',
+                    suffix: 'USD',
                   }]}
                 />
               </div>

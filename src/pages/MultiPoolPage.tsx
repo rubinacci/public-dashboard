@@ -228,8 +228,9 @@ const MultiPoolPage: FunctionComponent = () => {
                     className={classes.metric}
                     label="Asset Value"
                     valueItems={[{
-                      value: genFormattedNumber(multiPoolState.data.assetValue, 2),
-                      unit: 'USD',
+                      prefix: '$',
+                      value: genFormattedNumber(multiPoolState.data.assetValue, 0),
+                      suffix: 'USD',
                     }]}
                   />
                 </div>
@@ -238,8 +239,9 @@ const MultiPoolPage: FunctionComponent = () => {
                     className={classes.metric}
                     label="Liquidity"
                     valueItems={[{
-                      value: genFormattedNumber(multiPoolState.data.liquidity, 2),
-                      unit: 'USD',
+                      prefix: '$',
+                      value: genFormattedNumber(multiPoolState.data.liquidity, 0),
+                      suffix: 'USD',
                     }]}
                   />
                 </div>
@@ -248,8 +250,9 @@ const MultiPoolPage: FunctionComponent = () => {
                     className={classes.metric}
                     label="24H Volume"
                     valueItems={[{
-                      value: genFormattedNumber(multiPoolState.data.volume, 2),
-                      unit: 'USD',
+                      prefix: '$',
+                      value: genFormattedNumber(multiPoolState.data.volume, 0),
+                      suffix: 'USD',
                     }]}
                   />
                 </div>
@@ -258,8 +261,9 @@ const MultiPoolPage: FunctionComponent = () => {
                     className={classes.metric}
                     label="24H Fees Earned"
                     valueItems={[{
+                      prefix: '$',
                       value: genFormattedNumber(multiPoolState.data.feesEarned, 2),
-                      unit: 'USD',
+                      suffix: 'USD',
                     }]}
                   />
                 </div>
@@ -269,7 +273,7 @@ const MultiPoolPage: FunctionComponent = () => {
                     label="24H Fees APY"
                     valueItems={[{
                       value: genFormattedNumber(multiPoolState.data.feesApy * 100, 2),
-                      unit: '%',
+                      suffix: '%',
                     }]}
                   />
                 </div>
@@ -285,7 +289,7 @@ const MultiPoolPage: FunctionComponent = () => {
                   chartType="PieChart"
                   loader={<div>Loading Chart</div>}
                   data={[
-                    ['Asset', 'Portion'],
+                    ['Asset', 'Ratio'],
                     ...multiPoolState.assets.map((item:any) => ([
                       item.ticker,
                       item.proportion,
@@ -300,6 +304,11 @@ const MultiPoolPage: FunctionComponent = () => {
                     },
                     legend: 'none',
                     pieSliceText: 'label',
+                    fontSize: 13,
+                    fontName: 'Inter',
+                    tooltip: {
+                      trigger: 'selection',
+                    },
                     colors: multiPoolState.assets.map((item:any) => item.brandColor),
                   }}
                 />

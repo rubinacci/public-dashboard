@@ -211,7 +211,7 @@ const PoolPage: FunctionComponent = () => {
                   chartType="PieChart"
                   loader={<div>Loading Chart</div>}
                   data={[
-                    ['Asset', 'Portion'],
+                    ['Asset', 'Ratio'],
                     ...poolState.assets.map((item:any) => ([ item.ticker, item.proportion ])),
                   ]}
                   options={{
@@ -223,6 +223,11 @@ const PoolPage: FunctionComponent = () => {
                     },
                     legend: 'none',
                     pieSliceText: 'label',
+                    fontSize: 15,
+                    fontName: 'Inter',
+                    tooltip: {
+                      trigger: 'selection',
+                    },
                     colors: poolState.assets.map((item:any) => item.brandColor),
                   }}
                 />
