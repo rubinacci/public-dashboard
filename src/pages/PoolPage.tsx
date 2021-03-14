@@ -223,6 +223,7 @@ const PoolPage: FunctionComponent = () => {
                     },
                     legend: 'none',
                     pieSliceText: 'label',
+                    colors: poolState.assets.map((item:any) => item.brandColor),
                   }}
                 />
               </div>

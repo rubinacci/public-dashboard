@@ -286,7 +286,10 @@ const MultiPoolPage: FunctionComponent = () => {
                   loader={<div>Loading Chart</div>}
                   data={[
                     ['Asset', 'Portion'],
-                    ...multiPoolState.assets.map((item:any) => ([ item.ticker, item.proportion ])),
+                    ...multiPoolState.assets.map((item:any) => ([
+                      item.ticker,
+                      item.proportion,
+                    ])),
                   ]}
                   options={{
                     chartArea: {
@@ -297,6 +300,7 @@ const MultiPoolPage: FunctionComponent = () => {
                     },
                     legend: 'none',
                     pieSliceText: 'label',
+                    colors: multiPoolState.assets.map((item:any) => item.brandColor),
                   }}
                 />
               </div>
