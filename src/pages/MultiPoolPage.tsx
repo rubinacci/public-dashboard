@@ -79,7 +79,7 @@ const MultiPoolPage: FunctionComponent = () => {
           ['Datetime', 'Asset Price'],
           ..._.takeRight(multiPoolState.data.chart.assetPrice, timePeriod),
         ]
-        chartLeftMargin = 70
+        chartLeftMargin = 50
         break
       }
 
@@ -88,7 +88,7 @@ const MultiPoolPage: FunctionComponent = () => {
           ['Datetime', 'Volume'],
           ..._.takeRight(multiPoolState.data.chart.volume, timePeriod),
         ]
-        chartLeftMargin = 86
+        chartLeftMargin = 70
         break
       }
 
@@ -97,7 +97,7 @@ const MultiPoolPage: FunctionComponent = () => {
           ['Datetime', 'Liquidity'],
           ..._.takeRight(multiPoolState.data.chart.liquidity, timePeriod),
         ]
-        chartLeftMargin = 100
+        chartLeftMargin = 80
         break
       }
 

@@ -80,7 +80,7 @@ const PoolPage: FunctionComponent = () => {
           ['Datetime', 'Volume'],
           ..._.takeRight(poolState.data.chart.volume, timePeriod),
         ]
-        chartLeftMargin = 86
+        chartLeftMargin = 70
         break
       }
 
@@ -89,7 +89,7 @@ const PoolPage: FunctionComponent = () => {
           ['Datetime', 'Liquidity'],
           ..._.takeRight(poolState.data.chart.liquidity, timePeriod),
         ]
-        chartLeftMargin = 100
+        chartLeftMargin = 90
         break
       }
 

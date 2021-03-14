@@ -73,7 +73,7 @@ const StaPage: FunctionComponent = () => {
           ['Datetime', 'Price'],
           ...chartPriceData,
         ]
-        chartLeftMargin = 40
+        chartLeftMargin = 60
         break
       }
 
@@ -82,7 +82,7 @@ const StaPage: FunctionComponent = () => {
           ['Datetime', 'Volume'],
           ...chartVolumeData,
         ]
-        chartLeftMargin = 100
+        chartLeftMargin = 80
         break
       }
     }
@@ -128,7 +128,7 @@ const StaPage: FunctionComponent = () => {
                         },
                       },
                       vAxis: {
-                        format: '$#,###',
+                        format: chartType === 'price' ? '$#,###.###' : '$#,###',
                         gridlines: {
                           color: '#e6e6f0'
                         },

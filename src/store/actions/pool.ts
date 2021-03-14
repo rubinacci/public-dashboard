@@ -119,7 +119,7 @@ const getChartData = (contractAddress:string) => {
         for (let index = 0; index < shortestDataLength; index++) {
           const date = DateTime.fromObject({ hour: 0, minute: 0, second: 0 }).minus({ days: index })
           const targetDate = date.toSeconds()
-          const displayDate = date.toLocaleString(DateTime.DATE_SHORT)
+          const displayDate = date.toLocaleString(DateTime.DATE_MED)
 
           const graphDataItem = graphData.find((item:any) => item.date === targetDate)
           const cgDataItem0 = coinGeckoPricesAsset0.find((item:any) => item[0] === targetDate)

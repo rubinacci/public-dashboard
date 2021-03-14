@@ -193,8 +193,25 @@ const getChartData = () => {
       }
     })
       .then(_res => {
-        const price = _res.data.prices
-        const volume = _res.data.total_volumes
+        const price = _res.data.prices.map((item:any) => {
+          // console.log('hello', item[0], )
+          const date = DateTime.fromMillis(item[0]).toLocaleString(DateTime.DATETIME_MED)
+          return [
+            // item[0],
+            // DateTime.fromMillis(item[0]).toLocaleString(DateTime.DATE_MED),
+            date,
+            item[1],
+          ]
+        })
+        const volume = _res.data.total_volumes.map((item:any) => {
+          const date = DateTime.fromMillis(item[0]).toLocaleString(DateTime.DATETIME_MED)
+          return [
+            // item[0],
+            // DateTime.fromMillis(item[0]).toLocaleString(DateTime.DATE_MED),
+            date,
+            item[1],
+          ]
+        })
 
         resolve({
           name: 'chart',

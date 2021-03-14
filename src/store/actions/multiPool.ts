@@ -45,7 +45,7 @@ const getData = (contractAddress:string) => {
             totalSwapVolume
             holdersCount
             swapFee
-            swaps (first: 1,orderBy: timestamp,orderDirection: desc, where: {timestamp_lt: ${Math.floor(Date.now() / 1000) - 86400}}) {
+            swaps (first: 1,orderBy: timestamp,orderDirection: desc, where: {timestamp_lt: ${ Math.floor(Date.now() / 1000) - 86400 }}) {
               poolTotalSwapVolume
             }
           }
@@ -184,7 +184,7 @@ const getChartData = (contractAddress:string) => {
         let feeReturns:any = []
 
         data.forEach((item:any) => {
-          const date = item.date
+          const date = DateTime.fromISO(item.date).toLocaleString(DateTime.DATE_MED)
           const parsedVolume = Big(item.volume).toNumber()
           const parsedLiquidity = Big(item.liquidity).toNumber()
           const parsedFeeReturns = (Math.pow((((parsedVolume * 0.003) / parsedLiquidity) + 1), 365)) - 1
