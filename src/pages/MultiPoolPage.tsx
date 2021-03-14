@@ -150,7 +150,7 @@ const MultiPoolPage: FunctionComponent = () => {
                         },
                       },
                       vAxis: {
-                        format: chartType === 'feeReturns' ? '#,###%' : 'currency',
+                        format: chartType === 'feeReturns' ? '#,###%' : '$#,###',
                         gridlines: {
                           color: '#e6e6f0'
                         },

@@ -128,7 +128,7 @@ const StaPage: FunctionComponent = () => {
                         },
                       },
                       vAxis: {
-                        format: 'currency',
+                        format: '$#,###',
                         gridlines: {
                           color: '#e6e6f0'
                         },
