@@ -42,6 +42,18 @@
   z-index: 40;
 }
 
+.mobileLogo {
+  display: none;
+  background: url('/images/logo-light-grey.svg') 0 0 / 26px 24px;
+  width: 26px;
+  height: 24px;
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  z-index: 1;
+  transform: translateX(-13px);
+}
+
 
 // Wallet
 
@@ -92,11 +104,15 @@
   .main {
     width: 100%;
     left: 0;
-    padding-top: 40px;
+    padding-top: 50px;
   }
 
   .walletContainer {
     position: sticky;
     bottom: 0;
+  }
+
+  .mobileLogo {
+    display: block;
   }
 }

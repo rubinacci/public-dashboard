@@ -81,6 +81,7 @@ const App = () => {
 
                 <Route path="/sta" render={(props:any) => (
                   <div className={classes.main}>
+                    <div className={classes.mobileLogo} />
                     <StaPage />
                     <div className={classes.walletContainer}>
                       <Wallet
@@ -92,6 +93,7 @@ const App = () => {
 
                 <Route path="/pool/:contract_address" render={(props:any) => (
                   <div className={classes.main}>
+                    <div className={classes.mobileLogo} />
                     <PoolPage />
                     <div className={classes.walletContainer}>
                       <Wallet
@@ -104,6 +106,7 @@ const App = () => {
 
                 <Route path="/multi_pool/:contract_address" render={(props:any) => (
                   <div className={classes.main}>
+                    <div className={classes.mobileLogo} />
                     <MultiPoolPage />
                     <div className={classes.walletContainer}>
                       <Wallet
